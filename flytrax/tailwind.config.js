@@ -6,6 +6,15 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      primary: 'Poppins',
+    },
+    container: {
+      padding: {
+        DEFAULT: '1rem',
+        lg: '2rem',
+      },
+    },
     extend: {},
   },
   plugins: [],
