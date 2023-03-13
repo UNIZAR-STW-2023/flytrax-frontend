@@ -1,5 +1,8 @@
 import '../styles/globals.css'
 import { Poppins } from "@next/font/google"
+import { Layout } from '../components'
+import { StateContext } from '../context/StateContext'
+import { Toaster } from 'react-hot-toast';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -9,7 +12,12 @@ const poppins = Poppins({
 function MyApp({ Component, pageProps }) {
   return (
     <main className={poppins.className}>
-      <Component {...pageProps} />
+      <StateContext>
+        <Layout>
+          <Toaster />
+          <Component {...pageProps} />
+        </Layout>
+      </StateContext>
     </main>
   )
 }
