@@ -16,7 +16,6 @@ const AirportCard = () => {
               <p className='text-lg font-normal text-gray-600'>{card.text}</p>
             </div>
           </div>
-
         ))}
       </div>
     </div>

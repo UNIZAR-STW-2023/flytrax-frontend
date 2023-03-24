@@ -81,3 +81,44 @@ export const cardsData = [
         text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab eius molestias, quasi, quam omnis magnam impedit hic totam repudiandae reiciendis voluptate inventore nisi quidem.",
     },
 ]
+
+export const foroData = [
+    {
+        id: 1,
+        user: "user 1",
+        body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.",
+        createdAt: "2021-08-01T12:00:00.000Z",
+        comments : [
+            {
+                id: 1,
+                user: "user 1",
+                body: "comentario 1",
+                createdAt: "2021-08-01T12:00:00.000Z",
+            },
+            { 
+                id: 2,
+                user: "user 2",
+                body: "comentario 2",
+                createdAt: "2021-08-01T12:00:00.000Z",
+            }
+        ]
+    },
+    {
+        id: 2,
+        user: "user 2",
+        body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.",
+        createdAt: "2021-08-01T12:00:00.000Z",
+        comments : [
+            {
+                id: 1,
+                body: "comentario 1",
+                createdAt: "2021-08-01T12:00:00.000Z",
+            },
+            {
+                id: 2,
+                body: "comentario 2",
+                createdAt: "2021-08-01T12:00:00.000Z",
+            }
+        ]
+    }
+]
