@@ -111,11 +111,13 @@ export const foroData = [
         comments : [
             {
                 id: 1,
+                user: "user 1",
                 body: "comentario 1",
                 createdAt: "2021-08-01T12:00:00.000Z",
             },
             {
                 id: 2,
+                user: "user 2",
                 body: "comentario 2",
                 createdAt: "2021-08-01T12:00:00.000Z",
             }
