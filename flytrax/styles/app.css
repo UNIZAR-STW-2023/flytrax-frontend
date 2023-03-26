@@ -40,6 +40,15 @@
   text-align: center;
 }
 
+.App-main {
+  background: #eaeaf3;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 400;
+  color: white;
+}
+
 .App-header {
   background: #eaeaf3;
   min-height: 100vh;
@@ -88,4 +97,29 @@
   background: linear-gradient(220.55deg, #fff500 0%, #ff00b8 100%);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
+}
+
+.light-font {
+  font-family: SF-Pro-Light;
+  src: url(../assets/fonts/SF-Pro-Display-Light.otf);
+}
+
+.medium-font {
+  font-family: SF-Pro-Light;
+  src: url(../assets/fonts/SF-Pro-Display-Medium.otf);
+}
+
+.regular-font {
+  font-family: SF-Pro-Light;
+  src: url(../assets/fonts/SF-Pro-Display-Regular.otf);
+}
+
+.ultralight-font {
+  font-family: SF-Pro-Ultralight;
+  src: url(../assets/fonts/SF-Pro-Display-Ultralight.otf);
+}
+
+.ultralightitalic-font {
+  font-family: SF-Pro-UltralightItalic;
+  src: url(../assets/fonts/SF-Pro-Display-UltralightItalic.otf);
 }

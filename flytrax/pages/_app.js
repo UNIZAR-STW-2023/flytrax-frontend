@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 
 function Flytrax({ Component, pageProps }) {
   return (
-    <main className="App-header">
+    <main className="App-main">
       <StateContext>
         <Layout>
           <Toaster />

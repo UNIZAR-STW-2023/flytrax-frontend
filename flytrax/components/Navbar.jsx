@@ -30,19 +30,19 @@ const Navbar = () => {
         <div className="grid grid-cols-5 max-lg:hidden">
           <div className="flex items-center col-span-4 gap-6 pr-3 uppercase">
             <Link
-              className="text-gray-700 font-bold hover:text-orange-600 ease-in-out duration-150"
+              className="text-gray-700 light-font hover:text-orange-600 ease-in-out duration-150"
               href=""
             >
               Quiénes somos
             </Link>
             <Link
-              className="text-gray-700 font-bold hover:text-orange-600 ease-in-out duration-150"
+              className="text-gray-700 light-font hover:text-orange-600 ease-in-out duration-150"
               href=""
             >
               Servicios
             </Link>
             <Link
-              className="text-gray-700 font-bold hover:text-orange-600 ease-in-out duration-150"
+              className="text-gray-700 light-font hover:text-orange-600 ease-in-out duration-150"
               href=""
             >
               Contacto
@@ -50,7 +50,7 @@ const Navbar = () => {
           </div>
           <div className="flex border-l-2 col-span-1 border-l-zinc-800 pl-3 items-center gap-6 uppercase">
             <Link
-              className="text-cyan-700 font-bold hover:text-orange-600 ease-in-out duration-150"
+              className="text-gray-700 font-bold hover:text-orange-600 ease-in-out duration-150"
               href="/login"
             >
               Únete

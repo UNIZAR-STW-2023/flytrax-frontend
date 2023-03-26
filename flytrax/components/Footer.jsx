@@ -13,21 +13,19 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t-2 bg-zinc-900 text-zinc-400 mt-5 px-8 py-3 gap-3 justify-center items-start">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-zinc-900 text-zinc-400 px-8 py-3 gap-3 justify-center items-start">
       <div className="col-span-1">
-        <h2 className="my-2">
-          <Link href="/" className="grid grid-cols-5 w-fit">
-            <Image
-              src={LogoMobile}
-              className="col-span-1 w-8"
-              alt="Flytrax Logo"
-            />
-            <Image
-              src={Logo}
-              className="ml-2 col-span-4 w-20"
-              alt="Flytrax Logo"
-            />
-          </Link>
+        <h2 className="my-2 grid grid-cols-5 w-fit">
+          <Image
+            src={LogoMobile}
+            className="col-span-1 w-8"
+            alt="Flytrax Logo"
+          />
+          <Image
+            src={Logo}
+            className="ml-2 col-span-4 w-20"
+            alt="Flytrax Logo"
+          />
         </h2>
         <h3>
           <Link href="" className="hover:underline hover:text-zinc-50">

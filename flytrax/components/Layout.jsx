@@ -4,7 +4,7 @@ import { Navbar, Footer } from "../components";
 
 const Layout = ({ children }) => {
   return (
-    <div className="p-3">
+    <div>
       <Head>
         <title>Flytrax</title>
       </Head>
