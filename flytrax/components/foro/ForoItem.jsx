@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useRouter } from 'next/router';
 import Image from 'next/image'
 import userLogo from '../../assets/images/user-logo.png'
 import { FaComments } from 'react-icons/fa'
 
-const ForoItem = ({ data, userId }) => {
+const ForoItem = ({ data }) => {
 
   const router = useRouter();
 
-  const goToPost = () => {
-    router.push(`/community/posts/${data.id}`)
-  }
+  const goToPost = useCallback(() => {
+    router.push(`/community/posts/${data.id}`);
+  }, [router, data.id]);
+
 
   return (
     <div onClick={goToPost} className= "border-b-[1px] border-neutral-800 p-5 cursor-pointer hover:bg-neutral-100 transition">
@@ -20,7 +21,7 @@ const ForoItem = ({ data, userId }) => {
         </div>
         <div>
           <div className="flex flex-row items-center gap-2">
-            <p className="font-semibold cursor-pointer hover:underline"> {data.user} </p>
+            <p className="font-semibold cursor-pointer"> {data.user} </p>
             <span className="text-sm"> {data.createdAt} </span>
           </div>
           <div className="mt-1"> {data.body} </div>

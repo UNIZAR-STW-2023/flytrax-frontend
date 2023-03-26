@@ -7,5 +7,7 @@ import SearchSection from "./SearchSection";
 import ForoForm from "./foro/ForoForm";
 import ForoFeed from "./foro/ForoFeed";
 import ForoItem from "./foro/ForoItem";
+import CommentFeed from "./foro/comments/CommentFeed";
+import CommentItem from "./foro/comments/CommentItem";
 
-export { AirportCard, Navbar, Footer, Layout, Banner, SearchSection, ForoForm, ForoFeed, ForoItem }; 
+export { AirportCard, Navbar, Footer, Layout, Banner, SearchSection, ForoForm, ForoFeed, ForoItem, CommentFeed, CommentItem }; 
