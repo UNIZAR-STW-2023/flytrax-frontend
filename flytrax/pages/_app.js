@@ -1,10 +1,9 @@
 import "../styles/app.css";
-import { Poppins } from "@next/font/google";
-import { Layout } from "../components";
+import { AirportCard, Layout } from "../components";
 import { StateContext } from "../context/StateContext";
 import { Toaster } from "react-hot-toast";
 
-function MyApp({ Component, pageProps }) {
+function Flytrax({ Component, pageProps }) {
   return (
     <main className="App-header">
       <StateContext>
@@ -17,4 +16,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default Flytrax;

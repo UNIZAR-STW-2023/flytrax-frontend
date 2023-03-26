@@ -41,7 +41,7 @@
 }
 
 .App-header {
-  background: linear-gradient(220.55deg, #ff8570 0%, #418cb7 100%);
+  background: #eaeaf3;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -65,10 +65,27 @@
   border: 4px solid rgba(0, 0, 0, 0);
   background-clip: padding-box;
   border-radius: 9999px;
-  background-color: #d12c16;
+  background-color: #3d4048;
 }
 
 .navbar {
   z-index: 999;
-  background: linear-gradient(220.55deg, #afcccb 0%, #616566 100%);
+  /* background: #eaeaf3; */
+  border-bottom: 1px solid #646465;
+}
+
+.page-main-style {
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
+  font-weight: 400;
+  color: white;
+}
+
+.home-text {
+  background: linear-gradient(220.55deg, #fff500 0%, #ff00b8 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
 }
