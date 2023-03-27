@@ -78,8 +78,7 @@
 }
 
 .navbar {
-  z-index: 999;
-  /* background: #eaeaf3; */
+  z-index: 9999;
   border-bottom: 1px solid #646465;
 }
 
@@ -122,4 +121,11 @@
 .ultralightitalic-font {
   font-family: SF-Pro-UltralightItalic;
   src: url(../assets/fonts/SF-Pro-Display-UltralightItalic.otf);
+}
+
+.border-bottom {
+  border-top-style: dashed;
+  border-top: rgba(169, 90, 16, 0);
+  border-bottom-style: dashed;
+  border-bottom: rgba(169, 90, 16, 0);
 }
