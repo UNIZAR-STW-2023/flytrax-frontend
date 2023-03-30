@@ -288,9 +288,10 @@ const Register = () => {
                   className="col-span-9"
                   required
                   label="Fecha de nacimiento"
-                  format="MM-DD-YYYY"
+                  format="DD-MM-YYYY"
                   variant="filled"
-                  onChange={({ target }) => setBirthday(target.value)}
+                  value={birthday}
+                  onChange={(newValue) => setBirthday(newValue)}
                 />
               </LocalizationProvider>
             </div>
@@ -305,7 +306,7 @@ const Register = () => {
               <FormControl className="col-span-9" variant="filled" required>
                 <InputLabel id="gender-select-filled">Género</InputLabel>
                 <Select
-                  onSelect={({ target }) => setGender(target.value)}
+                  onChange={({ target }) => setGender(target.value)}
                   labelId="gender-select-filled"
                   id="gender-select-filled"
                 >
