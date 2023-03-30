@@ -5,13 +5,14 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Autocomplete, Box } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import countries from "../../assets/dummy/countries";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import PasswordStrengthBar from "react-password-strength-bar";
 import {
   faAt,
@@ -50,7 +51,7 @@ const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [birthday, setBirthday] = useState(dayjs());
   const [country, setCountry] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
@@ -306,6 +307,7 @@ const Register = () => {
               <FormControl className="col-span-9" variant="filled" required>
                 <InputLabel id="gender-select-filled">Género</InputLabel>
                 <Select
+                  className="text-left"
                   onChange={({ target }) => setGender(target.value)}
                   labelId="gender-select-filled"
                   id="gender-select-filled"
