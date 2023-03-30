@@ -1,27 +1,29 @@
-import React, { useState, useEffect, createContext, useContext } from 'react'
+import React, { useState, useEffect, createContext, useContext } from "react";
 
-import { airportsData, countriesData } from '../assets/dummy/dummyData'
+import { airportsData, countriesData } from "../assets/dummy/dummyData";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-
-  const [airports, setAirports] = useState(['Airports (any)', ...new Set(airportsData)]);
-  const [country, setCountry] = useState('Location (any)');
+  const [airports, setAirports] = useState([
+    "Airports (any)",
+    ...new Set(airportsData),
+  ]);
+  const [country, setCountry] = useState("Location (any)");
   const [countries, setCountries] = useState([]);
   const [selectedAirport, setSelectedAirport] = useState();
-  const [loading, setLoading ] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const allCountries = airports.map((airport) => {
       return airport.country;
     });
-    const uniqueCountries = ['Location (any)', ...new Set(allCountries)];
+    const uniqueCountries = ["Location (any)", ...new Set(allCountries)];
     setCountries(uniqueCountries);
-
   }, []);
 
   return (
-    <Context.Provider value={{
+    <Context.Provider
+      value={{
         airports,
         setAirports,
         country,
@@ -33,9 +35,9 @@ export const StateContext = ({ children }) => {
         loading,
       }}
     >
-        {children}
+      {children}
     </Context.Provider>
-  )
-}
+  );
+};
 
 export const useStateContext = () => useContext(Context);

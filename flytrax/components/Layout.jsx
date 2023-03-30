@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
         <Navbar />
       </header>
 
-      <main className="max-w-[1400px] m-auto w-full">{children}</main>
+      <main className="w-full">{children}</main>
 
       <footer>
         <Footer />

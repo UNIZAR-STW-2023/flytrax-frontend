@@ -51,6 +51,8 @@
 
 .App-header {
   background: #eaeaf3;
+  background-image: url("../assets/images/background2.jpg");
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -59,6 +61,7 @@
   font-size: 1em;
   font-weight: 400;
   color: white;
+  width: inherit;
 }
 
 .text {
@@ -128,4 +131,19 @@
   border-top: rgba(169, 90, 16, 0);
   border-bottom-style: dashed;
   border-bottom: rgba(169, 90, 16, 0);
+}
+
+.fade-in {
+  animation: fade-in 1.3s linear both;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
 }
