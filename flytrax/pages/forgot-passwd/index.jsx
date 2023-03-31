@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, Snackbar } from "@mui/material";
 
 const theme = createTheme({
   typography: {
@@ -26,6 +27,28 @@ const theme = createTheme({
 const ForgotPasswd = () => {
   // Variables de estado
   const [email, setEmail] = useState("");
+
+  // Alerta de error
+  const [showAlert, setShowAlert] = useState(false);
+
+  // Cerrar alerta
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowAlert(false);
+  };
+
+  // Función de inicio de sesión
+  const handleForgot = (event) => {
+    event.preventDefault();
+    // Comprobar si hay campos vacíos
+    if (email === "") {
+      setShowAlert(true);
+    } else {
+      //sendEmail();
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -66,7 +89,10 @@ const ForgotPasswd = () => {
               onChange={({ target }) => setEmail(target.value)}
             />
           </div>
-          <button className="bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10">
+          <button
+            onClick={handleForgot}
+            className="bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10"
+          >
             Enviar
           </button>
           <div class="grid items-center w-80 md:w-96">
@@ -78,6 +104,23 @@ const ForgotPasswd = () => {
                 Volver
               </Link>{" "}
             </p>
+          </div>
+          <div>
+            <Snackbar
+              message="No puedes dejar campos vacíos — comprueba los datos"
+              open={showAlert}
+              autoHideDuration={4000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="error">
+                No puedes dejar campos vacíos —{" "}
+                <strong>comprueba los datos</strong>
+              </Alert>
+            </Snackbar>
           </div>
         </div>
       </div>

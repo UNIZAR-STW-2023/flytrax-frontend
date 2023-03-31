@@ -9,6 +9,7 @@ import {
   faUserAstronaut,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, Snackbar } from "@mui/material";
 
 const theme = createTheme({
   typography: {
@@ -37,6 +38,9 @@ const Login = () => {
   const [typePass, setTypePass] = useState("password");
   const [iconPass, setIconPass] = useState(faEyeSlash);
 
+  // Alerta de error
+  const [showAlert, setShowAlert] = useState(false);
+
   // Mostrar contraseña
   const handleToggle = () => {
     if (typePass === "password") {
@@ -48,9 +52,28 @@ const Login = () => {
     }
   };
 
+  // Cerrar alerta
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowAlert(false);
+  };
+
+  // Función de inicio de sesión
+  const handleLogin = (event) => {
+    event.preventDefault();
+    // Comprobar si hay campos vacíos
+    if (nickName === "" || password === "") {
+      setShowAlert(true);
+    } else {
+      //loginUser();
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <div className="App-header select-none">
+      <div className="App-header select-none pt-24">
         <h1
           className="text-4xl font-bold text-slate-900
         my-5"
@@ -104,7 +127,10 @@ const Login = () => {
               />
             </div>
           </div>
-          <button className="bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10">
+          <button
+            onClick={handleLogin}
+            className="bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10"
+          >
             Entrar
           </button>
           <div class="grid items-center w-80 md:w-96">
@@ -127,6 +153,23 @@ const Login = () => {
                 ¿Has olvidado tu contraseña?
               </Link>{" "}
             </p>
+          </div>
+          <div>
+            <Snackbar
+              message="No puedes dejar campos vacíos — comprueba los datos"
+              open={showAlert}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="error">
+                No puedes dejar campos vacíos —{" "}
+                <strong>comprueba los datos</strong>
+              </Alert>
+            </Snackbar>
           </div>
         </div>
       </div>
