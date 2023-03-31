@@ -129,6 +129,8 @@ const Register = () => {
                 onChange={({ target }) => setFirstName(target.value)}
               />
             </div>
+          </div>
+          <div className="grid col-span-1 gap-3 md:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
               <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
                 <FontAwesomeIcon
@@ -148,6 +150,8 @@ const Register = () => {
                 onChange={({ target }) => setLastName(target.value)}
               />
             </div>
+          </div>
+          <div className="grid col-span-1 gap-3 md:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
               <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
                 <FontAwesomeIcon
@@ -167,6 +171,8 @@ const Register = () => {
                 onChange={({ target }) => setNickName(target.value)}
               />
             </div>
+          </div>
+          <div className="grid col-span-1 gap-3 md:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
               <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
                 <FontAwesomeIcon
@@ -186,49 +192,97 @@ const Register = () => {
                 onChange={({ target }) => setEmail(target.value)}
               />
             </div>
-            <div className="max-md:hidden grid grid-cols-10 items-center text-center gap-1">
+          </div>
+          <div className="grid col-span-1 gap-3">
+            <div className="grid grid-cols-10 items-center text-center gap-1">
               <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
                 <FontAwesomeIcon
                   className="text-zinc-200"
-                  icon={faLock}
+                  icon={faCalendarAlt}
+                  size="lg"
+                />
+              </div>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateField
+                  className="col-span-9"
+                  required
+                  label="Fecha de nacimiento"
+                  format="DD-MM-YYYY"
+                  variant="filled"
+                  value={birthday}
+                  onChange={(newValue) => setBirthday(newValue)}
+                />
+              </LocalizationProvider>
+            </div>
+          </div>
+          <div className="grid col-span-1 gap-3 md:w-96">
+            <div className="grid grid-cols-10 items-center text-center gap-1">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <FontAwesomeIcon
+                  className="text-zinc-200"
+                  icon={faTransgender}
+                  size="lg"
+                />
+              </div>
+              <FormControl className="col-span-9" variant="filled" required>
+                <InputLabel id="gender-select-filled">Género</InputLabel>
+                <Select
+                  className="text-left"
+                  onChange={({ target }) => setGender(target.value)}
+                  labelId="gender-select-filled"
+                  id="gender-select-filled"
+                >
+                  <MenuItem
+                    className="cursor-pointer hover:text-rose-700 transition"
+                    value="H"
+                  >
+                    Hombre
+                  </MenuItem>
+                  <MenuItem
+                    className="cursor-pointer hover:text-rose-700 transition"
+                    value="M"
+                  >
+                    Mujer
+                  </MenuItem>
+                  <MenuItem
+                    className="cursor-pointer hover:text-rose-700 transition"
+                    value="NB"
+                  >
+                    No binario
+                  </MenuItem>
+                  <MenuItem
+                    className="cursor-pointer hover:text-rose-700 transition"
+                    value="NA"
+                  >
+                    Prefiero no decirlo
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+          </div>
+          <div className="grid col-span-1 gap-3 md:w-96">
+            <div className="grid grid-cols-10 items-center text-center gap-1">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <FontAwesomeIcon
+                  className="text-zinc-200"
+                  icon={faPhone}
                   size="lg"
                 />
               </div>
               <TextField
-                className="col-span-8"
+                className="col-span-9"
                 required
                 id="filled"
-                type={typePass}
-                label="Contraseña"
-                placeholder="Introduce tu contraseña"
+                type="text"
+                label="Teléfono"
+                placeholder="Introduce tu número de teléfono"
                 variant="filled"
-                onChange={({ target }) => setPassword(target.value)}
-              />
-              <div
-                onClick={handleToggle}
-                className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
-              >
-                <FontAwesomeIcon
-                  className="text-zinc-600"
-                  icon={iconPass}
-                  size="lg"
-                />
-              </div>
-              <PasswordStrengthBar
-                className="col-span-10"
-                password={password}
-                shortScoreWord="Demasiado corta"
-                scoreWords={[
-                  "Muy poco segura",
-                  "Débil",
-                  "Buena",
-                  "Muy buena",
-                  "Excelente",
-                ]}
-                minLength={8}
+                onChange={({ target }) => setPhone(target.value)}
               />
             </div>
-            <div className="md:hidden grid grid-cols-10 items-center text-center gap-1">
+          </div>
+          <div className="grid col-span-1 gap-3 md:w-96">
+            <div className="grid grid-cols-10 items-center text-center gap-1">
               <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
                 <FontAwesomeIcon
                   className="text-zinc-200"
@@ -275,136 +329,8 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="grid col-span-1 gap-3">
+          <div className="grid col-span-1 gap-3 md:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faCalendarAlt}
-                  size="lg"
-                />
-              </div>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateField
-                  className="col-span-9"
-                  required
-                  label="Fecha de nacimiento"
-                  format="DD-MM-YYYY"
-                  variant="filled"
-                  value={birthday}
-                  onChange={(newValue) => setBirthday(newValue)}
-                />
-              </LocalizationProvider>
-            </div>
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faTransgender}
-                  size="lg"
-                />
-              </div>
-              <FormControl className="col-span-9" variant="filled" required>
-                <InputLabel id="gender-select-filled">Género</InputLabel>
-                <Select
-                  className="text-left"
-                  onChange={({ target }) => setGender(target.value)}
-                  labelId="gender-select-filled"
-                  id="gender-select-filled"
-                >
-                  <MenuItem
-                    className="cursor-pointer hover:text-rose-700 transition"
-                    value="H"
-                  >
-                    Hombre
-                  </MenuItem>
-                  <MenuItem
-                    className="cursor-pointer hover:text-rose-700 transition"
-                    value="M"
-                  >
-                    Mujer
-                  </MenuItem>
-                  <MenuItem
-                    className="cursor-pointer hover:text-rose-700 transition"
-                    value="NB"
-                  >
-                    No binario
-                  </MenuItem>
-                  <MenuItem
-                    className="cursor-pointer hover:text-rose-700 transition"
-                    value="NA"
-                  >
-                    Prefiero no decirlo
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faPhone}
-                  size="lg"
-                />
-              </div>
-              <TextField
-                className="col-span-9"
-                required
-                id="filled"
-                type="text"
-                label="Teléfono"
-                placeholder="Introduce tu número de teléfono"
-                variant="filled"
-                onChange={({ target }) => setPhone(target.value)}
-              />
-            </div>
-            <div className="max-md:hidden grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faGlobeAmericas}
-                  size="lg"
-                />
-              </div>
-              <Autocomplete
-                onSelect={({ target }) => setCountry(target.value)}
-                className="col-span-9"
-                required
-                autoHighlight
-                id="combo-box-demo"
-                options={countries}
-                getOptionLabel={(option) => option.name}
-                renderOption={(props, option) => (
-                  <Box
-                    component="li"
-                    sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-                    {...props}
-                  >
-                    {/* eslint-disable-next-line */}
-                    <img
-                      src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                      srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                      width="20"
-                      height="16"
-                      alt={option.name}
-                    />
-                    {option.name} ({option.code})
-                  </Box>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    label="Selecciona un país"
-                    variant="filled"
-                    {...params}
-                    inputProps={{
-                      ...params.inputProps,
-                      autoComplete: "new-password", // disable autocomplete and autofill
-                    }}
-                  />
-                )}
-              />
-            </div>
-            <div className="md:hidden grid grid-cols-10 items-center text-center gap-1">
               <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
                 <FontAwesomeIcon
                   className="text-zinc-200"
@@ -446,6 +372,8 @@ const Register = () => {
                 minLength={8}
               />
             </div>
+          </div>
+          <div className="grid col-span-1 gap-3 md:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
               <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
                 <FontAwesomeIcon
