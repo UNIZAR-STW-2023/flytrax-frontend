@@ -4,7 +4,7 @@ import React from "react";
 const Home = () => {
   return (
     <div className="App-header max-sm:pt-24 pt-24">
-      <div className="flex flex-col justify-center items-center fade-in">
+      <div className="md:px-12 flex flex-col justify-center items-center fade-in">
         <div className="col-span-1 font-bold text-center py-2 home-text text-5xl md:text-6xl">
           Viaja con tranquilidad<span className="text-zinc-800">,</span>
         </div>

@@ -13,9 +13,12 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-zinc-900 text-zinc-400 px-8 py-3 gap-3 justify-center items-start">
+    <div
+      data-test="footer"
+      className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-zinc-900 text-zinc-400 px-8 py-3 gap-3 justify-center items-start"
+    >
       <div className="col-span-1">
-        <h2 className="my-2 grid grid-cols-5 w-fit">
+        <h2 data-test="logo-footer" className="my-2 grid grid-cols-5 w-fit">
           <Image
             src={LogoMobile}
             className="col-span-1 w-8"

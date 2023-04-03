@@ -2,7 +2,6 @@ describe("Home page web", () => {
   context("Desktop", () => {
     beforeEach(() => {
       // Cambia el tamaño de la ventana del navegador
-      cy.viewport("macbook-15");
       cy.visit("/");
     });
 
@@ -19,6 +18,38 @@ describe("Home page web", () => {
       cy.get("a").should("exist").contains("Contacto");
       // Comprueba que el botón de menú no esté visible
       cy.get("[data-test='menu-button']").should("not.be.visible");
+      // Comprueba que existe el footer y sus elementos
+      cy.get("[data-test='footer']").should("exist");
+      // Primera columna
+      cy.get("[data-test='logo-footer']").should("exist");
+      cy.get("a").should("exist").contains("Acerca de");
+      cy.get("a").should("exist").contains("Blog");
+      cy.get("a").should("exist").contains("Prensa & Logos");
+      cy.get("a").should("exist").contains("Términos & Privacidad");
+      cy.get("a").should("exist").contains("Status");
+      cy.get("h3").should("exist").contains("2023 Flytrax");
+      // Segunda columna
+      cy.get("h2").should("exist").contains("Producto");
+      cy.get("a").should("exist").contains("Dispositivos soportados");
+      cy.get("a").should("exist").contains("Integraciones");
+      cy.get("a").should("exist").contains("Marcador");
+      cy.get("a").should("exist").contains("Objetivos");
+      cy.get("a").should("exist").contains("Equipos");
+      cy.get("a").should("exist").contains("Educación");
+      // Tercera columna
+      cy.get("h2").should("exist").contains("Aprende");
+      cy.get("a").should("exist").contains("API Docs");
+      cy.get("a").should("exist").contains("FAQ");
+      cy.get("a").should("exist").contains("Precios");
+      cy.get("a").should("exist").contains("Valores");
+      cy.get("a").should("exist").contains("Resolución de problemas");
+      // Cuarta columna
+      cy.get("h2").should("exist").contains("Comunidad");
+      cy.get("a").should("exist").contains("GitHub");
+      cy.get("a").should("exist").contains("Twitter");
+      cy.get("a").should("exist").contains("reddit");
+      cy.get("a").should("exist").contains("Facebook");
+      cy.get("a").should("exist").contains("LinkedIn");
     });
 
     it("Carga el inicio de sesión", () => {
@@ -46,6 +77,38 @@ describe("Home page web", () => {
       cy.get("nav").should("exist");
       // Comprueba que el botón de menú esté visible
       cy.get("[data-test='menu-button']").should("be.visible");
+      // Comprueba que existe el footer y sus elementos
+      cy.get("[data-test='footer']").should("exist");
+      // Primera columna
+      cy.get("[data-test='logo-footer']").should("exist");
+      cy.get("a").should("exist").contains("Acerca de");
+      cy.get("a").should("exist").contains("Blog");
+      cy.get("a").should("exist").contains("Prensa & Logos");
+      cy.get("a").should("exist").contains("Términos & Privacidad");
+      cy.get("a").should("exist").contains("Status");
+      cy.get("h3").should("exist").contains("2023 Flytrax");
+      // Segunda columna
+      cy.get("h2").should("exist").contains("Producto");
+      cy.get("a").should("exist").contains("Dispositivos soportados");
+      cy.get("a").should("exist").contains("Integraciones");
+      cy.get("a").should("exist").contains("Marcador");
+      cy.get("a").should("exist").contains("Objetivos");
+      cy.get("a").should("exist").contains("Equipos");
+      cy.get("a").should("exist").contains("Educación");
+      // Tercera columna
+      cy.get("h2").should("exist").contains("Aprende");
+      cy.get("a").should("exist").contains("API Docs");
+      cy.get("a").should("exist").contains("FAQ");
+      cy.get("a").should("exist").contains("Precios");
+      cy.get("a").should("exist").contains("Valores");
+      cy.get("a").should("exist").contains("Resolución de problemas");
+      // Cuarta columna
+      cy.get("h2").should("exist").contains("Comunidad");
+      cy.get("a").should("exist").contains("GitHub");
+      cy.get("a").should("exist").contains("Twitter");
+      cy.get("a").should("exist").contains("reddit");
+      cy.get("a").should("exist").contains("Facebook");
+      cy.get("a").should("exist").contains("LinkedIn");
     });
 
     it("Carga el inicio de sesión", () => {
