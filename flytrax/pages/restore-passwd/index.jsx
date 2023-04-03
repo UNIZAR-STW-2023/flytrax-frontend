@@ -142,6 +142,7 @@ const RestorePasswd = () => {
               />
             </div>
             <TextField
+              name="password"
               className="col-span-8"
               id="filled"
               type={typePass}
@@ -151,6 +152,7 @@ const RestorePasswd = () => {
               onChange={({ target }) => setPassword(target.value)}
             />
             <div
+              data-test="showpass-btn"
               onClick={handleToggle}
               className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
             >
@@ -183,6 +185,7 @@ const RestorePasswd = () => {
               />
             </div>
             <TextField
+              name="cpassword"
               className="col-span-8"
               id="filled"
               type={typeCPass}
@@ -192,6 +195,7 @@ const RestorePasswd = () => {
               onChange={({ target }) => setCPassword(target.value)}
             />
             <div
+              data-test="showcpass-btn"
               onClick={handleToggle2}
               className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
             >

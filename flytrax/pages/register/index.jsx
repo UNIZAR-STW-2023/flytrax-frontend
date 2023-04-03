@@ -222,6 +222,7 @@ const Register = () => {
                 />
               </div>
               <TextField
+                name="firstName"
                 className="col-span-9"
                 required
                 id="filled"
@@ -243,6 +244,7 @@ const Register = () => {
                 />
               </div>
               <TextField
+                name="lastName"
                 className="col-span-9"
                 required
                 id="filled"
@@ -264,6 +266,7 @@ const Register = () => {
                 />
               </div>
               <TextField
+                name="nickName"
                 {...register("nickName", {
                   pattern: {
                     value: regExpNickname,
@@ -299,6 +302,7 @@ const Register = () => {
                 />
               </div>
               <TextField
+                name="email"
                 {...register("email", {
                   pattern: {
                     value: regExpMail,
@@ -327,6 +331,7 @@ const Register = () => {
               </div>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateField
+                  name="birthday"
                   className="col-span-9"
                   required
                   label="Fecha de nacimiento"
@@ -339,7 +344,10 @@ const Register = () => {
             </div>
           </div>
           <div className="grid col-span-1 gap-3 md:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
+            <div
+              name="gender"
+              className="grid grid-cols-10 items-center text-center gap-1"
+            >
               <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
                 <FontAwesomeIcon
                   className="text-zinc-200"
@@ -393,6 +401,7 @@ const Register = () => {
                 />
               </div>
               <TextField
+                name="phone"
                 className="col-span-9"
                 required
                 id="filled"
@@ -405,7 +414,10 @@ const Register = () => {
             </div>
           </div>
           <div className="grid col-span-1 gap-3 md:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
+            <div
+              name="country"
+              className="grid grid-cols-10 items-center text-center gap-1"
+            >
               <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
                 <FontAwesomeIcon
                   className="text-zinc-200"
@@ -462,6 +474,7 @@ const Register = () => {
                 />
               </div>
               <TextField
+                name="password"
                 className="col-span-8"
                 required
                 id="filled"
@@ -472,6 +485,7 @@ const Register = () => {
                 onChange={({ target }) => setPassword(target.value)}
               />
               <div
+                data-test="showpass-btn"
                 onClick={handleToggle}
                 className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
               >
@@ -506,6 +520,7 @@ const Register = () => {
                 />
               </div>
               <TextField
+                name="cpassword"
                 className="col-span-8"
                 required
                 id="filled"
@@ -516,6 +531,7 @@ const Register = () => {
                 onChange={({ target }) => setCPassword(target.value)}
               />
               <div
+                data-test="showcpass-btn"
                 onClick={handleToggle2}
                 className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
               >
@@ -549,8 +565,8 @@ const Register = () => {
           >
             Registrar
           </button>
-          <div class="md:col-span-2 mx-auto w-80 md:w-96 mt-3 pb-5">
-            <p class="text-center text-zinc-700">
+          <div className="md:col-span-2 mx-auto w-80 md:w-96 mt-3 pb-5">
+            <p className="text-center text-zinc-700">
               ¿Ya tienes cuenta?{" "}
               <Link
                 className="font-medium text-rose-600 hover:text-rose-800 ease-in duration-150"

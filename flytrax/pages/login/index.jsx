@@ -133,8 +133,8 @@ const Login = () => {
           >
             Entrar
           </button>
-          <div class="grid items-center w-80 md:w-96">
-            <p class="text-center mt-3 text-zinc-700">
+          <div className="grid items-center w-80 md:w-96">
+            <p className="text-center mt-3 text-zinc-700">
               ¿Aún no eres miembro?{" "}
               <Link
                 className="font-medium text-rose-600 hover:text-rose-800 ease-in duration-150"
@@ -144,8 +144,8 @@ const Login = () => {
               </Link>{" "}
             </p>
           </div>
-          <div class="grid items-center w-80 md:w-96">
-            <p class="text-center text-zinc-700">
+          <div className="grid items-center w-80 md:w-96">
+            <p className="text-center text-zinc-700">
               <Link
                 className="italic text-zinc-700 hover:text-rose-800 ease-in duration-150"
                 href="/forgot-passwd"

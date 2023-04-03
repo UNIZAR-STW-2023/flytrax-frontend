@@ -7,7 +7,8 @@
     "build": "next build",
     "test": "cypress open",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "coverage": "nyc npm run test"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -40,6 +41,8 @@
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.1",
+    "@cypress/instrument-cra": "^1.4.0",
+    "@istanbuljs/nyc-config-babel": "^3.0.0",
     "autoprefixer": "^10.4.14",
     "babel-plugin-istanbul": "^6.1.1",
     "cypress": "^12.9.0",
