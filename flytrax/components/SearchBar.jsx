@@ -31,7 +31,7 @@ export default function SearchBar() {
         <div className="">
           <div className=" w-full cursor-default rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
-              className='flex h-[64px] items-center px-[18px] border rounded-lg w-full text-left focus:ring-0 leading-5'
+              className='flex h-[64px] items-center px-[18px] border rounded-lg w-full text-left focus:ring-0 leading-5 text-black'
               displayValue={(airport) => airport.name}
               onChange={(event) => setQuery(event.target.value)}
             />

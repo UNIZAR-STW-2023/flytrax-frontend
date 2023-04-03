@@ -32,7 +32,7 @@ const ForoForm = () => {
                             disabled={isLoading}
                             onChange={(e) => setbBody(e.target.value)}
                             value={body}
-                            className="disabled:opacity-80 peer resize-none mt-3 w-full ring-0 outline-none text-[18px]"
+                            className="disabled:opacity-80 rounded-xl px-4 py-2 peer resize-none mt-3 w-full ring-0 outline-none text-[18px] text-black"
                             placeholder="Escribe tu comentario..."
                         >
                         </textarea>

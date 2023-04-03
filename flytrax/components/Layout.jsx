@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
         <Navbar />
       </header>
 
-      <main className="w-full">{children}</main>
+      <main className="w-full my-24">{children}</main>
 
       <footer>
         <Footer />

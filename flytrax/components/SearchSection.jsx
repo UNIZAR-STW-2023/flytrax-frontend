@@ -28,10 +28,10 @@ const SearchSection = () => {
         >
           <FaMapMarkerAlt className="text-2xl mr-[18px] text-violet-700" />
           <div>
-            <div className="text-[15px] font-medium leading-tight">
+            <div className="text-[15px] font-medium leading-tight text-black">
               {country}
             </div>
-            <div className="text-[13px]">Search by location</div>
+            <div className="text-[13px] text-black">Buscar por país</div>
           </div>
           {isOpen ? (
             <FaAngleDown className="text-2xl text-violet-700 ml-auto" />
