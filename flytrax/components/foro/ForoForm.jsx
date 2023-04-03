@@ -32,7 +32,7 @@ const ForoForm = () => {
                             disabled={isLoading}
                             onChange={(e) => setbBody(e.target.value)}
                             value={body}
-                            className="disabled:opacity-80 peer resize-none mt-3 w-full ring-0 outline-none text-[18px]"
+                            className="disabled:opacity-80 rounded-xl px-4 py-2 peer resize-none mt-3 w-full ring-0 outline-none text-[18px] text-black"
                             placeholder="Escribe tu comentario..."
                         >
                         </textarea>
@@ -49,9 +49,9 @@ const ForoForm = () => {
                 </div>
             ) : (
                 <div className="py-8">
-                    <h1 className="text-xl text-center mb-4 font-semibold">Inicia sesión para comentar!</h1>
+                    <h1 className="text-xl text-center mb-4 font-semibold text-black">Inicia sesión para comentar!</h1>
                     <div className="flex flex-row items-center justify-center gap-4">
-                        <div className="hover:text-violet-900" onClick={handleLogin}>Iniciar sesión</div>
+                        <div className="hover:text-violet-900 text-black" onClick={handleLogin}>Iniciar sesión</div>
                         <Link className="bg-violet-700 hover:bg-violet-800 text-white px-4 py-3 rounded-lg transition" href='/register'>Registrarse</Link>
                     </div>
                 </div>

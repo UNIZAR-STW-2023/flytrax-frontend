@@ -12,7 +12,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="max-lg:shadow-md h-24 w-full fixed top-0 left-0 shadow-md bg-slate-200 bg-opacity-70 backdrop-blur-md navbar">
+    <nav className="max-lg:shadow-md h-24 w-full bg-slate-200 fixed top-0 left-0 shadow-md backdrop-blur-md navbar">
       <div className="flex justify-between relative top-0 my-6 mx-8 md:mx-16">
         <div className="grid grid-cols-6 max-lg:w-full">
           <Link

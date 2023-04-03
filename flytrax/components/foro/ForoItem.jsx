@@ -19,7 +19,7 @@ const ForoItem = ({ data }) => {
         <div>
           <Image className='rounded-full h-12 w-12' src={userLogo} alt="" />
         </div>
-        <div>
+        <div className='text-black'>
           <div className="flex flex-row items-center gap-2">
             <p className="font-semibold cursor-pointer"> {data.user} </p>
             <span className="text-sm"> {data.createdAt} </span>
