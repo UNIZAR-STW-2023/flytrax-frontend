@@ -9,7 +9,7 @@ const CommentItem = ({ data }) => {
   const router = useRouter();
 
   return (
-    <div  className= "border-b-[1px] border-neutral-800 p-5 cursor-pointer hover:bg-neutral-200 transition bg-neutral-100">
+    <div className= "border-b-[1px] border-neutral-800 p-5 cursor-pointer hover:bg-neutral-200 transition bg-neutral-100 text-black">
       <div className="flex flex-row items-start gap-3">
         <div>
           <Image className='rounded-full h-12 w-12' src={userLogo} alt="" />
