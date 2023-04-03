@@ -31,6 +31,7 @@ const Navbar = () => {
             />
           </Link>
           <button
+            data-test="menu-button"
             className="lg:hidden col-span-1 text-orange-600"
             onClick={() => setOpen(!open)}
           >
@@ -58,12 +59,15 @@ const Navbar = () => {
               Contacto
             </Link>
           </div>
-          <div className="flex border-l-2 col-span-1 border-l-zinc-800 pl-3 items-center gap-6 uppercase">
+          <div
+            data-test="join-web-button"
+            className="flex border-l-2 col-span-1 border-l-zinc-800 pl-3 items-center gap-6 uppercase"
+          >
             <Link
               className="text-gray-700 text-xl font-bold hover:text-orange-600 ease-in-out duration-150"
               href="/login"
             >
-              Únete
+              Entrar
             </Link>
           </div>
         </div>

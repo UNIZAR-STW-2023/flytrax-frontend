@@ -11,7 +11,7 @@ const Home = () => {
         <div className="font-bold text-center text-zinc-800 text-5xl md:text-6xl">
           deja que nosotros sigamos el camino por ti.
         </div>
-        <div>
+        <div data-test="join-button">
           <Link
             className="my-10 backdrop-blur-sm drop-shadow-md gradient-btn text-gray-700 border-gray-700 max-sm:text-sm"
             href="/login"

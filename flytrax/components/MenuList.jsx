@@ -32,12 +32,15 @@ const MenuList = ({ open }) => {
           Contacto
         </Link>
       </li>
-      <li className="my-3 pt-6 border-t-orange-600 border-t-2 border-dashed">
+      <li
+        data-test="li-join-button"
+        className="my-3 pt-6 border-t-orange-600 border-t-2 border-dashed"
+      >
         <Link
           className="text-gray-700 font-extrabold text-xl hover:text-orange-600 ease-in-out duration-150 uppercase"
           href="/login"
         >
-          Únete
+          Entrar
         </Link>
       </li>
     </ul>
