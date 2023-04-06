@@ -27,6 +27,10 @@ import {
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+
+// URLs para manejo de datos en la BD
+const registerURL = "http://localhost:3000/users";
 
 const theme = createTheme({
   typography: {
@@ -87,6 +91,7 @@ const Register = () => {
   const [showAlertEmail, setShowAlertEmail] = useState(false);
   const [showAlertNickRegExp, setShowAlertNickRegExp] = useState(false);
   const [showAlertPassStrength, setShowAlertPassStrength] = useState(false);
+  const [showAlertRegister, setShowAlertRegister] = useState(false);
 
   // Mostrar contraseña
   const handleToggle = () => {
@@ -120,6 +125,7 @@ const Register = () => {
     setShowAlertEmail(false);
     setShowAlertNickRegExp(false);
     setShowAlertPassStrength(false);
+    setShowAlertRegister(false);
   };
 
   // Comprobar si hay campos vacíos
@@ -198,8 +204,41 @@ const Register = () => {
     } else if (checkPasswordStrength()) {
       setShowAlertPassStrength(true);
     } else {
-      //registerUser();
+      registerUser();
     }
+  };
+
+  // Función de registro
+  const registerUser = async () => {
+    // Datos a enviar en la petición
+    const data = {
+      name: firstName,
+      surname: lastName,
+      nickname: nickName,
+      email: email,
+      dateOfBirth: birthday.$D + "/" + birthday.$M + 1 + "/" + birthday.$y,
+      phone: phone,
+      country: country,
+      password: password,
+      gender: gender,
+    };
+
+    // Petición POST a la API de Flytrax
+    await axios
+      .post(registerURL, data)
+      .then((response, error) => {
+        if (response.status === 200) {
+          setShowAlertRegister(true);
+          setTimeout(() => {
+            window.location.replace("/login");
+          }, 500);
+        } else {
+          console.log(error);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -335,7 +374,7 @@ const Register = () => {
                   className="col-span-9"
                   required
                   label="Fecha de nacimiento"
-                  format="DD-MM-YYYY"
+                  format="DD/MM/YYYY"
                   variant="filled"
                   value={birthday}
                   onChange={(newValue) => setBirthday(newValue)}
@@ -658,6 +697,20 @@ const Register = () => {
               <Alert onClose={handleClose} severity="error">
                 La contraseña es demasiado débil —{" "}
                 <strong>¡piensa en algo más seguro!</strong>
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              message="¡Cuenta registrada con éxito!"
+              open={showAlertRegister}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="success">
+                ¡Cuenta registrada con éxito!
               </Alert>
             </Snackbar>
           </div>

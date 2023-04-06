@@ -64,6 +64,18 @@
   width: inherit;
 }
 
+.page-structure {
+  background: #eaeaf3;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 400;
+  width: inherit;
+}
+
 .text {
   max-width: 80vw;
   margin: 3rem;

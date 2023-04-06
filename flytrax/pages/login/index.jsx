@@ -7,9 +7,14 @@ import {
   faEye,
   faEyeSlash,
   faUserAstronaut,
+  faAt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Snackbar } from "@mui/material";
+import axios from "axios";
+
+// URLs para manejo de datos en la BD
+const loginURL = "http://localhost:3000/loginUsers";
 
 const theme = createTheme({
   typography: {
@@ -31,15 +36,16 @@ const theme = createTheme({
 
 const Login = () => {
   // Variables de estado
-  const [nickName, setNickName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // Visibilidad de la contraseña
   const [typePass, setTypePass] = useState("password");
   const [iconPass, setIconPass] = useState(faEyeSlash);
 
-  // Alerta de error
-  const [showAlert, setShowAlert] = useState(false);
+  // Alertas de error
+  const [showAlertEmpty, setShowAlertEmpty] = useState(false);
+  const [showAlertLogin, setShowAlertLogin] = useState(false);
 
   // Mostrar contraseña
   const handleToggle = () => {
@@ -57,18 +63,48 @@ const Login = () => {
     if (reason === "clickaway") {
       return;
     }
-    setShowAlert(false);
+    setShowAlertEmpty(false);
+    setShowAlertLogin(false);
   };
 
   // Función de inicio de sesión
   const handleLogin = (event) => {
     event.preventDefault();
     // Comprobar si hay campos vacíos
-    if (nickName === "" || password === "") {
-      setShowAlert(true);
+    if (email === "" || password === "") {
+      setShowAlertEmpty(true);
     } else {
-      //loginUser();
+      loginUser();
     }
+  };
+
+  // Función de inicio de sesión
+  const loginUser = async () => {
+    // Datos a enviar en la petición
+    const data = {
+      email: email,
+      password: password,
+    };
+
+    // Petición POST a la API de Flytrax
+    await axios
+      .post(loginURL, data)
+      .then((response) => {
+        if (response.status === 200) {
+          sessionStorage.setItem("email", email);
+          sessionStorage.setItem("token", response.data.token);
+          sessionStorage.setItem("loggedIn", true);
+          setTimeout(() => {
+            window.location.replace("/");
+          }, 500);
+        } else {
+          setShowAlertLogin(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowAlertLogin(true);
+      });
   };
 
   return (
@@ -85,18 +121,18 @@ const Login = () => {
             <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
               <FontAwesomeIcon
                 className="text-zinc-200"
-                icon={faUserAstronaut}
+                icon={faAt}
                 size="lg"
               />
             </div>
             <TextField
               className="col-span-9"
-              id="filled"
+              id="email"
               type="text"
-              label="Nombre de usuario"
-              placeholder="Introduce tu nombre de usuario"
+              label="Correo electrónico	"
+              placeholder="Introduce tu electrónico"
               variant="filled"
-              onChange={({ target }) => setNickName(target.value)}
+              onChange={({ target }) => setEmail(target.value)}
             />
           </div>
           <div className="grid grid-cols-10 items-center text-center gap-1">
@@ -109,7 +145,7 @@ const Login = () => {
             </div>
             <TextField
               className="col-span-8"
-              id="filled"
+              id="password"
               type={typePass}
               label="Contraseña"
               placeholder="Introduce tu contraseña"
@@ -157,7 +193,7 @@ const Login = () => {
           <div>
             <Snackbar
               message="No puedes dejar campos vacíos — comprueba los datos"
-              open={showAlert}
+              open={showAlertEmpty}
               autoHideDuration={3000}
               onClose={handleClose}
               anchorOrigin={{
@@ -167,6 +203,21 @@ const Login = () => {
             >
               <Alert onClose={handleClose} severity="error">
                 No puedes dejar campos vacíos —{" "}
+                <strong>comprueba los datos</strong>
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              message="Correo electrónico o contraseña incorrecta — comprueba los datos"
+              open={showAlertLogin}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="error">
+                Correo electrónico o contraseña incorrecta —{" "}
                 <strong>comprueba los datos</strong>
               </Alert>
             </Snackbar>
