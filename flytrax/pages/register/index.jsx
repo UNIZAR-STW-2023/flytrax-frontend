@@ -223,6 +223,8 @@ const Register = () => {
       gender: gender,
     };
 
+    console.log(data);
+
     // Petición POST a la API de Flytrax
     await axios
       .post(registerURL, data)
@@ -465,7 +467,7 @@ const Register = () => {
                 />
               </div>
               <Autocomplete
-                onSelect={({ target }) => setCountry(target.value)}
+                onChange={({ target }) => setCountry(target.value)}
                 className="col-span-9"
                 required
                 autoHighlight
