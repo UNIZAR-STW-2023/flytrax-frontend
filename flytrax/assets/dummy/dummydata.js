@@ -835,3 +835,55 @@ export const foroData = [
     ],
   },
 ];
+
+export const usersData = [
+  {
+    _id: 1,
+    username: "user 1",
+    email: "123@mail.com",
+    active: true,
+  }, 
+  {
+    _id: 2,
+    username: "user 2",
+    email: "123@mail.com",
+    active: true,
+  },
+  {
+    _id: 3,
+    username: "user 3",
+    email: "123@mail.com",
+    active: true,
+  }, 
+  {
+    _id: 4,
+    username: "user 4",
+    email: "123@mail.com",
+    active: true,
+  },
+  {
+    _id: 5,
+    username: "user 5",
+    email: "123@mail.com",
+    active: true,
+  }, 
+  {
+    _id: 6,
+    username: "user 6",
+    email: "123@mail.com",
+    active: true,
+  },
+  {
+    _id: 7,
+    username: "user 7",
+    email: "123@mail.com",
+    active: true,
+  }, 
+  {
+    _id: 8,
+    username: "user 8",
+    email: "123@mail.com",
+    active: true,
+  },
+];
+

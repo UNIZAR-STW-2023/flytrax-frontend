@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import { Sidebar } from '../../../components'
+import { Sidebar } from '../../components'
 
-const index = () => {
-
+const resumen = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     return (
-        <div>
+        
+        <div className="max-w-[1400px] m-auto w-full my-24">
+            <h1 className='text-black'>Monthly</h1>
             <Sidebar
-                drawerWidth="250px"
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
             />
@@ -16,4 +16,4 @@ const index = () => {
     )
 }
 
-export default index
+export default resumen

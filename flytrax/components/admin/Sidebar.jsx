@@ -1,14 +1,10 @@
-import React from "react";
-import { SettingsOutlined, ChevronLeft, ChevronRightOutlined, HomeOutlined, ShoppingCartOutlined, Groups2Outlined, ReceiptLongOutlined, PublicOutlined, PointOfSaleOutlined, TodayOutlined, CalendarMonthOutlined, AdminPanelSettingsOutlined, TrendingUpOutlined, PieChartOutlined } from "@mui/icons-material";
-import { useEffect, useState } from "react";
-import userLogo from '../../assets/images/user-logo.png'
+import React, { useEffect, useState } from "react";
+import { ChevronRightOutlined, HomeOutlined, TodayOutlined, CalendarMonthOutlined, AdminPanelSettingsOutlined, PieChartOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { Typography } from "@mui/material";
-import { Box, Drawer, IconButton } from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -46,7 +42,7 @@ const navItems = [
   },
 ];
 
-const Sidebar = ({ drawerWidth, isSidebarOpen, setIsSidebarOpen }) => {
+const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     
     const [active, setActive] = useState("");
     const router = useRouter();
@@ -56,7 +52,7 @@ const Sidebar = ({ drawerWidth, isSidebarOpen, setIsSidebarOpen }) => {
     });
 
     const goToPage = (page) => {
-        router.push(`/admin/stats/${page}`)
+        router.push(`/admin/${page}`)
     }
 
     const toggleDrawer = (anchor, open) => (event) => {
@@ -127,11 +123,11 @@ const Sidebar = ({ drawerWidth, isSidebarOpen, setIsSidebarOpen }) => {
                         onClose={toggleDrawer(anchor, false)}
                         onOpen={toggleDrawer(anchor, true)}
                         sx={{
-                            width: drawerWidth,
+                            width: "250px",
                             "& .MuiDrawer-paper": {
                                 boxSixing: "border-box",
                                 borderWidth: "2px",
-                                width: drawerWidth,
+                                width: "250px",
                             },
                         }}
                     >

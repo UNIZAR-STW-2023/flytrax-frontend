@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
-import { Sidebar } from '../../../components'
+import { Sidebar } from '../../components'
 
-const mensual = () => {
+const index = () => {
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     return (
-        
-        <div>
-            <h1 className='text-black'>Monthly</h1>
+        <div className="max-w-[1400px] m-auto w-full my-24">
+            <div className='text-black'>Página que resuma lo que puede hacer el admin</div>
             <Sidebar
-                drawerWidth="250px"
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
             />
@@ -17,4 +16,4 @@ const mensual = () => {
     )
 }
 
-export default mensual
+export default index

@@ -10,5 +10,6 @@ import ForoItem from "./foro/ForoItem";
 import CommentFeed from "./foro/comments/CommentFeed";
 import CommentItem from "./foro/comments/CommentItem";
 import Sidebar from "./admin/Sidebar";
+import AdminUsuarios from "./admin/usuarios";
 
-export { AirportCard, Navbar, Footer, Layout, Banner, SearchSection, ForoForm, ForoFeed, ForoItem, CommentFeed, CommentItem, Sidebar }; 
+export { AirportCard, Navbar, Footer, Layout, Banner, SearchSection, ForoForm, ForoFeed, ForoItem, CommentFeed, CommentItem, Sidebar, AdminUsuarios }; 

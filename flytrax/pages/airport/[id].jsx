@@ -8,7 +8,7 @@ const AirportDetails = () => {
   console.log("airportId es: " + id)
 
   return (
-    <div>Página para el aeropuerto X</div>
+    <div className='max-w-[1400px] m-auto w-full my-24'>Página para el aeropuerto X</div>
   )
 }
 
