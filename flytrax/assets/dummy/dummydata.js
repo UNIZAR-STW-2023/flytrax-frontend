@@ -887,3 +887,53 @@ export const usersData = [
   },
 ];
 
+export const salidasData = [
+  {
+    _id: 1,
+    hora: "12:00",
+    destino: "JFK",
+    vuelo: "AA123",
+    puerta: "A1",
+    observaciones: "Retrasado"
+  },
+  {
+    _id: 2,
+    hora: "15:30",
+    destino: "LAX",
+    vuelo: "DL333",
+    puerta: "B7",
+    observaciones: "Retrasado"
+  },
+  {
+    _id: 3,
+    hora: "08:15",
+    destino: "MEX",
+    vuelo: "BB789",
+    puerta: "C2",
+    observaciones: "Cancelado"
+  },
+  {
+    _id: 4,
+    hora: "17:30",
+    destino: "BCN",
+    vuelo: "JJ000",
+    puerta: "A1",
+    observaciones: "Retrasado"
+  },
+  {
+    _id: 5,
+    hora: "12:40",
+    destino: "MAD",
+    vuelo: "LL178",
+    puerta: "E9",
+    observaciones: "En hora"
+  },
+  {
+    _id: 6,
+    hora: "9:00",
+    destino: "JFK",
+    vuelo: "OP034",
+    puerta: "D1",
+    observaciones: "En hora"
+  },
+];
