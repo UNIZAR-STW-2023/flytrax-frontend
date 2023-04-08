@@ -216,12 +216,14 @@ const Register = () => {
       surname: lastName,
       nickname: nickName,
       email: email,
-      dateOfBirth: birthday.$D + "/" + birthday.$M + 1 + "/" + birthday.$y,
+      dateOfBirth: birthday.format("DD/MM/YYYY"),
       phone: phone,
       country: country,
       password: password,
       gender: gender,
     };
+
+    console.log(data);
 
     // Petición POST a la API de Flytrax
     await axios
@@ -496,7 +498,7 @@ const Register = () => {
                     {...params}
                     inputProps={{
                       ...params.inputProps,
-                      autoComplete: "new-password", // disable autocomplete and autofill
+                      autoComplete: "country", // disable autocomplete and autofill
                     }}
                   />
                 )}
