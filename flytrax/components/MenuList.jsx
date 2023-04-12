@@ -5,7 +5,7 @@ const MenuList = ({ open }) => {
   return (
     <ul
       className={`py-4 md:py-6 md:text-lg lg:items-center text-center pb-auto absolute backdrop-blur-3xl shadow-inherit bg-slate-100/80 z-[-1] w-full transition-all duration-500 ease-in-out ${
-        open ? "top-24 opacity-100" : "opacity-0"
+        open ? "top-24 opacity-100" : "opacity-0 hidden"
       }`}
     >
       <li>
