@@ -1,5 +1,5 @@
 // components/Map.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility";

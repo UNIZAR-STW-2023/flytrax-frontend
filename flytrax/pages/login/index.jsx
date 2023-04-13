@@ -12,6 +12,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Snackbar } from "@mui/material";
 import axios from "axios";
+import { deleteCookie, setCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
 // URLs para manejo de datos en la BD
 const loginURL = "http://localhost:3000/loginUsers";
@@ -35,9 +37,12 @@ const theme = createTheme({
 });
 
 const Login = () => {
+  const router = useRouter();
+
   // Variables de estado
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // Visibilidad de la contraseña
   const [typePass, setTypePass] = useState("password");
@@ -86,8 +91,23 @@ const Login = () => {
       password: password,
     };
 
+    // Borrar sesión previa
+    deleteCookie("loggedIn");
+
+    // Guardar sesión en una cookie (48h máximo)
+    const newSession = true;
+    setCookie("loggedIn", newSession, { maxAge: 60 * 60 * 24 * 2 });
+
+    // Guardar sesión en el estado
+    setLoggedIn(true);
+
+    // Redireccionar a la página principal
+    setTimeout(() => {
+      router.push("/map");
+    }, 500);
+
     // Petición POST a la API de Flytrax
-    await axios
+    /* await axios
       .post(loginURL, data)
       .then((response) => {
         if (response.status === 200) {
@@ -104,7 +124,7 @@ const Login = () => {
       .catch((error) => {
         console.log(error);
         setShowAlertLogin(true);
-      });
+      }); */
   };
 
   return (

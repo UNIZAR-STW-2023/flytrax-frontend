@@ -138,6 +138,21 @@
   src: url(../assets/fonts/SF-Pro-Display-UltralightItalic.otf);
 }
 
+.heavy-font {
+  font-family: SF-Pro-Heavy;
+  src: url(../assets/fonts/SF-Pro-Display-Heavy.otf);
+}
+
+.heavyitalic-font {
+  font-family: SF-Pro-HeavyItalic;
+  src: url(../assets/fonts/SF-Pro-Display-HeavyItalic.otf);
+}
+
+.rounded-heavy-font {
+  font-family: SF-Pro-Rounded-Heavy;
+  src: url(../assets/fonts/SF-Pro-Rounded-Heavy.otf);
+}
+
 .border-bottom {
   border-top-style: dashed;
   border-top: rgba(169, 90, 16, 0);
