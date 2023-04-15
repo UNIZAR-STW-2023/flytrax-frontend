@@ -842,7 +842,7 @@ export const usersData = [
     username: "user 1",
     email: "123@mail.com",
     active: true,
-  }, 
+  },
   {
     _id: 2,
     username: "user 2",
@@ -854,7 +854,7 @@ export const usersData = [
     username: "user 3",
     email: "123@mail.com",
     active: true,
-  }, 
+  },
   {
     _id: 4,
     username: "user 4",
@@ -866,7 +866,7 @@ export const usersData = [
     username: "user 5",
     email: "123@mail.com",
     active: true,
-  }, 
+  },
   {
     _id: 6,
     username: "user 6",
@@ -878,7 +878,7 @@ export const usersData = [
     username: "user 7",
     email: "123@mail.com",
     active: true,
-  }, 
+  },
   {
     _id: 8,
     username: "user 8",
@@ -894,7 +894,7 @@ export const salidasData = [
     destino: "JFK",
     vuelo: "AA123",
     puerta: "A1",
-    observaciones: "Retrasado"
+    observaciones: "Retrasado",
   },
   {
     _id: 2,
@@ -902,7 +902,7 @@ export const salidasData = [
     destino: "LAX",
     vuelo: "DL333",
     puerta: "B7",
-    observaciones: "Retrasado"
+    observaciones: "Retrasado",
   },
   {
     _id: 3,
@@ -910,7 +910,7 @@ export const salidasData = [
     destino: "MEX",
     vuelo: "BB789",
     puerta: "C2",
-    observaciones: "Cancelado"
+    observaciones: "Cancelado",
   },
   {
     _id: 4,
@@ -918,7 +918,7 @@ export const salidasData = [
     destino: "BCN",
     vuelo: "JJ000",
     puerta: "A1",
-    observaciones: "Retrasado"
+    observaciones: "Retrasado",
   },
   {
     _id: 5,
@@ -926,7 +926,7 @@ export const salidasData = [
     destino: "MAD",
     vuelo: "LL178",
     puerta: "E9",
-    observaciones: "En hora"
+    observaciones: "En hora",
   },
   {
     _id: 6,
@@ -934,6 +934,6 @@ export const salidasData = [
     destino: "JFK",
     vuelo: "OP034",
     puerta: "D1",
-    observaciones: "En hora"
+    observaciones: "En hora",
   },
 ];

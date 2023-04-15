@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Image from "next/image";
-import { cardsData } from "../assets/dummy/dummyData";
+import { cardsData } from "../assets/dummy/dummyDatos";
 import cardImage from "../assets/dummy/images/3.jpg";
 
 const AirportCard = () => {

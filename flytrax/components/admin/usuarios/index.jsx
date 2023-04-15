@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import { grey } from "@mui/material/colors";
 import UsersActions from "./UsersActions";
-import { usersData } from "../../../assets/dummy/dummyData";
+import { usersData } from "../../../assets/dummy/dummyDatos";
 
 const Index = () => {
   const [pageSize, setPageSize] = useState(5);

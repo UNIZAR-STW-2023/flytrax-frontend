@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 
-import { airportsData, countriesData } from "../assets/dummy/dummyData";
+import { airportsData, countriesData } from "../assets/dummy/dummyDatos";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
