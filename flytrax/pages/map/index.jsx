@@ -4,7 +4,7 @@ import { Alert, Snackbar } from "@mui/material";
 import { InfoOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { getCookie } from "cookies-next";
-import Loading from "../../components/Loader";
+import Loader from "../../components/Loader";
 
 const MapRendered = () => {
   const router = useRouter();
@@ -54,7 +54,7 @@ const MapRendered = () => {
     }
   }, [router]);
 
-  return SESSION_COOKIE ? (
+  return (
     <div className="flex flex-col items-center align-middle m-auto w-full my-24">
       <h1 className="my-10 text-black font-bold max-sm:text-3xl sm:text-4xl">
         Mapa de aeropuertos{" "}
@@ -84,8 +84,6 @@ const MapRendered = () => {
         </Alert>
       </Snackbar>
     </div>
-  ) : (
-    <Loading />
   );
 };
 

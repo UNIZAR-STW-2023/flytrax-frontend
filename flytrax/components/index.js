@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Layout from "./Layout";
 import Banner from "./Banner";
+import Loader from "./Loader";
+import MenuList from "./MenuList";
 import SearchSection from "./SearchSection";
 import ForoForm from "./foro/ForoForm";
 import ForoFeed from "./foro/ForoFeed";
@@ -13,4 +15,21 @@ import Sidebar from "./admin/Sidebar";
 import AdminUsuarios from "./admin/usuarios";
 import PanelesCard from "./PanelesCard";
 
-export { AirportCard, Navbar, Footer, Layout, Banner, SearchSection, ForoForm, ForoFeed, ForoItem, CommentFeed, CommentItem, Sidebar, AdminUsuarios, PanelesCard }; 
+export {
+  AirportCard,
+  Navbar,
+  Footer,
+  Layout,
+  Banner,
+  Loader,
+  MenuList,
+  SearchSection,
+  ForoForm,
+  ForoFeed,
+  ForoItem,
+  CommentFeed,
+  CommentItem,
+  Sidebar,
+  AdminUsuarios,
+  PanelesCard,
+};

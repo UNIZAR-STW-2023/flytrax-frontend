@@ -16,7 +16,7 @@ import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 
 // URLs para manejo de datos en la BD
-const loginURL = "http://localhost:3000/loginUsers";
+const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
 
 const theme = createTheme({
   typography: {

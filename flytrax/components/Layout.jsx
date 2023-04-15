@@ -6,6 +6,7 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Head>
+        <link rel="icon" href="../public/favicon.ico" />
         <title>Flytrax</title>
       </Head>
 

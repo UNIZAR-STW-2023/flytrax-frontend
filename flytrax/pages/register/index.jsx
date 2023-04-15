@@ -31,7 +31,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 // URLs para manejo de datos en la BD
-const registerURL = "http://localhost:3000/users";
+const registerURL = "https://flytrax-backend.vercel.app/users";
 
 const theme = createTheme({
   typography: {

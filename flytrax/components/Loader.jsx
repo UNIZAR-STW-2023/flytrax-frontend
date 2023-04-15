@@ -2,7 +2,7 @@ import React from "react";
 import { CircularProgress } from "@mui/material";
 //import "../css/catalog.css";
 
-function Loading() {
+const Loader = () => {
   return (
     <div className="App-header select-none pt-24">
       <h1 className="text-4xl font-bold">
@@ -15,6 +15,6 @@ function Loading() {
       </h1>
     </div>
   );
-}
+};
 
-export default Loading;
+export default Loader;

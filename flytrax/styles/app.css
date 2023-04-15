@@ -51,7 +51,7 @@
 
 .App-header {
   background: #eaeaf3;
-  background-image: url("../assets/images/background2.jpg");
+  background-image: url("../public/images/bg.jpg");
   background-size: cover;
   min-height: 100vh;
   display: flex;
