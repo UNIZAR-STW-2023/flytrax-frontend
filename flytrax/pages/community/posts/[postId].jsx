@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
-import { useRouter } from 'next/router';
-import { ForoItem, ForoForm, CommentFeed } from '../../../components';
-import { foroData } from '../../../assets/dummy/dummyData'
-import {useParams} from 'react-router-dom';
-
+import { useRouter } from "next/router";
+import { ForoItem, ForoForm, CommentFeed } from "../../../components";
+import { foroData } from "../../../assets/dummy/dummyDatos";
+import { useParams } from "react-router-dom";
 
 const PostDetails = () => {
-
   const router = useRouter();
   //const { postId } = router.query;
   const params = useParams();
-  
+
   const postId = 1;
 
   const [fetchedPost, setFetchedPost] = useState(null);
 
   useEffect(() => {
-    if(!router.isReady) return;
+    if (!router.isReady) return;
     for (let i = 0; i < foroData.length; i++) {
       if (foroData[i].id === postId) {
         setFetchedPost(foroData[i]);
@@ -36,12 +34,12 @@ const PostDetails = () => {
       ) : (
         <div>
           <ForoItem data={fetchedPost} />
-          <ForoForm postId={postId} placeHolder="Escribe tu respuesta"/>
+          <ForoForm postId={postId} placeHolder="Escribe tu respuesta" />
           <CommentFeed comments={fetchedPost?.comments} />
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default PostDetails
+export default PostDetails;
