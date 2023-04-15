@@ -16,18 +16,18 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(false);
 
-  const SESSION_COOKIE = getCookie("loggedIn");
+  const SESSION_COOKIE = getCookie("sessionToken");
 
   useEffect(() => {
     // Fetch user cookie value
-    const sessionCookie = getCookie("loggedIn");
+    const sessionCookie = getCookie("sessionToken");
     // Update state with user cookie value
     setUser(sessionCookie);
   }, []);
 
   const handleLogout = () => {
     // Eliminar cookie de sesión
-    deleteCookie("loggedIn");
+    deleteCookie("sessionToken");
     // Actualizar estado de usuario
     setUser(false);
     // Redireccionar a la página principal

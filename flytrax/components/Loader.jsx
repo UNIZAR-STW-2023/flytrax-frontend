@@ -5,11 +5,11 @@ import { CircularProgress } from "@mui/material";
 function Loading() {
   return (
     <div className="App-header select-none pt-24">
-      <h1 className="text-4xl text-orange-600">
+      <h1 className="text-4xl font-bold">
         Cargando...
         <div className="flex relative pt-3 top-0 left-0 h-full w-full align-middle justify-center">
           <p>
-            <CircularProgress color="warning" />
+            <CircularProgress color="inherit" />
           </p>
         </div>
       </h1>

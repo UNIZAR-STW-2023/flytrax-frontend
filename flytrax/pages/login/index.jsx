@@ -91,31 +91,21 @@ const Login = () => {
       password: password,
     };
 
-    // Borrar sesión previa
-    deleteCookie("loggedIn");
-
-    // Guardar sesión en una cookie (48h máximo)
-    const newSession = true;
-    setCookie("loggedIn", newSession, { maxAge: 60 * 60 * 24 * 2 });
-
-    // Guardar sesión en el estado
-    setLoggedIn(true);
-
-    // Redireccionar a la página principal
-    setTimeout(() => {
-      router.push("/map");
-    }, 500);
-
     // Petición POST a la API de Flytrax
-    /* await axios
+    await axios
       .post(loginURL, data)
       .then((response) => {
         if (response.status === 200) {
-          sessionStorage.setItem("email", email);
-          sessionStorage.setItem("token", response.data.token);
-          sessionStorage.setItem("loggedIn", true);
+          // Borrar sesión previa
+          deleteCookie("sessionToken");
+          // Guardar sesión en una cookie (48h máximo)
+          const newSession = response.data.token;
+          setCookie("sessionToken", newSession, { maxAge: 60 * 60 * 24 * 2 });
+          // Guardar sesión en el estado
+          setLoggedIn(true);
+          // Redireccionar a la página principal
           setTimeout(() => {
-            window.location.replace("/");
+            router.push("/map");
           }, 500);
         } else {
           setShowAlertLogin(true);
@@ -124,7 +114,7 @@ const Login = () => {
       .catch((error) => {
         console.log(error);
         setShowAlertLogin(true);
-      }); */
+      });
   };
 
   return (

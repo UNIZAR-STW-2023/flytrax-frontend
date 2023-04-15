@@ -8,6 +8,7 @@ import Loading from "../../components/Loader";
 
 const MapRendered = () => {
   const router = useRouter();
+  const SESSION_COOKIE = getCookie("sessionToken");
 
   const [user, setUser] = useState(false);
   const [latitude, setLatitude] = useState(41.6533533620931); // Default latitude
@@ -26,9 +27,9 @@ const MapRendered = () => {
 
   useEffect(() => {
     // Fetch user cookie value
-    const sessionCookie = getCookie("loggedIn");
+    const sessionCookie = getCookie("sessionToken");
 
-    if (!sessionCookie) {
+    if (sessionCookie === null) {
       // Redirect to login page if user is not authenticated
       setTimeout(() => {
         router.push("/login");
@@ -53,7 +54,7 @@ const MapRendered = () => {
     }
   }, [router]);
 
-  return user ? (
+  return SESSION_COOKIE ? (
     <div className="flex flex-col items-center align-middle m-auto w-full my-24">
       <h1 className="my-10 text-black font-bold max-sm:text-3xl sm:text-4xl">
         Mapa de aeropuertos{" "}

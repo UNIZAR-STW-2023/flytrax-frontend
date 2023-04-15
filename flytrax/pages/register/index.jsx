@@ -28,6 +28,7 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 // URLs para manejo de datos en la BD
 const registerURL = "http://localhost:3000/users";
@@ -65,6 +66,8 @@ const Register = () => {
   } = useForm({
     mode: "all",
   });
+
+  const router = useRouter();
 
   // Variables de estado
   const [nickName, setNickName] = useState("");
@@ -223,8 +226,6 @@ const Register = () => {
       gender: gender,
     };
 
-    console.log(data);
-
     // Petición POST a la API de Flytrax
     await axios
       .post(registerURL, data)
@@ -232,7 +233,7 @@ const Register = () => {
         if (response.status === 200) {
           setShowAlertRegister(true);
           setTimeout(() => {
-            window.location.replace("/login");
+            router.push("/login");
           }, 500);
         } else {
           console.log(error);
@@ -467,7 +468,7 @@ const Register = () => {
                 />
               </div>
               <Autocomplete
-                onChange={({ target }) => setCountry(target.value)}
+                onSelect={({ target }) => setCountry(target.value)}
                 className="col-span-9"
                 required
                 autoHighlight

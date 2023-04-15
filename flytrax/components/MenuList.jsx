@@ -9,27 +9,27 @@ const MenuList = ({ open }) => {
 
   const [user, setUser] = useState(false);
 
+  const SESSION_COOKIE = getCookie("sessionToken");
+
   useEffect(() => {
     // Fetch user cookie value
-    const sessionCookie = getCookie("loggedIn");
-
+    const sessionCookie = getCookie("sessionToken");
     // Update state with user cookie value
     setUser(sessionCookie);
   }, []);
 
   const handleLogout = () => {
     // Eliminar cookie de sesión
-    deleteCookie("loggedIn");
+    deleteCookie("sessionToken");
     // Actualizar estado de usuario
     setUser(false);
-
     // Redireccionar a la página principal
     setTimeout(() => {
       router.push("/");
     }, 500);
   };
 
-  return user ? (
+  return SESSION_COOKIE ? (
     <ul
       className={`py-4 md:py-6 md:text-lg lg:items-center text-center pb-auto absolute backdrop-blur-3xl shadow-inherit bg-slate-100/80 z-[-1] w-full transition-all duration-500 ease-in-out ${
         open ? "top-24 opacity-100" : "opacity-0 hidden"
