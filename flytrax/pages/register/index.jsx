@@ -52,7 +52,7 @@ const theme = createTheme({
 });
 
 // Expresión regular para validar formato de correo electrónico
-const regExpMail = new RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[A-Za-z]+$/);
+const regExpMail = new RegExp(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[\w-]{2,}$/g);
 // Expresión regular para validar formato de nombre de usuario
 const regExpNickname = new RegExp(
   /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/
@@ -354,7 +354,7 @@ const Register = () => {
                 className="col-span-9"
                 required
                 id="filled"
-                type="text"
+                type="email"
                 label="Correo electrónico"
                 placeholder="Introduce tu correo electrónico"
                 variant="filled"
@@ -638,7 +638,7 @@ const Register = () => {
               message={
                 `${errors.email?.message}` +
                 "— " +
-                <strong>ejemplo: flytrax@gmail.com</strong>
+                <strong>comprueba los datos</strong>
               }
               open={showAlertEmail}
               autoHideDuration={4000}
@@ -650,7 +650,7 @@ const Register = () => {
             >
               <Alert onClose={handleClose} severity="error">
                 {`${errors.email?.message}`} —{" "}
-                <strong>ejemplo: flytrax@gmail.com</strong>
+                <strong>comprueba los datos</strong>
               </Alert>
             </Snackbar>
             <Snackbar
