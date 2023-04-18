@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { Marker, Popup, useMapEvents } from "react-leaflet";
+import { Circle, Marker, Popup, useMapEvents } from "react-leaflet";
+import L from "leaflet";
 
-function LocationMarker() {
+const LocationMarker = () => {
+  // Define a custom icon
+  const userLocation = L.icon({
+    iconUrl: "/icons/location.png",
+    iconSize: [30, 30],
+    popupAnchor: [0, -15],
+  });
+
   const [position, setPosition] = useState(null);
   const map = useMapEvents({
     click() {
@@ -14,10 +22,12 @@ function LocationMarker() {
   });
 
   return position === null ? null : (
-    <Marker position={position}>
-      <Popup>Estás aquí</Popup>
-    </Marker>
+    <Circle center={position} radius={1000}>
+      <Marker position={position} icon={userLocation}>
+        <Popup>Estás aquí</Popup>
+      </Marker>
+    </Circle>
   );
-}
+};
 
 export default LocationMarker;

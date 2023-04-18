@@ -483,10 +483,10 @@ const Register = () => {
                   >
                     {/* eslint-disable-next-line */}
                     <img
-                      src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                      srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                      src={`https://flagcdn.com/20x15/${option.code.toLowerCase()}.png`}
+                      srcSet={`https://flagcdn.com/40x30/${option.code.toLowerCase()}.png 2x`}
                       width="20"
-                      height="16"
+                      height="15"
                       alt={option.name}
                     />
                     {option.name} ({option.code})

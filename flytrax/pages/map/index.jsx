@@ -9,8 +9,10 @@ import Loader from "../../components/Loader";
 const MapRendered = () => {
   const router = useRouter();
   const SESSION_COOKIE = getCookie("sessionToken");
+  const BDC_API_KEY = "bdc_e893cb5013564fd3946b1cdad776c2e9";
 
   const [user, setUser] = useState(false);
+  const [country, setCountry] = useState("");
   const [latitude, setLatitude] = useState(41.6533533620931); // Default latitude
   const [longitude, setLongitude] = useState(-0.8903464782373229); // Default longitude
 
@@ -26,6 +28,20 @@ const MapRendered = () => {
   };
 
   useEffect(() => {
+    // Fetch user country
+    const getCountryFromLocation = async (latitude, longitude) => {
+      try {
+        const response = await fetch(
+          `https://api-bdc.net/data/reverse-geocode?latitude=${latitude}&longitude=${longitude}&localityLanguage=en&key=${BDC_API_KEY}`
+        );
+        const data = await response.json();
+        const countryCode = data.countryCode;
+        setCountry(countryCode);
+      } catch (error) {
+        console.error("Failed to get country from location:", error);
+      }
+    };
+
     // Fetch user cookie value
     const sessionCookie = getCookie("sessionToken");
 
@@ -39,22 +55,29 @@ const MapRendered = () => {
       setUser(sessionCookie);
     }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLatitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
+    const getUserLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            setLatitude(latitude);
+            setLongitude(longitude);
+            getCountryFromLocation(latitude, longitude);
+          },
+          (error) => {
+            console.error("Failed to get user location: ", error);
+          }
+        );
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+    };
+
+    getUserLocation();
   }, [router]);
 
-  return SESSION_COOKIE ? (
+  return !SESSION_COOKIE ? (
     <div className="flex flex-col items-center align-middle m-auto w-full my-24">
       <h1 className="my-10 text-black font-bold max-sm:text-3xl sm:text-4xl">
         Mapa de aeropuertos{" "}
@@ -66,7 +89,7 @@ const MapRendered = () => {
         />
       </h1>
       <div className="w-full px-5 lg:px-10">
-        <Map latitude={latitude} longitude={longitude} />
+        <Map latitude={latitude} longitude={longitude} country={country} />
       </div>
       <Snackbar
         message="Activa la ubicación y haz clic en el mapa para ver tu posición actual (o reubicarte)."
