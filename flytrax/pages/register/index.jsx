@@ -246,21 +246,21 @@ const Register = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="App-header select-none">
+      <div className="App-header justify-center select-none">
         <h1
           className="text-4xl font-bold text-slate-900
         pt-28 pb-5"
         >
           Registrar cuenta
         </h1>
-        <div className="grid md:grid-cols-2 gap-3 md:mx-5">
-          <div className="grid col-span-1 gap-3 md:w-96">
+        <div className="grid lg:grid-cols-2 gap-3">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faUser}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <TextField
@@ -276,13 +276,13 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="grid col-span-1 gap-3 md:w-96">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faUser}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <TextField
@@ -298,13 +298,13 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="grid col-span-1 gap-3 md:w-96">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faUserAstronaut}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <TextField
@@ -334,13 +334,13 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="grid col-span-1 gap-3 md:w-96">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faAt}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <TextField
@@ -362,13 +362,13 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="grid col-span-1 gap-3">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faCalendarAlt}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -385,16 +385,16 @@ const Register = () => {
               </LocalizationProvider>
             </div>
           </div>
-          <div className="grid col-span-1 gap-3 md:w-96">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div
               name="gender"
               className="grid grid-cols-10 items-center text-center gap-1"
             >
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faTransgender}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <FormControl className="col-span-9" variant="filled" required>
@@ -433,13 +433,13 @@ const Register = () => {
               </FormControl>
             </div>
           </div>
-          <div className="grid col-span-1 gap-3 md:w-96">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faPhone}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <TextField
@@ -455,16 +455,16 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="grid col-span-1 gap-3 md:w-96">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div
               name="country"
               className="grid grid-cols-10 items-center text-center gap-1"
             >
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faGlobeAmericas}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <Autocomplete
@@ -506,13 +506,13 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="grid col-span-1 gap-3 md:w-96">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faLock}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <TextField
@@ -529,12 +529,12 @@ const Register = () => {
               <div
                 data-test="showpass-btn"
                 onClick={handleToggle}
-                className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
+                className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
               >
                 <FontAwesomeIcon
                   className="text-zinc-600"
                   icon={iconPass}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <PasswordStrengthBar
@@ -552,13 +552,13 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="grid col-span-1 gap-3 md:w-96">
+          <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
                 <FontAwesomeIcon
                   className="text-zinc-200"
                   icon={faLock}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <TextField
@@ -575,12 +575,12 @@ const Register = () => {
               <div
                 data-test="showcpass-btn"
                 onClick={handleToggle2}
-                className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
+                className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
               >
                 <FontAwesomeIcon
                   className="text-zinc-600"
                   icon={iconCPass}
-                  size="lg"
+                  size="1x"
                 />
               </div>
               <PasswordStrengthBar

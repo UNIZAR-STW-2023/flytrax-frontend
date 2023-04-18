@@ -117,9 +117,9 @@ const RestorePasswd = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="App-header select-none">
+      <div className="App-header justify-center select-none pt-24">
         <h1
-          className="text-4xl font-bold text-slate-900
+          className="text-4xl max-sm:text-3xl font-bold text-slate-900
         my-5"
         >
           Restaurar contraseña
@@ -134,11 +134,11 @@ const RestorePasswd = () => {
         </div>
         <div className="grid gap-3">
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
               <FontAwesomeIcon
                 className="text-zinc-200"
                 icon={faLock}
-                size="lg"
+                size="1x"
               />
             </div>
             <TextField
@@ -154,12 +154,12 @@ const RestorePasswd = () => {
             <div
               data-test="showpass-btn"
               onClick={handleToggle}
-              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
+              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
             >
               <FontAwesomeIcon
                 className="text-zinc-600"
                 icon={iconPass}
-                size="lg"
+                size="1x"
               />
             </div>
             <PasswordStrengthBar
@@ -177,11 +177,11 @@ const RestorePasswd = () => {
             />
           </div>
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
               <FontAwesomeIcon
                 className="text-zinc-200"
                 icon={faLock}
-                size="lg"
+                size="1x"
               />
             </div>
             <TextField
@@ -197,12 +197,12 @@ const RestorePasswd = () => {
             <div
               data-test="showcpass-btn"
               onClick={handleToggle2}
-              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
+              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
             >
               <FontAwesomeIcon
                 className="text-zinc-600"
                 icon={iconCPass}
-                size="lg"
+                size="1x"
               />
             </div>
             <PasswordStrengthBar

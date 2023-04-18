@@ -38,33 +38,37 @@ const Navbar = () => {
 
   return SESSION_COOKIE ? (
     <nav className="max-lg:shadow-md h-24 w-full bg-slate-200 fixed top-0 left-0 shadow-md backdrop-blur-md navbar">
-      <div className="flex justify-between relative top-0 my-6 mx-8 md:mx-16">
+      <div className="flex justify-between mx-8 lg:mx-16 h-24">
         <div className="grid grid-cols-6 max-lg:w-full">
           <Link
             href="/"
-            className="grid grid-cols-3 max-lg:grid-cols-5 col-span-5 justify-items-center"
+            className="grid sm:grid-cols-4 lg:grid-cols-3 max-md:grid-cols-5 col-span-5 justify-items-center lg:gap-2"
           >
             <Image
               src={LogoMobile}
-              className="w-20 self-center col-span-1 lg:mr-2"
+              className="max-sm:w-20 w-12 lg:w-16 self-center col-span-1"
               alt="Flytrax Logo"
             />
             <Image
               src={Logo}
-              className="w-40 self-center justify-items-center col-span-2 max-lg:col-span-1 max-sm:hidden"
+              className="md:w-32 lg:w-40 self-center justify-self-start md:col-span-3 lg:col-span-2 max-lg:col-span-1 max-md:hidden"
               alt="Flytrax Logo"
             />
           </Link>
           <button
             data-test="menu-button"
-            className="lg:hidden col-span-1 text-orange-600"
+            className="sm:hidden col-span-1 text-orange-600"
             onClick={() => setOpen(!open)}
           >
-            <FontAwesomeIcon icon={open ? faClose : faBars} size="3x" />
+            <FontAwesomeIcon
+              icon={open ? faClose : faBars}
+              size="3x"
+              className="scale-75 md:scale-50"
+            />
           </button>
         </div>
-        <div className="flex max-lg:hidden">
-          <div className="flex items-center col-span-4 gap-6 pr-3 uppercase">
+        <div className="flex max-sm:hidden">
+          <div className="flex items-center col-span-4 gap-6 uppercase m-3 max-md:text-sm">
             <CustomLink
               className="hover:text-orange-600 ease-in-out duration-150"
               to={"/map"}
@@ -86,50 +90,54 @@ const Navbar = () => {
           </div>
           <div
             data-test="join-web-button"
-            className="flex border-l-2 col-span-1 border-l-zinc-800 pl-3 items-center gap-6"
+            className="flex border-l-2 col-span-1 border-l-gray-600 pl-6 items-center gap-6 uppercase m-3"
           >
-            <button
-              onClick={handleLogout}
-              className="text-gray-700 text-xl font-bold hover:text-orange-600 ease-in-out duration-150 uppercase"
+            <CustomLink
+              className="font-bold text-xl hover:text-orange-600 ease-in-out duration-150"
+              to={"/login"}
             >
-              Cerrar sesión
-            </button>
+              Entrar
+            </CustomLink>
           </div>
         </div>
       </div>
-      <div className="lg:hidden">
+      <div className="md:hidden">
         <MenuList open={open} />
       </div>
     </nav>
   ) : (
     <nav className="max-lg:shadow-md h-24 w-full bg-slate-200 fixed top-0 left-0 shadow-md backdrop-blur-md navbar">
-      <div className="flex justify-between relative top-0 my-6 mx-8 md:mx-16">
+      <div className="flex justify-between mx-8 lg:mx-16 h-24">
         <div className="grid grid-cols-6 max-lg:w-full">
           <Link
             href="/"
-            className="grid grid-cols-3 max-lg:grid-cols-5 col-span-5 justify-items-center"
+            className="grid sm:grid-cols-4 lg:grid-cols-3 max-md:grid-cols-5 col-span-5 justify-items-center lg:gap-2"
           >
             <Image
               src={LogoMobile}
-              className="w-20 self-center col-span-1 lg:mr-2"
+              className="max-sm:w-20 w-12 lg:w-16 self-center col-span-1"
               alt="Flytrax Logo"
             />
             <Image
               src={Logo}
-              className="w-40 self-center justify-items-center col-span-2 max-lg:col-span-1 max-sm:hidden"
+              className="md:w-32 lg:w-40 self-center justify-self-start md:col-span-3 lg:col-span-2 max-lg:col-span-1 max-md:hidden"
               alt="Flytrax Logo"
             />
           </Link>
           <button
             data-test="menu-button"
-            className="lg:hidden col-span-1 text-orange-600"
+            className="sm:hidden col-span-1 text-orange-600"
             onClick={() => setOpen(!open)}
           >
-            <FontAwesomeIcon icon={open ? faClose : faBars} size="3x" />
+            <FontAwesomeIcon
+              icon={open ? faClose : faBars}
+              size="3x"
+              className="scale-75 md:scale-50"
+            />
           </button>
         </div>
-        <div className="flex max-lg:hidden">
-          <div className="flex items-center col-span-4 gap-6 pr-3 uppercase">
+        <div className="flex max-sm:hidden">
+          <div className="flex items-center col-span-4 gap-6 uppercase m-3 max-md:text-sm">
             <CustomLink
               className="hover:text-orange-600 ease-in-out duration-150"
               to={""}
@@ -151,7 +159,7 @@ const Navbar = () => {
           </div>
           <div
             data-test="join-web-button"
-            className="flex border-l-2 col-span-1 border-l-zinc-800 pl-3 items-center gap-6 uppercase"
+            className="flex border-l-2 col-span-1 border-l-gray-600 pl-6 items-center gap-6 uppercase m-3"
           >
             <CustomLink
               className="font-bold text-xl hover:text-orange-600 ease-in-out duration-150"
@@ -162,7 +170,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="lg:hidden">
+      <div className="md:hidden">
         <MenuList open={open} />
       </div>
     </nav>

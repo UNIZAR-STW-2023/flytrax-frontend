@@ -7,21 +7,22 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      primary: 'Poppins',
+      primary: "Poppins",
     },
     container: {
       padding: {
-        DEFAULT: '1rem',
-        lg: '2rem',
+        DEFAULT: "1rem",
+        lg: "2rem",
       },
     },
     screens: {
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1234px',
+      xs: "340px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1234px",
     },
     extend: {},
   },
   plugins: [],
-}
+};

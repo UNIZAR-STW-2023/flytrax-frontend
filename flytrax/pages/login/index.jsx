@@ -99,8 +99,15 @@ const Login = () => {
           // Borrar sesión previa
           deleteCookie("sessionToken");
           // Guardar sesión en una cookie (48h máximo)
+          const adminSession = response.data.tokenAdmin;
           const newSession = response.data.token;
-          setCookie("sessionToken", newSession, { maxAge: 60 * 60 * 24 * 2 });
+          if (adminSession === "") {
+            setCookie("sessionToken", newSession, { maxAge: 60 * 60 * 24 * 2 });
+          } else {
+            setCookie("adminSessionToken", adminSession, {
+              maxAge: 60 * 60 * 24 * 2,
+            });
+          }
           // Guardar sesión en el estado
           setLoggedIn(true);
           // Redireccionar a la página principal
@@ -119,26 +126,26 @@ const Login = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="App-header select-none pt-24">
+      <div className="App-header justify-center select-none pt-24">
         <h1
           className="text-4xl font-bold text-slate-900
         my-5"
         >
           Iniciar sesión
         </h1>
-        <div className="grid gap-3">
+        <div className="grid gap-3 justify-center w-80 md:w-96 max-sm:mx-2">
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
               <FontAwesomeIcon
                 className="text-zinc-200"
                 icon={faAt}
-                size="lg"
+                size="1x"
               />
             </div>
             <TextField
               className="col-span-9"
               id="email"
-              type="text"
+              type="email"
               label="Correo electrónico	"
               placeholder="Introduce tu electrónico"
               variant="filled"
@@ -146,11 +153,11 @@ const Login = () => {
             />
           </div>
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
               <FontAwesomeIcon
                 className="text-zinc-200"
                 icon={faLock}
-                size="lg"
+                size="1x"
               />
             </div>
             <TextField
@@ -164,12 +171,12 @@ const Login = () => {
             />
             <div
               onClick={handleToggle}
-              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
+              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
             >
               <FontAwesomeIcon
                 className="text-zinc-600"
                 icon={iconPass}
-                size="lg"
+                size="1x"
               />
             </div>
           </div>

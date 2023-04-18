@@ -52,9 +52,9 @@ const ForgotPasswd = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="App-header select-none">
+      <div className="App-header justify-center select-none pt-24">
         <h1
-          className="text-4xl font-bold text-slate-900
+          className="text-4xl max-sm:text-3xl font-bold text-slate-900
         my-5"
         >
           Recuperar contraseña
@@ -72,11 +72,11 @@ const ForgotPasswd = () => {
         </div>
         <div className="grid gap-3">
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
               <FontAwesomeIcon
                 className="text-zinc-200"
                 icon={faAt}
-                size="lg"
+                size="1x"
               />
             </div>
             <TextField

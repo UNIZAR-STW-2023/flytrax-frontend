@@ -54,7 +54,7 @@ const MapRendered = () => {
     }
   }, [router]);
 
-  return (
+  return SESSION_COOKIE ? (
     <div className="flex flex-col items-center align-middle m-auto w-full my-24">
       <h1 className="my-10 text-black font-bold max-sm:text-3xl sm:text-4xl">
         Mapa de aeropuertos{" "}
@@ -84,6 +84,8 @@ const MapRendered = () => {
         </Alert>
       </Snackbar>
     </div>
+  ) : (
+    <Loader />
   );
 };
 
