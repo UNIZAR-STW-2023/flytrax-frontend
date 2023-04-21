@@ -29,6 +29,7 @@
     "cookies-next": "^2.1.1",
     "dayjs": "^1.11.7",
     "font-awesome": "^4.7.0",
+    "geolib": "^3.3.3",
     "iron-session": "^6.3.1",
     "leaflet": "^1.9.3",
     "leaflet-defaulticon-compatibility": "^0.1.1",

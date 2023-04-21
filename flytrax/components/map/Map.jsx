@@ -8,6 +8,8 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import LocationMarker from "./LocationMarker";
 import MinimapControl from "./MinimapControl";
 import axios from "axios";
+import Loader from "../Loader";
+import { getDistance } from "geolib";
 
 const BDC_API_KEY = "bdc_e893cb5013564fd3946b1cdad776c2e9";
 
@@ -16,20 +18,18 @@ const Map = ({ latitude, longitude }) => {
   const position = [latitude, longitude];
   const [country, setCountry] = useState([]);
   const [airports, setAirports] = useState([]);
+  const [distance, setDistance] = useState([]);
+  const [matchingAirports, setMatchingAirports] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const BDC_URL = `https://api-bdc.net/data/reverse-geocode?latitude=${latitude}&longitude=${longitude}&localityLanguage=en&key=${BDC_API_KEY}`;
   const AirLabs_URL = `https://airlabs.co/api/v9/airports?country_code=${country}&api_key=a06c41d2-1fc4-4d92-864e-fd641accfa06`;
 
-  const coordinates = [
-    [51.5074, -0.1278], // London, UK
-    [40.7128, -74.006], // New York City, USA
-    [48.8566, 2.3522], // Paris, France
-    [35.6895, 139.6917], // Tokyo, Japan
-  ];
+  console.log(position);
 
   // Define a custom icon
   const airportLocation = L.icon({
-    iconUrl: "/icons/map_pin.png",
+    iconUrl: "/assets/icons/map_pin.png",
     iconSize: [30, 30],
     popupAnchor: [0, -15],
   });
@@ -48,7 +48,7 @@ const Map = ({ latitude, longitude }) => {
     };
 
     const getAirports = async () => {
-      await axios
+      /* await axios
         .get(AirLabs_URL)
         .then((response) => {
           setAirports(response.data);
@@ -56,18 +56,49 @@ const Map = ({ latitude, longitude }) => {
         })
         .catch((error) => {
           console.log("Error fetching the data: ", error);
-        });
-    };
+        }); */
+      let distancias = [];
+      let aeropuertos = [];
 
+      await fetch("assets/data/[AirLabs]_Airports.json")
+        .then((response) => response.json())
+        .then((data) => {
+          // Use the data from the JSON file
+          aeropuertos = data.response;
+          setAirports(data.response);
+          aeropuertos.map((airport) => {
+            const distance = getDistance(
+              { latitude: latitude, longitude: longitude },
+              { latitude: airport.lat, longitude: airport.lng }
+            );
+            if (distance / 1000 < 300 && airport.iata_code != null) {
+              distancias.push({
+                iata_code: airport.iata_code,
+                dist: (distance / 1000).toFixed(2),
+              });
+            }
+          });
+          setDistance(distancias);
+          console.log(distance);
+          const matching = aeropuertos.filter((o1) =>
+            distancias.some((o2) => o1.iata_code === o2.iata_code)
+          );
+          setMatchingAirports(matching);
+          console.log(matching);
+        })
+        .catch((error) => console.error(error));
+    };
     getCountryFromLocation();
     getAirports();
+    setTimeout(() => setLoading(false), 1500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
+  return !loading ? (
     <div id="map">
       <MapContainer
         center={position}
-        zoom={13}
+        zoom={7}
         scrollWheelZoom={true}
         style={{
           height: "80vh",
@@ -81,10 +112,16 @@ const Map = ({ latitude, longitude }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="© OpenStreetMap contributors"
         />
-        {coordinates.map((coord, index) => (
-          <Marker key={index} position={coord} icon={airportLocation}>
+        {matchingAirports.map((coord, index) => (
+          <Marker
+            key={index}
+            position={[coord.lat, coord.lng]}
+            icon={airportLocation}
+          >
             <Popup>
-              <span>Marker {index + 1}</span>
+              <span>
+                {coord.name} ({coord.iata_code})
+              </span>
             </Popup>
           </Marker>
         ))}
@@ -92,6 +129,8 @@ const Map = ({ latitude, longitude }) => {
         <LocationMarker center={position} />
       </MapContainer>
     </div>
+  ) : (
+    <Loader />
   );
 };
 

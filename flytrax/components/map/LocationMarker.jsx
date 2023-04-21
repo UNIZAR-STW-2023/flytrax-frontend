@@ -5,7 +5,7 @@ import L from "leaflet";
 const LocationMarker = () => {
   // Define a custom icon
   const userLocation = L.icon({
-    iconUrl: "/icons/location.png",
+    iconUrl: "/assets/icons/user_location.png",
     iconSize: [30, 30],
     popupAnchor: [0, -15],
   });
@@ -22,7 +22,7 @@ const LocationMarker = () => {
   });
 
   return position === null ? null : (
-    <Circle center={position} radius={1000}>
+    <Circle center={position} radius={300000}>
       <Marker position={position} icon={userLocation}>
         <Popup>Estás aquí</Popup>
       </Marker>
