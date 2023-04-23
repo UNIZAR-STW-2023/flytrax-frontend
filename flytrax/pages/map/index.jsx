@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Map from "../../components/map/index";
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Snackbar, SwipeableDrawer } from "@mui/material";
 import { InfoOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { getCookie } from "cookies-next";
 import Loader from "../../components/Loader";
+import SwipeableEdgeDrawer from "../../components/Sidebar";
 
 const MapRendered = () => {
   const router = useRouter();
@@ -89,6 +90,7 @@ const MapRendered = () => {
         />
       </h1>
       <div className="w-full px-5 lg:px-10">
+        <SwipeableEdgeDrawer />
         <Map latitude={latitude} longitude={longitude} country={country} />
       </div>
       <Snackbar

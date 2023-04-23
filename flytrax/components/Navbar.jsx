@@ -146,9 +146,9 @@ const Navbar = () => {
             </CustomLink>
             <CustomLink
               className="hover:text-orange-600 ease-in-out duration-150"
-              to={""}
+              to={"/faq"}
             >
-              Servicios
+              FAQ
             </CustomLink>
             <CustomLink
               className="hover:text-orange-600 ease-in-out duration-150"

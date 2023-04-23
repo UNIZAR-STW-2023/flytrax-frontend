@@ -14,6 +14,8 @@ import { Alert, Snackbar } from "@mui/material";
 import axios from "axios";
 import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import GoogleIcon from "../../assets/icons/google.png";
+import Image from "next/image";
 
 // URLs para manejo de datos en la BD
 const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
@@ -133,7 +135,20 @@ const Login = () => {
         >
           Iniciar sesión
         </h1>
-        <div className="grid gap-3 justify-center w-80 md:w-96 max-sm:mx-2">
+        <button className="my-2 text-gray-500 hover:bg-gray-800 hover:text-white transition ease-in duration-150 bg-white p-1 rounded-full flex items-center align-middle">
+          <Image
+            className="bg-white rounded-full"
+            src={GoogleIcon}
+            alt="Google Icon"
+            width={30}
+            height={30}
+          />
+          <h2 className="font-medium mx-1">Google</h2>
+        </button>
+        <div className="grid gap-3 justify-center border-t-2 border-gray-400 py-2 my-3 w-80 md:w-96 max-sm:mx-2">
+          <h2 className="py-3 text-gray-500 text-sm flex flex-col items-center justify-center text-center">
+            O inicia sesión con tus credenciales
+          </h2>
           <div className="grid grid-cols-10 items-center text-center gap-1">
             <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
               <FontAwesomeIcon
@@ -186,26 +201,28 @@ const Login = () => {
           >
             Entrar
           </button>
-          <div className="grid items-center w-80 md:w-96">
-            <p className="text-center mt-3 text-zinc-700">
-              ¿Aún no eres miembro?{" "}
-              <Link
-                className="font-medium text-rose-600 hover:text-rose-800 ease-in duration-150"
-                href="/register"
-              >
-                Regístrate ahora
-              </Link>{" "}
-            </p>
-          </div>
-          <div className="grid items-center w-80 md:w-96">
-            <p className="text-center text-zinc-700">
-              <Link
-                className="italic text-zinc-700 hover:text-rose-800 ease-in duration-150"
-                href="/forgot-passwd"
-              >
-                ¿Has olvidado tu contraseña?
-              </Link>{" "}
-            </p>
+          <div className="flex flex-col justify-center items-center">
+            <div className="grid items-center w-80 md:w-96">
+              <p className="text-center mt-3 text-zinc-700">
+                ¿Aún no eres miembro?{" "}
+                <Link
+                  className="font-medium text-rose-600 hover:text-rose-800 ease-in duration-150"
+                  href="/register"
+                >
+                  Regístrate ahora
+                </Link>{" "}
+              </p>
+            </div>
+            <div className="grid items-center w-80 md:w-96">
+              <p className="text-center text-zinc-700">
+                <Link
+                  className="italic text-zinc-700 hover:text-rose-800 ease-in duration-150"
+                  href="/forgot-passwd"
+                >
+                  ¿Has olvidado tu contraseña?
+                </Link>{" "}
+              </p>
+            </div>
           </div>
           <div>
             <Snackbar

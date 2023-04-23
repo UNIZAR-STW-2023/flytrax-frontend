@@ -88,9 +88,9 @@ const MenuList = ({ open }) => {
       <li className="my-3 py-3 border-t-orange-600 border-b-orange-600 border-t-2 border-b-2 border-dashed">
         <CustomLink
           className="hover:text-orange-600 ease-in-out duration-150 uppercase"
-          to={""}
+          to={"/faq"}
         >
-          Servicios
+          FAQ
         </CustomLink>
       </li>
       <li>

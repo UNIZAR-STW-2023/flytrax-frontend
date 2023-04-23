@@ -407,13 +407,13 @@ const Register = () => {
                 >
                   <MenuItem
                     className="cursor-pointer hover:text-rose-700 transition"
-                    value="H"
+                    value="M"
                   >
                     Hombre
                   </MenuItem>
                   <MenuItem
                     className="cursor-pointer hover:text-rose-700 transition"
-                    value="M"
+                    value="F"
                   >
                     Mujer
                   </MenuItem>
