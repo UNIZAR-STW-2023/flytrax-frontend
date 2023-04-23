@@ -14,8 +14,10 @@ import { Alert, Snackbar } from "@mui/material";
 import axios from "axios";
 import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
-import GoogleIcon from "../../assets/icons/google.png";
+import GoogleIcon from "../../assets/icons/google.svg";
 import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
+import RedirectRegister from "../../components/RedirectRegister";
 
 // URLs para manejo de datos en la BD
 const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
@@ -39,6 +41,7 @@ const theme = createTheme({
 });
 
 const Login = () => {
+  const { data: session } = useSession();
   const router = useRouter();
 
   // Variables de estado
@@ -53,6 +56,10 @@ const Login = () => {
   // Alertas de error
   const [showAlertEmpty, setShowAlertEmpty] = useState(false);
   const [showAlertLogin, setShowAlertLogin] = useState(false);
+
+  const handleGoogleLogin = () => {
+    signIn();
+  };
 
   // Mostrar contraseña
   const handleToggle = () => {
@@ -126,7 +133,7 @@ const Login = () => {
       });
   };
 
-  return (
+  return !session ? (
     <ThemeProvider theme={theme}>
       <div className="App-header justify-center select-none pt-24">
         <h1
@@ -135,7 +142,10 @@ const Login = () => {
         >
           Iniciar sesión
         </h1>
-        <button className="my-2 text-gray-500 hover:bg-gray-800 hover:text-white transition ease-in duration-150 bg-white p-1 rounded-full flex items-center align-middle">
+        <button
+          onClick={() => handleGoogleLogin()}
+          className="my-2 text-gray-500 hover:bg-gray-800 hover:text-white transition ease-in duration-150 bg-white p-1 rounded-full flex items-center align-middle"
+        >
           <Image
             className="bg-white rounded-full"
             src={GoogleIcon}
@@ -259,6 +269,8 @@ const Login = () => {
         </div>
       </div>
     </ThemeProvider>
+  ) : (
+    <RedirectRegister session={session} />
   );
 };
 

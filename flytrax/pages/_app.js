@@ -3,16 +3,19 @@ import "../styles/home.scss";
 import { AirportCard, Layout } from "../components";
 import { StateContext } from "../context/StateContext";
 import { Toaster } from "react-hot-toast";
+import { SessionProvider } from "next-auth/react";
 
-function Flytrax({ Component, pageProps }) {
+function Flytrax({ Component, pageProps, session }) {
   return (
     <main className="App-main">
-      <StateContext>
-        <Layout>
-          <Toaster />
-          <Component {...pageProps} />
-        </Layout>
-      </StateContext>
+      <SessionProvider session={session}>
+        <StateContext>
+          <Layout>
+            <Toaster />
+            <Component {...pageProps} />
+          </Layout>
+        </StateContext>
+      </SessionProvider>
     </main>
   );
 }

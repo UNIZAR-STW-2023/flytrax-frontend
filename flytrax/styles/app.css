@@ -114,6 +114,13 @@
   background-clip: text;
 }
 
+.login-text {
+  background: linear-gradient(220.55deg, #61c695 0%, #133114 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 .light-font {
   font-family: SF-Pro-Light;
   src: url(../assets/fonts/SF-Pro-Display-Light.otf);
