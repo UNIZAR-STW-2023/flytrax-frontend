@@ -49,7 +49,7 @@ const RedirectRegister = ({ session }) => {
         console.log("Entro al login");
         console.log(response);
         if (response.data.status === "No existe ese usuario") {
-          setNewUser(true);
+          //setNewUser(true);
           console.log(newUser);
           // Borrar sesión previa
           deleteCookie("sessionToken");
@@ -69,7 +69,7 @@ const RedirectRegister = ({ session }) => {
           setTimeout(() => {
             console.log("Es la primera vez que ingresas con este correo.");
             setLoading(true);
-            router.push("/register");
+            //router.push("/register");
           }, 5000);
         } else {
           setNewUser(false);
@@ -109,14 +109,14 @@ const RedirectRegister = ({ session }) => {
               <CircularProgress color="success" size={100} thickness="1.3" />
             </div>
           </div>
-          {/* <button
+          <button
             onClick={() => {
               signOut();
             }}
             className="items-center w-1/2 bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10 my-3"
           >
             Cerrar sesión
-          </button> */}
+          </button>
         </div>
       </div>
     </ThemeProvider>

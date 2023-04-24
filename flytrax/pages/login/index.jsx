@@ -16,8 +16,10 @@ import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import GoogleIcon from "../../assets/icons/google.svg";
 import Image from "next/image";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn, getCsrfToken } from "next-auth/react";
 import RedirectRegister from "../../components/RedirectRegister";
+import GoogleButton from "../../components/buttons/GoogleButton";
+import GitHubButton from "../../components/buttons/GithubButton";
 
 // URLs para manejo de datos en la BD
 const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
@@ -58,7 +60,7 @@ const Login = () => {
   const [showAlertLogin, setShowAlertLogin] = useState(false);
 
   const handleGoogleLogin = () => {
-    signIn();
+    signIn("google");
   };
 
   // Mostrar contraseña
@@ -142,19 +144,10 @@ const Login = () => {
         >
           Iniciar sesión
         </h1>
-        <button
-          onClick={() => handleGoogleLogin()}
-          className="my-2 text-gray-500 hover:bg-gray-800 hover:text-white transition ease-in duration-150 bg-white p-1 rounded-full flex items-center align-middle"
-        >
-          <Image
-            className="bg-white rounded-full"
-            src={GoogleIcon}
-            alt="Google Icon"
-            width={30}
-            height={30}
-          />
-          <h2 className="font-medium mx-1">Google</h2>
-        </button>
+        <div className="flex justify-between gap-3">
+          <GoogleButton /> <GitHubButton />
+        </div>
+
         <div className="grid gap-3 justify-center border-t-2 border-gray-400 py-2 my-3 w-80 md:w-96 max-sm:mx-2">
           <h2 className="py-3 text-gray-500 text-sm flex flex-col items-center justify-center text-center">
             O inicia sesión con tus credenciales
