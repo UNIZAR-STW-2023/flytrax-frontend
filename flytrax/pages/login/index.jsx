@@ -19,7 +19,7 @@ import Image from "next/image";
 import { useSession, signIn, getCsrfToken } from "next-auth/react";
 import RedirectRegister from "../../components/RedirectRegister";
 import GoogleButton from "../../components/buttons/GoogleButton";
-import GitHubButton from "../../components/buttons/GithubButton";
+import GitHubButton from "../../components/buttons/GitHubButton";
 
 // URLs para manejo de datos en la BD
 const loginURL = "https://flytrax-backend.vercel.app/loginUsers";

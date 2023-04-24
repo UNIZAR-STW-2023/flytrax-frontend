@@ -9,7 +9,7 @@ const Home = () => {
           Viaja con tranquilidad<span className="text-zinc-800">,</span>
         </div>
         <div className="font-bold text-center text-zinc-800 text-5xl md:text-6xl">
-          deja que nosotros sigamos el camino por ti.
+          deja que nosotros hagamos el camino por ti.
         </div>
         <div data-test="join-button">
           <Link
