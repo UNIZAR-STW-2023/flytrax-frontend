@@ -33,9 +33,7 @@ const Success = () => {
         </p>
         <div>
             <Link href="/store">
-                <button 
-                    className="bg-blue-700 hover:bg-blue-800 px-10 w-full lg:max-w-[350px] h-14 rounded-xl flex justify-center items-center text-white text-xl" //se cierra el carrito
-                >
+                <button className="bg-blue-700 hover:bg-blue-800 px-10 w-full lg:max-w-[350px] h-14 rounded-xl flex justify-center items-center text-white text-xl">
                     Seguir comprando
                 </button>
             </Link>
