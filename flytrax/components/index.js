@@ -14,6 +14,8 @@ import CommentItem from "./foro/comments/CommentItem";
 import Sidebar from "./admin/Sidebar";
 import AdminUsuarios from "./admin/usuarios";
 import PanelesCard from "./PanelesCard";
+import ProductCard from "./ProductCard";
+import Carrito from "./Carrito";
 
 export {
   AirportCard,
@@ -32,4 +34,6 @@ export {
   Sidebar,
   AdminUsuarios,
   PanelesCard,
+  ProductCard,
+  Carrito,
 };

@@ -1,5 +1,6 @@
 import "../styles/app.css";
 import "../styles/home.scss";
+import '../styles/globals.css'
 import { AirportCard, Layout } from "../components";
 import { StateContext } from "../context/StateContext";
 import { Toaster } from "react-hot-toast";
