@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { cardsData } from "../assets/dummy/dummyDatos";
 import cardImage from "../assets/dummy/images/3.jpg";
 
 const AirportCard = () => {
+
+  const[showMore, setShowMore] = useState(false);
+
+  /* Get airports data */
+
   return (
     <div className="container mx-auto px-8">
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">

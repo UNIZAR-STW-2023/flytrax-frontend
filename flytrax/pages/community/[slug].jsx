@@ -3,7 +3,7 @@ import { ForoFeed, ForoForm } from '../../components'
 import { useRouter } from 'next/router'
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
-import { aeropuertos } from "../../assets/dummy/aeropuertos";
+import { aeropuertos } from "../../assets/dummy/aeropuertos_iata";
 
 
 const CommunityDetails = () => {
