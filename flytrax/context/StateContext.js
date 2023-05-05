@@ -2,15 +2,16 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import { toast } from 'react-hot-toast';
 
 import { airportsData, countriesData } from "../assets/dummy/dummyDatos";
+
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  const [airports, setAirports] = useState([
+  /*const [airports, setAirports] = useState([
     "Airports (any)",
-    ...new Set(airportsData),
+    ...new Set(aeropuertos),
   ]);
-  const [country, setCountry] = useState("Location (any)");
-  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState("Location (any)");*/
+  //const [countries, setCountries] = useState([]);
   const [selectedAirport, setSelectedAirport] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -23,13 +24,13 @@ export const StateContext = ({ children }) => {
   let foundProduct;
   let index;
 
-  useEffect(() => {
+  /*useEffect(() => {
     const allCountries = airports.map((airport) => {
-      return airport.country;
+      return airport.country_code;
     });
     const uniqueCountries = ["Location (any)", ...new Set(allCountries)];
     setCountries(uniqueCountries);
-  }, []);
+  }, []);*/
 
   /* CARRITO DE COMPRA */
   // Agregar al carrito
@@ -112,12 +113,12 @@ export const StateContext = ({ children }) => {
   return (
     <Context.Provider
       value={{
-        airports,
-        setAirports,
-        country,
-        setCountry,
-        countries,
-        setCountries,
+        //airports,
+        //setAirports,
+        //country,
+        //setCountry,
+        //countries,
+        //setCountries,
         selectedAirport,
         setSelectedAirport,
         loading,

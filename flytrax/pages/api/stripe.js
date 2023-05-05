@@ -16,8 +16,8 @@ export default async function handler(req, res) {
                 payment_method_types: ['card'],
                 billing_address_collection: 'auto',
                 shipping_options: [
-                  { shipping_rate: 'shr_1MxIW8G9zSL93zYCAwA9eWsD' }, //envio gratis
-                  { shipping_rate: 'shr_1MxIX4G9zSL93zYC0yWC2Oya' } //envio express
+                  { shipping_rate: 'shr_1N40XdAxcgsUGFwsNQfSchUA' }, //envio gratis
+                  { shipping_rate: 'shr_1N40YRAxcgsUGFwsSXHrBT2H' } //envio express
                 ],
 
                 line_items: req.body.map((item) => {
@@ -25,15 +25,15 @@ export default async function handler(req, res) {
                   let img;
 
                   if(item.name === 'Camiseta Flytrax 1'){
-                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTXhJU0xHOXpTTDkzellDfGZsX3Rlc3RfM0NoOTZtT2NyNHhDU2R5MGdnSTN1OXpS00fUboPf29"
+                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTjQwUFRBeGNnc1VHRndzfGZsX3Rlc3RfdTI3ekdIUXZROTQ3Z3cwSlBTWVNQbEpZ00DR3GhfJg"
                   } else if(item.name === 'Camiseta Flytrax 2'){
-                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTXhJU0xHOXpTTDkzellDfGZsX3Rlc3RfQ04wSEJYMnJPd1J4dnlHTjdJQ2FpeHUz00HiQtL005"
+                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTjQwUFRBeGNnc1VHRndzfGZsX3Rlc3RfTTVBTmFKblRidmhPdmg2VjNaZ3ZJUHoy003NaGKhte"
                   } else if(item.name === 'Camiseta Flytrax 3'){
-                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTXhJU0xHOXpTTDkzellDfGZsX3Rlc3RfOUR5bE5NWW15SkNPU0o2SUxLR1JoS3hN00F2nAN6kG"
+                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTjQwUFRBeGNnc1VHRndzfGZsX3Rlc3RfS01IeGVHRG0zNzhzOWxHM2NzbmpvSVZp00WIbfzwDy"
                   } else if(item.name === 'Camiseta Flytrax 4'){
-                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTXhJU0xHOXpTTDkzellDfGZsX3Rlc3RfTW5SMEtmOGhvNHR4b2llcHpoZVZLMzR5009A536mc9"
+                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTjQwUFRBeGNnc1VHRndzfGZsX3Rlc3RfdGNXWDZUTE90bmxabGZ5OEZWak1BemR000ATjKkpZU"
                   } else if(item.name === 'Camiseta Flytrax 5'){
-                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTXhJU0xHOXpTTDkzellDfGZsX3Rlc3RfejR1SEl6cGpkR1kwNWxMODYyelQ3cVlP009iHPEVRF"
+                    img = "https://files.stripe.com/links/MDB8YWNjdF8xTjQwUFRBeGNnc1VHRndzfGZsX3Rlc3Rfd3V0aVJsT091a1d0dVNMODlPU0JBQU53008bbO0pLo"
                   }
                   
                   {console.log("El precio es: ", (item.price * 100).toFixed(0))}

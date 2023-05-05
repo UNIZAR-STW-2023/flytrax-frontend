@@ -31,6 +31,21 @@ export const airportsData = [
   },
 ];
 
+export const countryCodes = [
+  {
+    name: "Afganistán",
+    code: "AF",
+  },
+  {
+    name: "Albania",
+    code: "AL",
+  },
+  {
+    name: "Alemania",
+    code: "DE",
+  },
+]
+
 export const countriesData = [
   {
     name: "Afganistán",

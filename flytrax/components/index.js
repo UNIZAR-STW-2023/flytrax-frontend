@@ -5,7 +5,6 @@ import Layout from "./Layout";
 import Banner from "./Banner";
 import Loader from "./Loader";
 import MenuList from "./MenuList";
-import SearchSection from "./SearchSection";
 import ForoForm from "./foro/ForoForm";
 import ForoFeed from "./foro/ForoFeed";
 import ForoItem from "./foro/ForoItem";
@@ -25,7 +24,6 @@ export {
   Banner,
   Loader,
   MenuList,
-  SearchSection,
   ForoForm,
   ForoFeed,
   ForoItem,
