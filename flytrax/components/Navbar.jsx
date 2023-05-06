@@ -9,9 +9,11 @@ import { getCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import CustomLink from "./CustomLink";
 import MenuList from "./MenuList";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   const router = useRouter();
+  const { data: session } = useSession();
 
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(false);
@@ -36,7 +38,7 @@ const Navbar = () => {
     }, 500);
   };
 
-  return SESSION_COOKIE ? (
+  return SESSION_COOKIE || session ? (
     <nav className="max-lg:shadow-md h-24 w-full bg-slate-200 fixed top-0 left-0 shadow-md backdrop-blur-md navbar">
       <div className="flex justify-between mx-8 lg:mx-16 h-24">
         <div className="grid grid-cols-6 max-lg:w-full">

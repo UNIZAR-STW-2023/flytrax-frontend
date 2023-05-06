@@ -43,32 +43,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
+      width: "24ch",
       "&:focus": {
-        width: "20ch",
+        width: "30ch",
       },
     },
   },
 }));
 
-export default function SearchAppBar() {
+const SearchAppBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar color="info" position="sticky">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              className="italic"
+              placeholder="Busca aquí un aeropuerto..."
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
@@ -76,4 +70,6 @@ export default function SearchAppBar() {
       </AppBar>
     </Box>
   );
-}
+};
+
+export default SearchAppBar;

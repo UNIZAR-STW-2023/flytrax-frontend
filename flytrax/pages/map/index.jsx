@@ -5,11 +5,12 @@ import { InfoOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { getCookie } from "cookies-next";
 import Loader from "../../components/Loader";
-import SwipeableEdgeDrawer from "../../components/Sidebar";
+import { useSession } from "next-auth/react";
 
 const MapRendered = () => {
   const router = useRouter();
   const SESSION_COOKIE = getCookie("sessionToken");
+  const { data: session } = useSession();
   const BDC_API_KEY = "bdc_e893cb5013564fd3946b1cdad776c2e9";
 
   const [user, setUser] = useState(false);
@@ -78,7 +79,7 @@ const MapRendered = () => {
     getUserLocation();
   }, [router]);
 
-  return !SESSION_COOKIE ? (
+  return SESSION_COOKIE || session ? (
     <div className="flex flex-col items-center align-middle m-auto w-full my-24">
       <h1 className="my-10 text-black font-bold max-sm:text-3xl sm:text-4xl">
         Mapa de aeropuertos{" "}
@@ -90,7 +91,6 @@ const MapRendered = () => {
         />
       </h1>
       <div className="w-full px-5 lg:px-10">
-        <SwipeableEdgeDrawer />
         <Map latitude={latitude} longitude={longitude} country={country} />
       </div>
       <Snackbar

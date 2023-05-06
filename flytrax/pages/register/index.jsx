@@ -29,9 +29,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 // URLs para manejo de datos en la BD
-const registerURL = "https://flytrax-backend.vercel.app/users";
+const registerURL = "http://localhost:3000/users";
 
 const theme = createTheme({
   typography: {
@@ -67,13 +68,15 @@ const Register = () => {
     mode: "all",
   });
 
+  // Manejo de sesión y redirección
+  const { data: session } = useSession();
   const router = useRouter();
 
   // Variables de estado
   const [nickName, setNickName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(!session ? "" : session.user.email);
   const [birthday, setBirthday] = useState(dayjs());
   const [country, setCountry] = useState("");
   const [phone, setPhone] = useState("");
@@ -352,12 +355,17 @@ const Register = () => {
                   },
                 })}
                 className="col-span-9"
-                required
+                required={!session ? true : false}
                 id="filled"
                 type="email"
-                label="Correo electrónico"
-                placeholder="Introduce tu correo electrónico"
+                label={!session ? "Correo electrónico" : session.user.email}
+                placeholder={
+                  !session
+                    ? "Introduce tu correo electrónico"
+                    : session.user.email
+                }
                 variant="filled"
+                disabled={!session ? false : true}
                 onChange={({ target }) => setEmail(target.value)}
               />
             </div>

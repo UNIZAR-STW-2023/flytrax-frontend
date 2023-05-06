@@ -29,6 +29,8 @@ const theme = createTheme({
 });
 
 const RedirectRegister = ({ session }) => {
+  const router = useRouter();
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [newUser, setNewUser] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -49,7 +51,7 @@ const RedirectRegister = ({ session }) => {
         console.log("Entro al login");
         console.log(response);
         if (response.data.status === "No existe ese usuario") {
-          //setNewUser(true);
+          setNewUser(true);
           console.log(newUser);
           // Borrar sesión previa
           deleteCookie("sessionToken");
@@ -69,7 +71,7 @@ const RedirectRegister = ({ session }) => {
           setTimeout(() => {
             console.log("Es la primera vez que ingresas con este correo.");
             setLoading(true);
-            //router.push("/register");
+            router.push("/register");
           }, 5000);
         } else {
           setNewUser(false);
@@ -80,7 +82,6 @@ const RedirectRegister = ({ session }) => {
       });
   };
 
-  const router = useRouter();
   useEffect(() => {
     console.log(newUser);
     checkLoginUser();
@@ -106,7 +107,7 @@ const RedirectRegister = ({ session }) => {
               className="relative mx-auto rounded-full"
             />
             <div className="absolute inset-0 text-center justify-center w-full h-full">
-              <CircularProgress color="success" size={100} thickness="1.3" />
+              <CircularProgress color="success" size={100} thickness="1.5" />
             </div>
           </div>
           <button

@@ -14,15 +14,13 @@ import { Alert, Snackbar } from "@mui/material";
 import axios from "axios";
 import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
-import GoogleIcon from "../../assets/icons/google.svg";
-import Image from "next/image";
-import { useSession, signIn, getCsrfToken } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import RedirectRegister from "../../components/RedirectRegister";
 import GoogleButton from "../../components/buttons/GoogleButton";
 import GitHubButton from "../../components/buttons/GitHubButton";
 
 // URLs para manejo de datos en la BD
-const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
+const loginURL = "http://localhost:3000/loginUsers";
 
 const theme = createTheme({
   typography: {
@@ -58,10 +56,6 @@ const Login = () => {
   // Alertas de error
   const [showAlertEmpty, setShowAlertEmpty] = useState(false);
   const [showAlertLogin, setShowAlertLogin] = useState(false);
-
-  const handleGoogleLogin = () => {
-    signIn("google");
-  };
 
   // Mostrar contraseña
   const handleToggle = () => {
@@ -111,7 +105,8 @@ const Login = () => {
           deleteCookie("sessionToken");
           // Guardar sesión en una cookie (48h máximo)
           const adminSession = response.data.tokenAdmin;
-          const newSession = response.data.token;
+          const newSession = response.data.tokenUser;
+          console.log(response.data);
           if (adminSession === "") {
             setCookie("sessionToken", newSession, { maxAge: 60 * 60 * 24 * 2 });
           } else {
