@@ -20,7 +20,7 @@ import GoogleButton from "../../components/buttons/GoogleButton";
 import GitHubButton from "../../components/buttons/GitHubButton";
 
 // URLs para manejo de datos en la BD
-const loginURL = "http://localhost:3000/loginUsers";
+const loginURL = "https://flytrax-backend/loginUsers";
 
 const theme = createTheme({
   typography: {
