@@ -10,6 +10,9 @@ import { useRouter } from "next/router";
 import CustomLink from "./CustomLink";
 import MenuList from "./MenuList";
 import { useSession } from "next-auth/react";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import Carrito from "./Carrito";
+import { useStateContext } from "../context/StateContext";
 
 const Navbar = () => {
   const router = useRouter();
@@ -19,6 +22,7 @@ const Navbar = () => {
   const [user, setUser] = useState(false);
 
   const SESSION_COOKIE = getCookie("sessionToken");
+  const { showCart, setShowCart, totalQuantities } = useStateContext(); //para el carrito
 
   useEffect(() => {
     // Fetch user cookie value
@@ -158,6 +162,26 @@ const Navbar = () => {
             >
               Contacto
             </CustomLink>
+            <CustomLink
+              className="hover:text-orange-600 ease-in-out duration-150"
+              to={"/store"}
+            >
+              Tienda
+            </CustomLink>
+
+            {/* Carrito */}
+            <button
+              type="button"
+              className="cart-icon mr-5"
+              onClick={() => setShowCart(!showCart)}
+            >
+              <AiOutlineShoppingCart />
+              <span className="cart-item-qty">{totalQuantities}</span>{" "}
+              {/* LOGO DEL CARROITO */}
+            </button>
+
+            {/* si la variable showCart es true entonces renderizamos el carrito */}
+            {showCart && <Carrito />}
           </div>
           <div
             data-test="join-web-button"

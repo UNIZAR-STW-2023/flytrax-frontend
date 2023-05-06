@@ -31,6 +31,21 @@ export const airportsData = [
   },
 ];
 
+export const countryCodes = [
+  {
+    name: "Afganistán",
+    code: "AF",
+  },
+  {
+    name: "Albania",
+    code: "AL",
+  },
+  {
+    name: "Alemania",
+    code: "DE",
+  },
+]
+
 export const countriesData = [
   {
     name: "Afganistán",
@@ -884,6 +899,44 @@ export const usersData = [
     username: "user 8",
     email: "123@mail.com",
     active: true,
+  },
+];
+
+export const productsData = [
+  {
+    _id: 1,
+    name: "Camiseta Flytrax 1",
+    price: 19.99,
+    image: ["/images/camiseta_1_total.jpg", "/images/camiseta_1_delante.png", "/images/camiseta_1_detras.png"],
+    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
+  },
+  {
+    _id: 2,
+    name: "Camiseta Flytrax 2",
+    price: 19.99,
+    image: ["/images/camiseta_2_total.jpg", "/images/camiseta_2_delante.png", "/images/camiseta_2_detras.png"],
+    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
+  },
+  {
+    _id: 3,
+    name: "Camiseta Flytrax 3",
+    price: 19.99,
+    image: ["/images/camiseta_3_total.jpg", "/images/camiseta_3_delante.png", "/images/camiseta_3_detras.png"],
+    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
+  },
+  {
+    _id: 4,
+    name: "Camiseta Flytrax 4",
+    price: 19.99,
+    image: ["/images/camiseta_4_total.jpg", "/images/camiseta_4_delante.png", "/images/camiseta_4_detras.png"],
+    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
+  },
+  {
+    _id: 5,
+    name: "Camiseta Flytrax 5",
+    price: 19.99,
+    image: ["/images/camiseta_5_total.jpg", "/images/camiseta_5_delante.jpg", "/images/camiseta_5_detras.jpg"],
+    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
   },
 ];
 

@@ -5,7 +5,6 @@ import Layout from "./Layout";
 import Banner from "./Banner";
 import Loader from "./Loader";
 import MenuList from "./MenuList";
-import SearchSection from "./SearchSection";
 import ForoForm from "./foro/ForoForm";
 import ForoFeed from "./foro/ForoFeed";
 import ForoItem from "./foro/ForoItem";
@@ -14,6 +13,8 @@ import CommentItem from "./foro/comments/CommentItem";
 import Sidebar from "./admin/Sidebar";
 import AdminUsuarios from "./admin/usuarios";
 import PanelesCard from "./PanelesCard";
+import ProductCard from "./ProductCard";
+import Carrito from "./Carrito";
 
 export {
   AirportCard,
@@ -23,7 +24,6 @@ export {
   Banner,
   Loader,
   MenuList,
-  SearchSection,
   ForoForm,
   ForoFeed,
   ForoItem,
@@ -32,4 +32,6 @@ export {
   Sidebar,
   AdminUsuarios,
   PanelesCard,
+  ProductCard,
+  Carrito,
 };
