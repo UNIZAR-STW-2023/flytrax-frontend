@@ -17,6 +17,7 @@ const PanelesCard = () => {
       { field: "puerta", headerName: "Puerta", width: 200 },
       { field: "observaciones", headerName: "Observaciones", width: 200 },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [rowId]
   );
 

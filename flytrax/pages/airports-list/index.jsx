@@ -7,7 +7,6 @@ import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const AirportsList = () => {
-
   const [selectedName, setSelectedName] = useState("");
   const [selectedIata, setSelectedIata] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -22,8 +21,10 @@ const AirportsList = () => {
   const airportName = aeropuertos.map((airport) => airport.name);
 
   const countryCodes = aeropuertos.map((airport) => airport.country_code);
-  const airportCountry = countryCodes.filter((code, index, array) => array.indexOf(code) === index);
-  
+  const airportCountry = countryCodes.filter(
+    (code, index, array) => array.indexOf(code) === index
+  );
+
   const airportIata = aeropuertos.map((airport) => airport.iata_code);
 
   const deleteSearch = () => {
@@ -33,46 +34,46 @@ const AirportsList = () => {
     setAirports(aeropuertos);
   };
 
-
   /* Cada vez quee cambie el valor de selected entonces se filtra */
   useEffect(() => {
-    console.log("Selected Name: " + selectedName)
-    console.log("Selected Iata: " + selectedIata)
-    console.log("Selected Country: " + selectedCountry)
+    console.log("Selected Name: " + selectedName);
+    console.log("Selected Iata: " + selectedIata);
+    console.log("Selected Country: " + selectedCountry);
 
     if (selectedName !== "") {
       const filtrado = aeropuertos.filter((item) => item.name === selectedName);
-      console.log("Filtrado: " + filtrado)
+      console.log("Filtrado: " + filtrado);
 
-      if(airports.length == longTotal){
+      if (airports.length == longTotal) {
         setAirports(filtrado);
       } else {
         setAirports(airports.concat(filtrado));
       }
-      setSelectedName("")
-    }
-    else if (selectedIata !== "") {
-      const filtrado = aeropuertos.filter((item) => item.iata_code === selectedIata);
-      console.log("Filtrado: " + filtrado)
-      if(airports.length == longTotal){
+      setSelectedName("");
+    } else if (selectedIata !== "") {
+      const filtrado = aeropuertos.filter(
+        (item) => item.iata_code === selectedIata
+      );
+      console.log("Filtrado: " + filtrado);
+      if (airports.length == longTotal) {
         setAirports(filtrado);
       } else {
         setAirports(airports.concat(filtrado));
       }
       setSelectedIata("");
-    } 
-    else if (selectedCountry !== "") {
-      const filtrado = aeropuertos.filter((item) => item.country_code === selectedCountry);
-      if(airports.length == longTotal){
+    } else if (selectedCountry !== "") {
+      const filtrado = aeropuertos.filter(
+        (item) => item.country_code === selectedCountry
+      );
+      if (airports.length == longTotal) {
         setAirports(filtrado);
       } else {
         setAirports(airports.concat(filtrado));
       }
       setSelectedCountry("");
-    } 
-
-  }, [selectedName, selectedIata, selectedCountry])
-
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedName, selectedIata, selectedCountry]);
 
   function getMatches(query, vector) {
     const matches = [];
@@ -99,10 +100,9 @@ const AirportsList = () => {
       return [];
     } else {
       for (let i = 0; i < vector.length && count < 3; i++) {
-      
         query = query.toUpperCase();
-        
-        if (query.length == 3){
+
+        if (query.length == 3) {
           let vector_aux = vector[i];
           if (vector_aux === query) {
             matches.push(vector[i]);
@@ -122,20 +122,17 @@ const AirportsList = () => {
     return matches;
   }
 
-  const filteredAirportName = getMatches(queryName, airportName)
-  const filteredAirportIata = getMatchesIata(queryIata, airportIata)
-  const filteredAirportCountry = getMatches(queryCountry, airportCountry)
+  const filteredAirportName = getMatches(queryName, airportName);
+  const filteredAirportIata = getMatchesIata(queryIata, airportIata);
+  const filteredAirportCountry = getMatches(queryCountry, airportCountry);
 
   return (
     <div className="max-w-[1400px] m-auto w-full my-24">
-
       {/* Banner */}
       <section className="h-full max-h-[640px] mt-20 xl:mb-16">
-        
         <Banner />
         {/* Search Section */}
         <div className="px-[30px] py-6 max-w-[1170px] mx-auto flex flex-col lg:flex-row justify-between gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-lg bg-white lg:bg-transparent rounded-lg">
-  
           {/* Airport by Country Searcher */}
           <div className="w-full cursor-pointer relative">
             <h1 className="font-light text-sm">Search by Country Code </h1>
@@ -147,7 +144,6 @@ const AirportsList = () => {
                     displayValue={(airport) => airport}
                     onChange={(event) => setQueryCountry(event.target.value)}
                   />
-                
                 </div>
                 <Transition
                   as={Fragment}
@@ -157,7 +153,8 @@ const AirportsList = () => {
                   afterLeave={() => setQueryCountry("")}
                 >
                   <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {filteredAirportCountry.length === 0 && queryCountry !== "" ? (
+                    {filteredAirportCountry.length === 0 &&
+                    queryCountry !== "" ? (
                       <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                         Nothing found.
                       </div>
@@ -167,7 +164,9 @@ const AirportsList = () => {
                           key={airport}
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              active ? "bg-teal-600 text-white" : "text-gray-900"
+                              active
+                                ? "bg-teal-600 text-white"
+                                : "text-gray-900"
                             }`
                           }
                           value={airport}
@@ -187,7 +186,10 @@ const AirportsList = () => {
                                     active ? "text-white" : "text-teal-600"
                                   }`}
                                 >
-                                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
                                 </span>
                               ) : null}
                             </>
@@ -212,7 +214,6 @@ const AirportsList = () => {
                     displayValue={(airport) => airport}
                     onChange={(event) => setQueryIata(event.target.value)}
                   />
-                
                 </div>
                 <Transition
                   as={Fragment}
@@ -232,7 +233,9 @@ const AirportsList = () => {
                           key={airport}
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              active ? "bg-teal-600 text-white" : "text-gray-900"
+                              active
+                                ? "bg-teal-600 text-white"
+                                : "text-gray-900"
                             }`
                           }
                           value={airport}
@@ -252,7 +255,10 @@ const AirportsList = () => {
                                     active ? "text-white" : "text-teal-600"
                                   }`}
                                 >
-                                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
                                 </span>
                               ) : null}
                             </>
@@ -277,7 +283,6 @@ const AirportsList = () => {
                     displayValue={(airport) => airport}
                     onChange={(event) => setQueryName(event.target.value)}
                   />
-                
                 </div>
                 <Transition
                   as={Fragment}
@@ -297,7 +302,9 @@ const AirportsList = () => {
                           key={airport}
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              active ? "bg-teal-600 text-white" : "text-gray-900"
+                              active
+                                ? "bg-teal-600 text-white"
+                                : "text-gray-900"
                             }`
                           }
                           value={airport}
@@ -317,7 +324,10 @@ const AirportsList = () => {
                                     active ? "text-white" : "text-teal-600"
                                   }`}
                                 >
-                                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
                                 </span>
                               ) : null}
                             </>
@@ -329,26 +339,19 @@ const AirportsList = () => {
                 </Transition>
               </div>
             </Combobox>
-
-            
-
           </div>
 
           {/* Search Button */}
-          <button 
+          <button
             className="bg-red-700 hover:bg-red-800 transition w-full lg:max-w-[75px] h-16 rounded-lg flex justify-center items-center text-white text-lg mt-5"
             onClick={() => deleteSearch()}
           >
             <FaTrashAlt />
           </button>
         </div>
-
-
-
-
       </section>
 
-      {/* Airport Cards */}      
+      {/* Airport Cards */}
       <AirportCard aeropuertos={airports} />
     </div>
   );

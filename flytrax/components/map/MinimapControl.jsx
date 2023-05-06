@@ -39,6 +39,7 @@ function MinimapBounds({ parentMap, zoom }) {
   }, [minimap, parentMap, zoom]);
 
   // Listen to events on the parent map
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handlers = useMemo(() => ({ move: onChange, zoom: onChange }), []);
   useEventHandlers({ instance: parentMap }, handlers);
 
@@ -66,6 +67,7 @@ function MinimapControl({ position, zoom }) {
         <MinimapBounds parentMap={parentMap} zoom={mapZoom} />
       </MapContainer>
     ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 

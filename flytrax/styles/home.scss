@@ -4,7 +4,7 @@ $ease_out: cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: 700ms $ease_out;
 
   &:hover {
-    transition: 400ms $ease_out;
+    transition: 700ms $ease_out;
   }
 }
 

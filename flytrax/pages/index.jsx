@@ -13,7 +13,7 @@ const Home = () => {
         </div>
         <div data-test="join-button">
           <Link
-            className="my-10 backdrop-blur-sm drop-shadow-md gradient-btn text-gray-700 border-gray-700 max-sm:text-sm"
+            className="my-10 backdrop-blur-sm drop-shadow-md gradient-btn text-gray-700 border-gray-700 hover:border-gray-50 transition ease-out duration-700 max-sm:text-sm"
             href="/login"
           >
             Únete ahora

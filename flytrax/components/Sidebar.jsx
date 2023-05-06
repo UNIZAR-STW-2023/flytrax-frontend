@@ -16,7 +16,6 @@ import {
   KeyboardDoubleArrowUp,
   Search,
 } from "@mui/icons-material";
-import SearchAppBar from "./Search";
 import { getDistance } from "geolib";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
