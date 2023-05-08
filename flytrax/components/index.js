@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import Layout from "./Layout";
 import Banner from "./Banner";
 import Loader from "./Loader";
-import MenuList from "./MenuList";
 import ForoForm from "./foro/ForoForm";
 import ForoFeed from "./foro/ForoFeed";
 import ForoItem from "./foro/ForoItem";
@@ -23,7 +22,6 @@ export {
   Layout,
   Banner,
   Loader,
-  MenuList,
   ForoForm,
   ForoFeed,
   ForoItem,

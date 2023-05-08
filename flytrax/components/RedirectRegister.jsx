@@ -114,7 +114,7 @@ const RedirectRegister = ({ session }) => {
             onClick={() => {
               signOut();
             }}
-            className="items-center w-1/2 bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10 my-3"
+            className="items-center w-2/3 bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10 my-3"
           >
             Cerrar sesión
           </button>

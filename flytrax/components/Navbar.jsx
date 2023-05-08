@@ -8,21 +8,59 @@ import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { getCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import CustomLink from "./CustomLink";
-import MenuList from "./MenuList";
 import { useSession } from "next-auth/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Carrito from "./Carrito";
 import { useStateContext } from "../context/StateContext";
+import {
+  AppBar,
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  SwipeableDrawer,
+} from "@mui/material";
 
 const Navbar = () => {
+  // Rutas y sesión de usuario
   const router = useRouter();
   const { data: session } = useSession();
 
-  const [open, setOpen] = useState(false);
-  const [user, setUser] = useState(false);
-
+  // Cookie de la sesión
   const SESSION_COOKIE = getCookie("sessionToken");
-  const { showCart, setShowCart, totalQuantities } = useStateContext(); //para el carrito
+
+  // Links para el menú de navegación (logged in)
+  const linksLoggedIN = [
+    {
+      name: "Mapa",
+      value: "/map",
+    },
+    { name: "Aeropuertos", value: "" },
+    { name: "Favoritos", value: "" },
+    { name: "Tienda", value: "/store" },
+  ];
+
+  // Links para el menú de navegación (logged out)
+  const linksLoggedOUT = [
+    {
+      name: "Quiénes somos",
+      value: "",
+    },
+    { name: "Contacto", value: "" },
+    { name: "FAQ", value: "/faq" },
+    { name: "Tienda", value: "/store" },
+  ];
+
+  // Posición del menú de navegación
+  const anchor = "top";
+
+  const [user, setUser] = useState(false);
+  const [state, setState] = useState({
+    top: false,
+  });
+
+  // Variables para el carrito
+  const { showCart, setShowCart, totalQuantities } = useStateContext();
 
   useEffect(() => {
     // Fetch user cookie value
@@ -41,6 +79,171 @@ const Navbar = () => {
       router.push("/");
     }, 500);
   };
+
+  // Abrir y cerrar el menú de navegación
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  // Lista del menú de navegación (logged in)
+  const listLoggedIN = (anchor) => (
+    <Box sx={{ width: anchor === "top" ? "auto" : 250 }} role="presentation">
+      <AppBar
+        sx={{
+          background: "linear-gradient(220.55deg, #5D85A6 0%, #0E2C5E 100%)",
+        }}
+        position="sticky"
+      ></AppBar>
+      <List
+        onClick={toggleDrawer(anchor, false)}
+        sx={{
+          height: 380,
+          paddingTop: 13,
+          fontSize: 20,
+        }}
+      >
+        {linksLoggedIN.map((item, index) => (
+          <ListItem
+            id="list-top"
+            onKeyDown={toggleDrawer(anchor, false)}
+            disablePadding
+            key={index}
+            sx={{
+              borderBottom: "2px dashed #E5E5E5",
+              borderTop: "2px dashed #E5E5E5",
+            }}
+          >
+            <ListItemButton
+              sx={{
+                marginX: "auto",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: 50,
+              }}
+            >
+              <CustomLink
+                className="hover:text-orange-600 ease-in-out duration-150 uppercase"
+                to={item.value}
+              >
+                {item.name}
+              </CustomLink>
+            </ListItemButton>
+          </ListItem>
+        ))}
+        <ListItem
+          id="list-bottom"
+          onKeyDown={toggleDrawer(anchor, false)}
+          disablePadding
+          sx={{
+            borderBottom: "2px dashed #E5E5E5",
+            borderTop: "2px dashed #E5E5E5",
+          }}
+        >
+          <ListItemButton
+            sx={{
+              marginX: "auto",
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: 50,
+            }}
+          >
+            <CustomLink
+              className="hover:text-orange-600 ease-in-out duration-150 uppercase"
+              to={"/login"}
+            >
+              Perfil
+            </CustomLink>
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  );
+
+  // Lista del menú de navegación (logged out)
+  const listLoggedOUT = (anchor) => (
+    <Box sx={{ width: anchor === "top" ? "auto" : 250 }} role="presentation">
+      <AppBar
+        sx={{
+          background: "linear-gradient(220.55deg, #5D85A6 0%, #0E2C5E 100%)",
+        }}
+        position="sticky"
+      ></AppBar>
+      <List
+        onClick={toggleDrawer(anchor, false)}
+        sx={{ height: 380, paddingTop: 13, fontSize: 20 }}
+      >
+        {linksLoggedOUT.map((item, index) => (
+          <ListItem
+            id="list-top"
+            onKeyDown={toggleDrawer(anchor, false)}
+            disablePadding
+            key={index}
+            sx={{
+              borderBottom: "2px dashed #E5E5E5",
+              borderTop: "2px dashed #E5E5E5",
+            }}
+          >
+            <ListItemButton
+              sx={{
+                marginX: "auto",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: 50,
+              }}
+            >
+              <CustomLink
+                className="hover:text-orange-600 ease-in-out duration-150 uppercase"
+                to={item.value}
+              >
+                {item.name}
+              </CustomLink>
+            </ListItemButton>
+          </ListItem>
+        ))}
+        <ListItem
+          id="list-bottom"
+          onKeyDown={toggleDrawer(anchor, false)}
+          disablePadding
+          sx={{
+            borderBottom: "2px dashed #E5E5E5",
+            borderTop: "2px dashed #E5E5E5",
+          }}
+        >
+          <ListItemButton
+            sx={{
+              marginX: "auto",
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: 50,
+            }}
+          >
+            <CustomLink
+              className="font-bold hover:text-orange-600 ease-in-out duration-150 uppercase"
+              to={"/login"}
+            >
+              Entrar
+            </CustomLink>
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  );
 
   return SESSION_COOKIE || session ? (
     <nav className="max-lg:shadow-md h-24 w-full bg-slate-200 fixed top-0 left-0 shadow-md backdrop-blur-md navbar">
@@ -64,10 +267,10 @@ const Navbar = () => {
           <button
             data-test="menu-button"
             className="sm:hidden col-span-1 text-orange-600"
-            onClick={() => setOpen(!open)}
+            onClick={toggleDrawer(anchor, true)}
           >
             <FontAwesomeIcon
-              icon={open ? faClose : faBars}
+              icon={state.top ? faClose : faBars}
               size="3x"
               className="scale-75 md:scale-50"
             />
@@ -75,40 +278,42 @@ const Navbar = () => {
         </div>
         <div className="flex max-sm:hidden">
           <div className="flex items-center col-span-4 gap-6 uppercase m-3 max-md:text-sm">
-            <CustomLink
-              className="hover:text-orange-600 ease-in-out duration-150"
-              to={"/map"}
-            >
-              Mapa
-            </CustomLink>
-            <CustomLink
-              className="hover:text-orange-600 ease-in-out duration-150"
-              to={""}
-            >
-              Favoritos
-            </CustomLink>
-            <CustomLink
-              className="hover:text-orange-600 ease-in-out duration-150"
-              to={""}
-            >
-              Perfil
-            </CustomLink>
+            {linksLoggedIN.map((item, index) => (
+              <CustomLink
+                className="hover:text-orange-600 ease-in-out duration-150 uppercase"
+                key={index}
+                to={item.value}
+              >
+                {item.name}
+              </CustomLink>
+            ))}
           </div>
           <div
             data-test="join-web-button"
             className="flex border-l-2 col-span-1 border-l-gray-600 pl-6 items-center gap-6 uppercase m-3"
           >
             <CustomLink
-              className="font-bold text-xl hover:text-orange-600 ease-in-out duration-150"
+              className="text-xl hover:text-orange-600 ease-in-out duration-150"
               to={"/login"}
             >
-              Entrar
+              Perfil
             </CustomLink>
           </div>
         </div>
       </div>
       <div className="md:hidden">
-        <MenuList open={open} />
+        <div>
+          <React.Fragment key={anchor}>
+            <SwipeableDrawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+              onOpen={toggleDrawer(anchor, true)}
+            >
+              {listLoggedIN(anchor)}
+            </SwipeableDrawer>
+          </React.Fragment>
+        </div>
       </div>
     </nav>
   ) : (
@@ -133,10 +338,10 @@ const Navbar = () => {
           <button
             data-test="menu-button"
             className="sm:hidden col-span-1 text-orange-600"
-            onClick={() => setOpen(!open)}
+            onClick={toggleDrawer(anchor, true)}
           >
             <FontAwesomeIcon
-              icon={open ? faClose : faBars}
+              icon={state.top ? faClose : faBars}
               size="3x"
               className="scale-75 md:scale-50"
             />
@@ -144,30 +349,15 @@ const Navbar = () => {
         </div>
         <div className="flex max-sm:hidden">
           <div className="flex items-center col-span-4 gap-6 uppercase m-3 max-md:text-sm">
-            <CustomLink
-              className="hover:text-orange-600 ease-in-out duration-150"
-              to={""}
-            >
-              Quiénes somos
-            </CustomLink>
-            <CustomLink
-              className="hover:text-orange-600 ease-in-out duration-150"
-              to={"/faq"}
-            >
-              FAQ
-            </CustomLink>
-            <CustomLink
-              className="hover:text-orange-600 ease-in-out duration-150"
-              to={""}
-            >
-              Contacto
-            </CustomLink>
-            <CustomLink
-              className="hover:text-orange-600 ease-in-out duration-150"
-              to={"/store"}
-            >
-              Tienda
-            </CustomLink>
+            {linksLoggedOUT.map((item, index) => (
+              <CustomLink
+                className="hover:text-orange-600 ease-in-out duration-150 uppercase"
+                key={index}
+                to={item.value}
+              >
+                {item.name}
+              </CustomLink>
+            ))}
 
             {/* Carrito */}
             <button
@@ -197,7 +387,18 @@ const Navbar = () => {
         </div>
       </div>
       <div className="md:hidden">
-        <MenuList open={open} />
+        <div>
+          <React.Fragment key={anchor}>
+            <SwipeableDrawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+              onOpen={toggleDrawer(anchor, true)}
+            >
+              {listLoggedOUT(anchor)}
+            </SwipeableDrawer>
+          </React.Fragment>
+        </div>
       </div>
     </nav>
   );
