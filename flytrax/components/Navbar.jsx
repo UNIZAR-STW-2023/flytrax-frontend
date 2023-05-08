@@ -112,7 +112,7 @@ const Navbar = () => {
       >
         {linksLoggedIN.map((item, index) => (
           <ListItem
-            id="list-top"
+            id="list-login"
             onKeyDown={toggleDrawer(anchor, false)}
             disablePadding
             key={index}
@@ -141,7 +141,7 @@ const Navbar = () => {
           </ListItem>
         ))}
         <ListItem
-          id="list-bottom"
+          id="list-login-b"
           onKeyDown={toggleDrawer(anchor, false)}
           disablePadding
           sx={{
@@ -186,7 +186,7 @@ const Navbar = () => {
       >
         {linksLoggedOUT.map((item, index) => (
           <ListItem
-            id="list-top"
+            id="list-logout"
             onKeyDown={toggleDrawer(anchor, false)}
             disablePadding
             key={index}
@@ -215,7 +215,7 @@ const Navbar = () => {
           </ListItem>
         ))}
         <ListItem
-          id="list-bottom"
+          id="list-logout-b"
           onKeyDown={toggleDrawer(anchor, false)}
           disablePadding
           sx={{
