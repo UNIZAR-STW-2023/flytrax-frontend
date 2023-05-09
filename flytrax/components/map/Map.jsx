@@ -13,6 +13,7 @@ import Loader from "../Loader";
 import { getDistance } from "geolib";
 import { useCallback } from "react";
 import { Navigation } from "@mui/icons-material";
+import Link from "next/link";
 
 const BDC_API_KEY = "bdc_e893cb5013564fd3946b1cdad776c2e9";
 
@@ -58,15 +59,6 @@ const Map = ({ latitude, longitude }) => {
     };
 
     const getAirports = async () => {
-      /* await axios
-        .get(AirLabs_URL)
-        .then((response) => {
-          setAirports(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log("Error fetching the data: ", error);
-        }); */
       let distancias = [];
       let aeropuertos = [];
 
@@ -89,12 +81,10 @@ const Map = ({ latitude, longitude }) => {
             }
           });
           setDistance(distancias);
-          console.log(distance);
           const matching = aeropuertos.filter((o1) =>
             distancias.some((o2) => o1.iata_code === o2.iata_code)
           );
           setMatchingAirports(matching);
-          console.log(matching);
         })
         .catch((error) => console.error(error));
     };
@@ -124,10 +114,10 @@ const Map = ({ latitude, longitude }) => {
 
   const handleResetLocation = () => {
     setValue(DEFAULT_POSITION);
-    setData({ name: "Estás aquí", iata_code: "" });
+    setData({ name: "Estás aquí", iata_code: "HERE" });
   };
 
-  return !loading ? (
+  return (
     <div id="map">
       <div className="flex gap-2 max-sm:justify-between">
         <SwipeableEdgeDrawer
@@ -175,9 +165,9 @@ const Map = ({ latitude, longitude }) => {
             icon={airportLocation}
           >
             <Popup>
-              <span>
+              <Link href={`/airport/${coord.iata_code}`}>
                 {coord.name} ({coord.iata_code})
-              </span>
+              </Link>
             </Popup>
           </Marker>
         ))}
@@ -185,8 +175,6 @@ const Map = ({ latitude, longitude }) => {
         <LocationMarker value={value} data={data} />
       </MapContainer>
     </div>
-  ) : (
-    <Loader />
   );
 };
 

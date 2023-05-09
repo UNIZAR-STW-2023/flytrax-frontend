@@ -17,6 +17,7 @@ const MapRendered = () => {
   const [country, setCountry] = useState("");
   const [latitude, setLatitude] = useState(41.6533533620931); // Default latitude
   const [longitude, setLongitude] = useState(-0.8903464782373229); // Default longitude
+  const [loading, setLoading] = useState(true);
 
   // Alerta de información
   const [showAlertInfo, setShowAlertInfo] = useState(false);
@@ -42,6 +43,7 @@ const MapRendered = () => {
       } catch (error) {
         console.error("Failed to get country from location:", error);
       }
+      setTimeout(() => setLoading(false), 1500);
     };
 
     // Fetch user cookie value

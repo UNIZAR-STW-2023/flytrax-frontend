@@ -79,40 +79,24 @@ const SwipeableTemporaryDrawer = ({
   useEffect(() => {
     onValueChange(position);
     const getAirports = async () => {
-      /* await axios
-        .get(AirLabs_URL)
-        .then((response) => {
-          setAirports(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log("Error fetching the data: ", error);
-        }); */
-      let distancias = [];
       let aeropuertos = [];
 
       await fetch("assets/data/[AirLabs]_Airports.json")
         .then((response) => response.json())
         .then((data) => {
+          console.log(data.response);
           // Use the data from the JSON file
-          aeropuertos = data.response;
-          setAirports(data.response);
-          /* aeropuertos.map((airport) => {
-            const distance = getDistance(
-              { latitude: latitude, longitude: longitude },
-              { latitude: airport.lat, longitude: airport.lng }
-            );
-            if (distance / 1000 < 300 && airport.iata_code != null) {
-              distancias.push({
-                iata_code: airport.iata_code,
-                dist: (distance / 1000).toFixed(2),
-              });
-            }
-          });
-          setDistance(distancias); */
+          aeropuertos.push(...data.response);
+          setAirports(
+            aeropuertos.filter(
+              (object) =>
+                object.iata_code !== undefined && object.iata_code !== null
+            )
+          );
         })
         .catch((error) => console.error(error));
     };
+    console.log(airports);
     getAirports();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [position]);
@@ -164,6 +148,7 @@ const SwipeableTemporaryDrawer = ({
               return airport;
             } else if (
               airport.name.toLowerCase().includes(query.toLowerCase()) ||
+              airport.iata_code.toLowerCase().includes(query.toLowerCase()) ||
               airport.country_code.toLowerCase().includes(query.toLowerCase())
             ) {
               return airport;

@@ -4,7 +4,7 @@ import { CircularProgress } from "@mui/material";
 
 const Loader = () => {
   return (
-    <div className="App-header select-none pt-24">
+    <div className="loader-style w-full rounded-md select-none pt-24">
       <h1 className="text-4xl font-bold">
         Cargando...
         <div className="flex relative pt-3 top-0 left-0 h-full w-full align-middle justify-center">
