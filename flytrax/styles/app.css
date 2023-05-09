@@ -6,27 +6,27 @@
 
 @font-face {
   font-family: SF-Pro-Light;
-  src: url(../assets/fonts/SF-Pro-Display-Light.otf);
+  src: url(/assets/fonts/SF-Pro-Display-Light.otf);
 }
 
 @font-face {
   font-family: SF-Pro-Medium;
-  src: url(../assets/fonts/SF-Pro-Display-Medium.otf);
+  src: url(/assets/fonts/SF-Pro-Display-Medium.otf);
 }
 
 @font-face {
   font-family: SF-Pro-Regular;
-  src: url(../assets/fonts/SF-Pro-Display-Regular.otf);
+  src: url(/assets/fonts/SF-Pro-Display-Regular.otf);
 }
 
 @font-face {
   font-family: SF-Pro-Ultralight;
-  src: url(../assets/fonts/SF-Pro-Display-Ultralight.otf);
+  src: url(/assets/fonts/SF-Pro-Display-Ultralight.otf);
 }
 
 @font-face {
   font-family: SF-Pro-UltralightItalic;
-  src: url(../assets/fonts/SF-Pro-Display-UltralightItalic.otf);
+  src: url(/assets/fonts/SF-Pro-Display-UltralightItalic.otf);
 }
 
 @font-face {
@@ -36,12 +36,12 @@
 
 @font-face {
   font-family: VT323-Regular;
-  src: url(../assets/fonts/VT323-Regular.ttf);
+  src: url(/assets/fonts/VT323-Regular.ttf);
 }
 
 @font-face {
   font-family: Oswald;
-  src: url(../assets/fonts/Oswald-VariableFont_wght.ttf);
+  src: url(/assets/fonts/Oswald-VariableFont_wght.ttf);
 }
 
 * {
@@ -152,47 +152,47 @@
 
 .light-font {
   font-family: SF-Pro-Display-Light;
-  src: url(../assets/fonts/SF-Pro-Display-Light.otf);
+  src: url(/assets/fonts/SF-Pro-Display-Light.otf);
 }
 
 .medium-font {
   font-family: SF-Pro-Display-Medium;
-  src: url(../assets/fonts/SF-Pro-Display-Medium.otf);
+  src: url(/assets/fonts/SF-Pro-Display-Medium.otf);
 }
 
 .regular-font {
   font-family: SF-Pro-Display-Regular;
-  src: url(../assets/fonts/SF-Pro-Display-Regular.otf);
+  src: url(/assets/fonts/SF-Pro-Display-Regular.otf);
 }
 
 .ultralight-font {
   font-family: SF-Pro-Display-Ultralight;
-  src: url(../assets/fonts/SF-Pro-Display-Ultralight.otf);
+  src: url(/assets/fonts/SF-Pro-Display-Ultralight.otf);
 }
 
 .ultralightitalic-font {
   font-family: SF-Pro-Display-UltralightItalic;
-  src: url(../assets/fonts/SF-Pro-Display-UltralightItalic.otf);
+  src: url(/assets/fonts/SF-Pro-Display-UltralightItalic.otf);
 }
 
 .heavy-font {
   font-family: SF-Pro-Display-Heavy;
-  src: url(../assets/fonts/SF-Pro-Display-Heavy.otf);
+  src: url(/assets/fonts/SF-Pro-Display-Heavy.otf);
 }
 
 .heavyitalic-font {
   font-family: SF-Pro-Display-HeavyItalic;
-  src: url(../assets/fonts/SF-Pro-Display-HeavyItalic.otf);
+  src: url(/assets/fonts/SF-Pro-Display-HeavyItalic.otf);
 }
 
 .rounded-heavy-font {
   font-family: SF-Pro-Rounded-Heavy;
-  src: url(../assets/fonts/SF-Pro-Rounded-Heavy.otf);
+  src: url(/assets/fonts/SF-Pro-Rounded-Heavy.otf);
 }
 
 .flight-panel-head {
   font-family: PressStart2P-Regular;
-  src: url(../assets/fonts/PressStart2P-Regular.ttf);
+  src: url(/assets/fonts/PressStart2P-Regular.ttf);
 }
 
 .border-bottom {

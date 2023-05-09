@@ -7,7 +7,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import { Add, ArrowUpward, KeyboardDoubleArrowUp } from "@mui/icons-material";
 import axios from "axios";
