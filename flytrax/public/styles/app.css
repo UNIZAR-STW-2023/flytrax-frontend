@@ -215,14 +215,6 @@
   transition: background 0.3s ease-in-out;
 }
 
-.sort-arrow-block {
-  display: block;
-}
-
-.sort-arrow-hidden {
-  display: none;
-}
-
 @keyframes fade-in {
   0% {
     opacity: 0;

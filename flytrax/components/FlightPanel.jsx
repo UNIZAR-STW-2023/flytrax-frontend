@@ -115,10 +115,18 @@ function FlightPanel({ showDepartures, airport }) {
         aria-label="a dense table"
       >
         <TableHead id="table-top">
-          <TableRow className="uppercase">
+          <TableRow sx={{ textTransform: "uppercase" }}>
             <TableCell
-              className="w-1/6 text-yellow-400 font-bold cursor-pointer hover:bg-gray-700 transition ease-in-out duration-200"
               sx={{
+                width: "16.666666667%", // Equivalent to w-1/6
+                color: "#facc15", // Equivalent to text-yellow-400
+                fontWeight: "bold", // Equivalent to font-bold
+                cursor: "pointer", // Equivalent to cursor-pointer
+                transition: "background-color 200ms ease-in-out", // Equivalent to transition ease-in-out duration-200
+                "&:hover": {
+                  // Equivalent to hover:bg-gray-700
+                  backgroundColor: "#374151",
+                },
                 backgroundColor: "#111827",
                 fontFamily: "PressStart2P-Regular",
               }}
@@ -137,21 +145,30 @@ function FlightPanel({ showDepartures, airport }) {
                 Hora
                 <ArrowUpward
                   fontSize="medium"
-                  className={`${
-                    orderBy === "asc"
-                      ? "text-orange-400  -rotate-180 transition duration-300"
-                      : "text-teal-400 rotate-0 transition duration-300"
-                  } ${
-                    field === "dep_time_utc" || field === "arr_time_utc"
-                      ? "block"
-                      : "hidden"
-                  }`}
+                  sx={{
+                    color: orderBy === "asc" ? "#ff9800" : "#4db6ac",
+                    transform:
+                      orderBy === "asc" ? "rotate(-180deg)" : "rotate(0deg)",
+                    transition: "color 300ms, transform 300ms",
+                    display:
+                      field === "dep_time_utc" || field === "arr_time_utc"
+                        ? "block"
+                        : "none",
+                  }}
                 />
               </div>
             </TableCell>
             <TableCell
-              className="w-1/6 text-yellow-400 font-bold cursor-pointer hover:bg-gray-700 transition ease-in-out duration-200"
               sx={{
+                width: "16.666666667%", // Equivalent to w-1/6
+                color: "#facc15", // Equivalent to text-yellow-400
+                fontWeight: "bold", // Equivalent to font-bold
+                cursor: "pointer", // Equivalent to cursor-pointer
+                transition: "background-color 200ms ease-in-out", // Equivalent to transition ease-in-out duration-200
+                "&:hover": {
+                  // Equivalent to hover:bg-gray-700
+                  backgroundColor: "#374151",
+                },
                 backgroundColor: "#111827",
                 fontFamily: "PressStart2P-Regular",
               }}
@@ -170,17 +187,27 @@ function FlightPanel({ showDepartures, airport }) {
                 Vuelo
                 <ArrowUpward
                   fontSize="medium"
-                  className={`${
-                    orderBy === "asc"
-                      ? "text-orange-400  -rotate-180 transition duration-300"
-                      : "text-teal-400 rotate-0 transition duration-300"
-                  } ${field === "flight_iata" ? "block" : "hidden"}`}
+                  sx={{
+                    color: orderBy === "asc" ? "#ff9800" : "#4db6ac",
+                    transform:
+                      orderBy === "asc" ? "rotate(-180deg)" : "rotate(0deg)",
+                    transition: "color 300ms, transform 300ms",
+                    display: field === "flight_iata" ? "block" : "none",
+                  }}
                 />
               </div>
             </TableCell>
             <TableCell
-              className="w-1/6 text-yellow-400 font-bold cursor-pointer hover:bg-gray-700 transition ease-in-out duration-200"
               sx={{
+                width: "16.666666667%", // Equivalent to w-1/6
+                color: "#facc15", // Equivalent to text-yellow-400
+                fontWeight: "bold", // Equivalent to font-bold
+                cursor: "pointer", // Equivalent to cursor-pointer
+                transition: "background-color 200ms ease-in-out", // Equivalent to transition ease-in-out duration-200
+                "&:hover": {
+                  // Equivalent to hover:bg-gray-700
+                  backgroundColor: "#374151",
+                },
                 backgroundColor: "#111827",
                 fontFamily: "PressStart2P-Regular",
               }}
@@ -199,21 +226,30 @@ function FlightPanel({ showDepartures, airport }) {
                 {showDepartures ? "Destino" : "Origen"}
                 <ArrowUpward
                   fontSize="medium"
-                  className={`${
-                    orderBy === "asc"
-                      ? "text-orange-400  -rotate-180 transition duration-300"
-                      : "text-teal-400 rotate-0 transition duration-300"
-                  } ${
-                    field === "dep_iata" || field === "arr_iata"
-                      ? "block"
-                      : "hidden"
-                  }`}
+                  sx={{
+                    color: orderBy === "asc" ? "#ff9800" : "#4db6ac",
+                    transform:
+                      orderBy === "asc" ? "rotate(-180deg)" : "rotate(0deg)",
+                    transition: "color 300ms, transform 300ms",
+                    display:
+                      field === "dep_iata" || field === "arr_iata"
+                        ? "block"
+                        : "none",
+                  }}
                 />
               </div>
             </TableCell>
             <TableCell
-              className="w-1/6 text-yellow-400 font-bold cursor-pointer hover:bg-gray-700 transition ease-in-out duration-200"
               sx={{
+                width: "16.666666667%", // Equivalent to w-1/6
+                color: "#facc15", // Equivalent to text-yellow-400
+                fontWeight: "bold", // Equivalent to font-bold
+                cursor: "pointer", // Equivalent to cursor-pointer
+                transition: "background-color 200ms ease-in-out", // Equivalent to transition ease-in-out duration-200
+                "&:hover": {
+                  // Equivalent to hover:bg-gray-700
+                  backgroundColor: "#374151",
+                },
                 backgroundColor: "#111827",
                 fontFamily: "PressStart2P-Regular",
               }}
@@ -232,21 +268,30 @@ function FlightPanel({ showDepartures, airport }) {
                 Terminal
                 <ArrowUpward
                   fontSize="medium"
-                  className={`${
-                    orderBy === "asc"
-                      ? "text-orange-400  -rotate-180 transition duration-300"
-                      : "text-teal-400 rotate-0 transition duration-300"
-                  } ${
-                    field === "dep_terminal" || field === "arr_terminal"
-                      ? "block"
-                      : "hidden"
-                  }`}
+                  sx={{
+                    color: orderBy === "asc" ? "#ff9800" : "#4db6ac",
+                    transform:
+                      orderBy === "asc" ? "rotate(-180deg)" : "rotate(0deg)",
+                    transition: "color 300ms, transform 300ms",
+                    display:
+                      field === "dep_terminal" || field === "arr_terminal"
+                        ? "block"
+                        : "none",
+                  }}
                 />
               </div>
             </TableCell>
             <TableCell
-              className="w-1/6 text-yellow-400 font-bold cursor-pointer hover:bg-gray-700 transition ease-in-out duration-200"
               sx={{
+                width: "16.666666667%", // Equivalent to w-1/6
+                color: "#facc15", // Equivalent to text-yellow-400
+                fontWeight: "bold", // Equivalent to font-bold
+                cursor: "pointer", // Equivalent to cursor-pointer
+                transition: "background-color 200ms ease-in-out", // Equivalent to transition ease-in-out duration-200
+                "&:hover": {
+                  // Equivalent to hover:bg-gray-700
+                  backgroundColor: "#374151",
+                },
                 backgroundColor: "#111827",
                 fontFamily: "PressStart2P-Regular",
               }}
@@ -265,21 +310,30 @@ function FlightPanel({ showDepartures, airport }) {
                 Puerta
                 <ArrowUpward
                   fontSize="medium"
-                  className={`${
-                    orderBy === "asc"
-                      ? "text-orange-400  -rotate-180 transition duration-300"
-                      : "text-teal-400 rotate-0 transition duration-300"
-                  } ${
-                    field === "dep_gate" || field === "arr_gate"
-                      ? "block"
-                      : "hidden"
-                  }`}
+                  sx={{
+                    color: orderBy === "asc" ? "#ff9800" : "#4db6ac",
+                    transform:
+                      orderBy === "asc" ? "rotate(-180deg)" : "rotate(0deg)",
+                    transition: "color 300ms, transform 300ms",
+                    display:
+                      field === "dep_gate" || field === "arr_gate"
+                        ? "block"
+                        : "none",
+                  }}
                 />
               </div>
             </TableCell>
             <TableCell
-              className="w-1/6 text-yellow-400 font-bold cursor-pointer hover:bg-gray-700 transition ease-in-out duration-200"
               sx={{
+                width: "16.666666667%", // Equivalent to w-1/6
+                color: "#facc15", // Equivalent to text-yellow-400
+                fontWeight: "bold", // Equivalent to font-bold
+                cursor: "pointer", // Equivalent to cursor-pointer
+                transition: "background-color 200ms ease-in-out", // Equivalent to transition ease-in-out duration-200
+                "&:hover": {
+                  // Equivalent to hover:bg-gray-700
+                  backgroundColor: "#374151",
+                },
                 backgroundColor: "#111827",
                 fontFamily: "PressStart2P-Regular",
               }}
@@ -298,11 +352,13 @@ function FlightPanel({ showDepartures, airport }) {
                 Estado
                 <ArrowUpward
                   fontSize="medium"
-                  className={`${
-                    orderBy === "asc"
-                      ? "text-orange-400  -rotate-180 transition duration-300"
-                      : "text-teal-400 rotate-0 transition duration-300"
-                  } ${field === "status" ? "block" : "hidden"}`}
+                  sx={{
+                    color: orderBy === "asc" ? "#ff9800" : "#4db6ac",
+                    transform:
+                      orderBy === "asc" ? "rotate(-180deg)" : "rotate(0deg)",
+                    transition: "color 300ms, transform 300ms",
+                    display: field === "status" ? "block" : "none",
+                  }}
                 />
               </div>
             </TableCell>
@@ -316,53 +372,65 @@ function FlightPanel({ showDepartures, airport }) {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell
-                    className="text-yellow-400"
                     component="th"
                     scope="row"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#facc15",
+                    }}
                   >
                     {row.dep_time_utc.split(" ")[1]}
                   </TableCell>
                   <TableCell
-                    className="text-slate-50"
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#f8fafc",
+                    }}
                   >
                     {row.flight_iata}
                   </TableCell>
                   <TableCell
-                    className="text-slate-50"
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#f8fafc",
+                    }}
                   >
                     {row.arr_iata}
                   </TableCell>
                   <TableCell
-                    className="text-slate-50"
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#f8fafc",
+                    }}
                   >
                     {row.dep_terminal}
                   </TableCell>
                   <TableCell
-                    className="text-yellow-400"
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#facc15",
+                    }}
                   >
                     {row.dep_gate}
                   </TableCell>
                   <TableCell
-                    className={`uppercase ${
-                      row.status === "active"
-                        ? "text-cyan-400"
-                        : row.status === "cancelled"
-                        ? "text-red-500"
-                        : row.status === "landed"
-                        ? "text-green-500"
-                        : "text-slate-50"
-                    }`}
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      textTransform: "uppercase",
+                      color:
+                        row.status === "active"
+                          ? "#00bcd4"
+                          : row.status === "cancelled"
+                          ? "#f44336"
+                          : row.status === "landed"
+                          ? "#4caf50"
+                          : "#dfe3e8",
+                    }}
                   >
                     {row.status === "active"
                       ? "Activo"
@@ -380,53 +448,65 @@ function FlightPanel({ showDepartures, airport }) {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell
-                    className="text-yellow-400"
                     component="th"
                     scope="row"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#facc15",
+                    }}
                   >
                     {row.arr_time_utc.split(" ")[1]}
                   </TableCell>
                   <TableCell
-                    className="text-slate-50"
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#f8fafc",
+                    }}
                   >
                     {row.flight_iata}
                   </TableCell>
                   <TableCell
-                    className="text-slate-50"
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#f8fafc",
+                    }}
                   >
                     {row.dep_iata}
                   </TableCell>
                   <TableCell
-                    className="text-slate-50"
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#f8fafc",
+                    }}
                   >
                     {row.arr_terminal}
                   </TableCell>
                   <TableCell
-                    className="text-yellow-400"
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      color: "#facc15",
+                    }}
                   >
                     {row.arr_gate}
                   </TableCell>
                   <TableCell
-                    className={`uppercase ${
-                      row.status === "active"
-                        ? "text-cyan-400"
-                        : row.status === "cancelled"
-                        ? "text-red-500"
-                        : row.status === "landed"
-                        ? "text-green-500"
-                        : "text-slate-50"
-                    }`}
                     align="left"
-                    sx={{ fontFamily: "PressStart2P-Regular" }}
+                    sx={{
+                      fontFamily: "PressStart2P-Regular",
+                      textTransform: "uppercase",
+                      color:
+                        row.status === "active"
+                          ? "#00bcd4"
+                          : row.status === "cancelled"
+                          ? "#f44336"
+                          : row.status === "landed"
+                          ? "#4caf50"
+                          : "#dfe3e8",
+                    }}
                   >
                     {row.status === "active"
                       ? "Activo"

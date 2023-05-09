@@ -64,7 +64,6 @@ const SwipeableTemporaryDrawer = ({
   const handleAirportClick = (airport) => {
     let coord = [];
     let airportData = { name: "", iata_code: "" };
-    console.log(airport);
     coord.push(airport.lat);
     coord.push(airport.lng);
     airportData.name = airport.name;
@@ -84,7 +83,6 @@ const SwipeableTemporaryDrawer = ({
       await fetch("assets/data/[AirLabs]_Airports.json")
         .then((response) => response.json())
         .then((data) => {
-          console.log(data.response);
           // Use the data from the JSON file
           aeropuertos.push(...data.response);
           setAirports(

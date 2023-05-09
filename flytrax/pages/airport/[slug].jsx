@@ -62,9 +62,9 @@ const AirportDetails = () => {
             onClick={() => setShowDepartures(!showDepartures)}
           >
             {showDepartures ? (
-              <FlightTakeoffIcon className="text-5xl" />
+              <FlightTakeoffIcon sx={{ fontSize: 45 }} />
             ) : (
-              <FlightLandIcon className="text-5xl" />
+              <FlightLandIcon sx={{ fontSize: 45 }} />
             )}
             <Typography
               sx={{
@@ -72,6 +72,12 @@ const AirportDetails = () => {
                 fontSize: 45,
                 fontWeight: 400,
                 textTransform: "uppercase",
+                transition: "color 200ms ease-in-out", // Equivalent to transition ease-in-out duration-200
+                "&:hover": {
+                  // Equivalent to hover:bg-gray-700
+                  color: "#f8fafc",
+                },
+                color: "#facc15",
               }}
             >
               {showDepartures ? "Salidas" : "Llegadas"}
