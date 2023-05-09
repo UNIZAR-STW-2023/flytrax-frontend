@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { FlightPanel } from "../../components";
-import ClipLoader from "react-spinners/ClipLoader";
-import { aeropuertos } from "../../assets/dummy/aeropuertos_iata";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
 import { Alert, Snackbar, Typography } from "@mui/material";
-import { fontFamily } from "@mui/system";
-import {
-  ArrowBack,
-  ArrowBackIos,
-  ArrowLeft,
-  ArrowLeftRounded,
-  InfoOutlined,
-} from "@mui/icons-material";
+import { ArrowBack, InfoOutlined } from "@mui/icons-material";
 import axios from "axios";
-import { Button } from "@mui/base";
 
 const AirportDetails = () => {
   const router = useRouter();
