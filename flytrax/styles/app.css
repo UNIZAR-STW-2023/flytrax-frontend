@@ -29,6 +29,21 @@
   src: url(../assets/fonts/SF-Pro-Display-UltralightItalic.otf);
 }
 
+@font-face {
+  font-family: PressStart2P-Regular;
+  src: url(../assets/fonts/PressStart2P-Regular.ttf);
+}
+
+@font-face {
+  font-family: VT323-Regular;
+  src: url(../assets/fonts/VT323-Regular.ttf);
+}
+
+@font-face {
+  font-family: Oswald;
+  src: url(../assets/fonts/Oswald-VariableFont_wght.ttf);
+}
+
 * {
   font-family: "Inter Tight", sans-serif;
   box-sizing: border-box;
@@ -52,6 +67,20 @@
 .App-header {
   background: #eaeaf3;
   background-image: url("/assets/images/bg.jpg");
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 400;
+  color: black;
+  width: inherit;
+}
+
+.loader-style {
+  background: linear-gradient(220.55deg, #ff8570 0%, #418cb7 100%);
   background-size: cover;
   min-height: 100vh;
   display: flex;
@@ -122,43 +151,48 @@
 }
 
 .light-font {
-  font-family: SF-Pro-Light;
+  font-family: SF-Pro-Display-Light;
   src: url(../assets/fonts/SF-Pro-Display-Light.otf);
 }
 
 .medium-font {
-  font-family: SF-Pro-Light;
+  font-family: SF-Pro-Display-Medium;
   src: url(../assets/fonts/SF-Pro-Display-Medium.otf);
 }
 
 .regular-font {
-  font-family: SF-Pro-Light;
+  font-family: SF-Pro-Display-Regular;
   src: url(../assets/fonts/SF-Pro-Display-Regular.otf);
 }
 
 .ultralight-font {
-  font-family: SF-Pro-Ultralight;
+  font-family: SF-Pro-Display-Ultralight;
   src: url(../assets/fonts/SF-Pro-Display-Ultralight.otf);
 }
 
 .ultralightitalic-font {
-  font-family: SF-Pro-UltralightItalic;
+  font-family: SF-Pro-Display-UltralightItalic;
   src: url(../assets/fonts/SF-Pro-Display-UltralightItalic.otf);
 }
 
 .heavy-font {
-  font-family: SF-Pro-Heavy;
+  font-family: SF-Pro-Display-Heavy;
   src: url(../assets/fonts/SF-Pro-Display-Heavy.otf);
 }
 
 .heavyitalic-font {
-  font-family: SF-Pro-HeavyItalic;
+  font-family: SF-Pro-Display-HeavyItalic;
   src: url(../assets/fonts/SF-Pro-Display-HeavyItalic.otf);
 }
 
 .rounded-heavy-font {
   font-family: SF-Pro-Rounded-Heavy;
   src: url(../assets/fonts/SF-Pro-Rounded-Heavy.otf);
+}
+
+.flight-panel-head {
+  font-family: PressStart2P-Regular;
+  src: url(../assets/fonts/PressStart2P-Regular.ttf);
 }
 
 .border-bottom {

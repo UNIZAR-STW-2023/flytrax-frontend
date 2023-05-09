@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Marker, Popup, useMapEvents } from "react-leaflet";
 import L from "leaflet";
+import Link from "next/link";
 
 const LocationMarker = ({ value, data }) => {
   // Define a custom icon
@@ -22,7 +23,9 @@ const LocationMarker = ({ value, data }) => {
   return position === null ? null : (
     <Marker position={position} icon={userLocation}>
       <Popup>
-        {data.name} ({data.iata_code})
+        <Link href={`/airport/${data.iata_code}`}>
+          {data.name} ({data.iata_code})
+        </Link>
       </Popup>
     </Marker>
   );

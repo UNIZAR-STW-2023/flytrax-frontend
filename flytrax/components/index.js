@@ -11,7 +11,7 @@ import CommentFeed from "./foro/comments/CommentFeed";
 import CommentItem from "./foro/comments/CommentItem";
 import Sidebar from "./admin/Sidebar";
 import AdminUsuarios from "./admin/usuarios";
-import PanelesCard from "./PanelesCard";
+import FlightPanel from "./FlightPanel";
 import ProductCard from "./ProductCard";
 import Carrito from "./Carrito";
 
@@ -29,7 +29,7 @@ export {
   CommentItem,
   Sidebar,
   AdminUsuarios,
-  PanelesCard,
+  FlightPanel,
   ProductCard,
   Carrito,
 };
