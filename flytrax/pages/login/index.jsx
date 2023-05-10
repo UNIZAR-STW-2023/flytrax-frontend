@@ -112,7 +112,6 @@ const Login = () => {
             // Guardar sesión en una cookie (48h máximo)
             const adminSession = response.data.tokenAdmin;
             const newSession = response.data.tokenUser;
-            console.log(response.data);
             if (adminSession === "") {
               setCookie("userEmail", email, { maxAge: 60 * 60 * 24 * 2 });
               setCookie("sessionToken", newSession, {
