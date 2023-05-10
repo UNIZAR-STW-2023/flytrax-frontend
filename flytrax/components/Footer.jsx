@@ -10,6 +10,7 @@ import Link from "next/link";
 import Logo from "../assets/images/logo_desktop_white.png";
 import LogoMobile from "../assets/images/logo_mobile_white.png";
 import Image from "next/image";
+import links from "../assets/dummy/footerLinks.js";
 
 const Footer = () => {
   return (
@@ -30,146 +31,71 @@ const Footer = () => {
             alt="Flytrax Logo"
           />
         </h2>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Acerca de
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Blog
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Prensa & Logos
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Términos & Privacidad
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Status
-          </Link>
-        </h3>
+        {links.slice(0, 5).map((link) => (
+          <h3 key={link.name}>
+            <Link
+              href={link.url}
+              target={link.target}
+              className="hover:underline hover:text-zinc-50"
+            >
+              {link.name}
+            </Link>
+          </h3>
+        ))}
         <h3>© 2023 Flytrax</h3>
       </div>
       <div className="col-span-1">
         <h2 className="my-2 uppercase text-xl text-zinc-50">Producto</h2>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Dispositivos soportados
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Integraciones
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Marcador
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Objetivos
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Equipos
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Educación
-          </Link>
-        </h3>
+        {links.slice(5, 11).map((link) => (
+          <h3 key={link.name}>
+            <Link
+              href={link.url}
+              target={link.target}
+              className="hover:underline hover:text-zinc-50"
+            >
+              {link.name}
+            </Link>
+          </h3>
+        ))}
       </div>
       <div className="col-span-1">
         <h2 className="my-2 uppercase text-xl text-zinc-50">Aprende</h2>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            API Docs
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            FAQ
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Precios
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Valores
-          </Link>
-        </h3>
-        <h3>
-          <Link href="" className="hover:underline hover:text-zinc-50">
-            Resolución de problemas
-          </Link>
-        </h3>
+        {links.slice(11, 16).map((link) => (
+          <h3 key={link.name}>
+            <Link
+              href={link.url}
+              target={link.target}
+              className="hover:underline hover:text-zinc-50"
+            >
+              {link.name}
+            </Link>
+          </h3>
+        ))}
       </div>
       <div className="col-span-1">
         <h2 className="my-2 uppercase text-xl text-zinc-50">Comunidad</h2>
-        <h3>
-          <Link
-            className="grid grid-cols-5 w-fit hover:underline hover:text-zinc-50"
-            href="https://github.com/UNIZAR-STW-2023"
-            target="_blank"
-          >
-            <FaGithub size={20} className="col-span-1" />
-            <h3 className="col-span-4 ml-2">GitHub</h3>
-          </Link>
-        </h3>
-        <h3>
-          <Link
-            className="grid grid-cols-5 w-fit hover:underline hover:text-zinc-50"
-            href="https://github.com/UNIZAR-STW-2023"
-            target="_blank"
-          >
-            <FaTwitter size={20} className="col-span-1" />
-            <h3 className="col-span-4 ml-2">Twitter</h3>
-          </Link>
-        </h3>
-        <h3>
-          <Link
-            className="grid grid-cols-5 w-fit hover:underline hover:text-zinc-50"
-            href="https://github.com/UNIZAR-STW-2023"
-            target="_blank"
-          >
-            <FaReddit size={20} className="col-span-1" />
-            <h3 className="col-span-4 ml-2">reddit</h3>
-          </Link>
-        </h3>
-        <h3>
-          <Link
-            className="grid grid-cols-5 w-fit hover:underline hover:text-zinc-50"
-            href="https://github.com/UNIZAR-STW-2023"
-            target="_blank"
-          >
-            <FaFacebook size={20} className="col-span-1" />
-            <h3 className="col-span-4 ml-2">Facebook</h3>
-          </Link>
-        </h3>
-        <h3>
-          <Link
-            className="grid grid-cols-5 w-fit hover:underline hover:text-zinc-50"
-            href="https://github.com/UNIZAR-STW-2023"
-            target="_blank"
-          >
-            <FaLinkedin size={20} className="col-span-1" />
-            <h3 className="col-span-4 ml-2">LinkedIn</h3>
-          </Link>
-        </h3>
+        {links.slice(16, 21).map((link) => (
+          <h3 key={link.name}>
+            <Link
+              href={link.url}
+              target={link.target}
+              className="grid grid-cols-5 w-fit hover:underline hover:text-zinc-50"
+            >
+              {link.name === "GitHub" ? (
+                <FaGithub size={20} className="col-span-1" />
+              ) : link.name === "Twitter" ? (
+                <FaTwitter size={20} className="col-span-1" />
+              ) : link.name === "reddit" ? (
+                <FaReddit size={20} className="col-span-1" />
+              ) : link.name === "Facebook" ? (
+                <FaFacebook size={20} className="col-span-1" />
+              ) : link.name === "LinkedIn" ? (
+                <FaLinkedin size={20} className="col-span-1" />
+              ) : null}
+              <h3 className="col-span-4 ml-2">{link.name}</h3>
+            </Link>
+          </h3>
+        ))}
       </div>
     </div>
   );

@@ -47,14 +47,19 @@ const AirportDetails = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 my-24 select-none">
-        <h1 className="my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
-          {details.name} ({details.iata_code})
-          <InfoOutlined
-            className="ml-2 cursor-pointer"
-            onClick={() => setShowAlertInfo(true)}
-            color="info"
-            fontSize="medium"
-          />
+        <h1 className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
+          {details.name}{" "}
+          <div className="flex items-center align-middle justify-center">
+            <h3 className="max-sm:w-fit max-sm:self-center border-2 border-gray-500 rounded-lg text-gray-500 text-2xl px-1 mx-2 font-normal">
+              {details.iata_code}
+            </h3>
+            <InfoOutlined
+              className="cursor-pointer"
+              onClick={() => setShowAlertInfo(true)}
+              color="info"
+              fontSize="medium"
+            />
+          </div>
         </h1>
         <div className="flex gap-2 text-yellow-400 font-mono my-2 w-full align-middle items-center px-3 bg-gray-900 rounded-md h-20 py-3 uppercase">
           <button

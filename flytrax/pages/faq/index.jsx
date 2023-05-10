@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
-import { faQuestion } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { Alert, Snackbar } from "@mui/material";
 
 const theme = createTheme({
@@ -67,12 +66,8 @@ const FAQ = () => {
         </div>
         <div className="grid gap-3">
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-              <FontAwesomeIcon
-                className="text-zinc-200"
-                icon={faQuestion}
-                size="1x"
-              />
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <QuestionMarkIcon sx={{ color: "white" }} />
             </div>
             <TextField
               className="col-span-9"
