@@ -27,6 +27,16 @@ import {
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
+import PersonIcon from "@mui/icons-material/Person";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import PhoneIcon from "@mui/icons-material/Phone";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import KeyIcon from "@mui/icons-material/Key";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import TransgenderIcon from "@mui/icons-material/Transgender";
+import PublicIcon from "@mui/icons-material/Public";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
@@ -88,8 +98,8 @@ const Register = () => {
   // Visibilidad de la contraseña
   const [typePass, setTypePass] = useState("password");
   const [typeCPass, setTypeCPass] = useState("password");
-  const [iconPass, setIconPass] = useState(faEyeSlash);
-  const [iconCPass, setIconCPass] = useState(faEyeSlash);
+  const [iconPass, setIconPass] = useState(false);
+  const [iconCPass, setIconCPass] = useState(false);
 
   // Alertas de error
   const [showAlertPasswd, setShowAlertPasswd] = useState(false);
@@ -102,10 +112,10 @@ const Register = () => {
   // Mostrar contraseña
   const handleToggle = () => {
     if (typePass === "password") {
-      setIconPass(faEye);
+      setIconPass(true);
       setTypePass("text");
     } else {
-      setIconPass(faEyeSlash);
+      setIconPass(false);
       setTypePass("password");
     }
   };
@@ -113,10 +123,10 @@ const Register = () => {
   // Mostrar contraseña
   const handleToggle2 = () => {
     if (typeCPass === "password") {
-      setIconCPass(faEye);
+      setIconCPass(true);
       setTypeCPass("text");
     } else {
-      setIconCPass(faEyeSlash);
+      setIconCPass(false);
       setTypeCPass("password");
     }
   };
@@ -196,9 +206,18 @@ const Register = () => {
     }
   };
 
+  // Función para gestionar tecla pulsada
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleRegister();
+    } else {
+      return;
+    }
+  };
+
   // Función de registro
-  const handleRegister = (event) => {
-    event.preventDefault();
+  const handleRegister = () => {
     if (checkNullForm()) {
       setShowAlertEmpty(true);
     } else if (checkRegExpEmail()) {
@@ -259,14 +278,11 @@ const Register = () => {
         <div className="grid lg:grid-cols-2 gap-3">
           <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faUser}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <PersonIcon sx={{ color: "white" }} />
               </div>
               <TextField
+                onKeyDown={handleKeyDown}
                 name="firstName"
                 className="col-span-9"
                 required
@@ -281,14 +297,11 @@ const Register = () => {
           </div>
           <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faUser}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <PersonIcon sx={{ color: "white" }} />
               </div>
               <TextField
+                onKeyDown={handleKeyDown}
                 name="lastName"
                 className="col-span-9"
                 required
@@ -303,14 +316,11 @@ const Register = () => {
           </div>
           <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faUserAstronaut}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <PersonOutlineIcon sx={{ color: "white" }} />
               </div>
               <TextField
+                onKeyDown={handleKeyDown}
                 name="nickName"
                 {...register("nickName", {
                   pattern: {
@@ -339,14 +349,11 @@ const Register = () => {
           </div>
           <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faAt}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <AlternateEmailIcon sx={{ color: "white" }} />
               </div>
               <TextField
+                onKeyDown={handleKeyDown}
                 name="email"
                 {...register("email", {
                   pattern: {
@@ -372,15 +379,12 @@ const Register = () => {
           </div>
           <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faCalendarAlt}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <CalendarMonthIcon sx={{ color: "white" }} />
               </div>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateField
+                  onKeyDown={handleKeyDown}
                   name="birthday"
                   className="col-span-9"
                   required
@@ -398,16 +402,13 @@ const Register = () => {
               name="gender"
               className="grid grid-cols-10 items-center text-center gap-1"
             >
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faTransgender}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <TransgenderIcon sx={{ color: "white" }} />
               </div>
               <FormControl className="col-span-9" variant="filled" required>
                 <InputLabel id="gender-select-filled">Género</InputLabel>
                 <Select
+                  onKeyDown={handleKeyDown}
                   className="text-left"
                   onChange={({ target }) => setGender(target.value)}
                   labelId="gender-select-filled"
@@ -443,14 +444,11 @@ const Register = () => {
           </div>
           <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faPhone}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <PhoneIcon sx={{ color: "white" }} />
               </div>
               <TextField
+                onKeyDown={handleKeyDown}
                 name="phone"
                 className="col-span-9"
                 required
@@ -468,14 +466,11 @@ const Register = () => {
               name="country"
               className="grid grid-cols-10 items-center text-center gap-1"
             >
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faGlobeAmericas}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <PublicIcon sx={{ color: "white" }} />
               </div>
               <Autocomplete
+                onKeyDown={handleKeyDown}
                 onSelect={({ target }) => setCountry(target.value)}
                 className="col-span-9"
                 required
@@ -516,14 +511,11 @@ const Register = () => {
           </div>
           <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faLock}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <KeyIcon sx={{ color: "white" }} />
               </div>
               <TextField
+                onKeyDown={handleKeyDown}
                 name="password"
                 className="col-span-8"
                 required
@@ -535,15 +527,14 @@ const Register = () => {
                 onChange={({ target }) => setPassword(target.value)}
               />
               <div
-                data-test="showpass-btn"
                 onClick={handleToggle}
-                className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
+                className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
               >
-                <FontAwesomeIcon
-                  className="text-zinc-600"
-                  icon={iconPass}
-                  size="1x"
-                />
+                {iconPass ? (
+                  <VisibilityIcon className="text-slate-600" />
+                ) : (
+                  <VisibilityOffIcon className="text-slate-600" />
+                )}
               </div>
               <PasswordStrengthBar
                 className="col-span-10"
@@ -562,14 +553,11 @@ const Register = () => {
           </div>
           <div className="grid col-span-1 gap-3 lg:w-96">
             <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-                <FontAwesomeIcon
-                  className="text-zinc-200"
-                  icon={faLock}
-                  size="1x"
-                />
+              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                <KeyIcon sx={{ color: "white" }} />
               </div>
               <TextField
+                onKeyDown={handleKeyDown}
                 name="cpassword"
                 className="col-span-8"
                 required
@@ -581,15 +569,14 @@ const Register = () => {
                 onChange={({ target }) => setCPassword(target.value)}
               />
               <div
-                data-test="showcpass-btn"
                 onClick={handleToggle2}
-                className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
+                className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
               >
-                <FontAwesomeIcon
-                  className="text-zinc-600"
-                  icon={iconCPass}
-                  size="1x"
-                />
+                {iconCPass ? (
+                  <VisibilityIcon className="text-slate-600" />
+                ) : (
+                  <VisibilityOffIcon className="text-slate-600" />
+                )}
               </div>
               <PasswordStrengthBar
                 className="col-span-10"

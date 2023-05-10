@@ -223,6 +223,17 @@
   display: none;
 }
 
+.error-text {
+  background: linear-gradient(220.55deg, #ff9d7e 0%, #4d6ad0 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.error-text-resize {
+  font-size: 20rem;
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;

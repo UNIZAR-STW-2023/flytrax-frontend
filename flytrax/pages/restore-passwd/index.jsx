@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { faLock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Snackbar } from "@mui/material";
 import PasswordStrengthBar from "react-password-strength-bar";
+import KeyIcon from "@mui/icons-material/Key";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const theme = createTheme({
   typography: {
@@ -34,8 +35,8 @@ const RestorePasswd = () => {
   // Visibilidad de la contraseña
   const [typePass, setTypePass] = useState("password");
   const [typeCPass, setTypeCPass] = useState("password");
-  const [iconPass, setIconPass] = useState(faEyeSlash);
-  const [iconCPass, setIconCPass] = useState(faEyeSlash);
+  const [iconPass, setIconPass] = useState(false);
+  const [iconCPass, setIconCPass] = useState(false);
 
   // Alertas de error
   const [showAlertPasswd, setShowAlertPasswd] = useState(false);
@@ -79,9 +80,18 @@ const RestorePasswd = () => {
     }
   };
 
+  // Función para gestionar tecla pulsada
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleRestore();
+    } else {
+      return;
+    }
+  };
+
   // Función de inicio de sesión
-  const handleRestore = (event) => {
-    event.preventDefault();
+  const handleRestore = () => {
     if (checkNullForm()) {
       setShowAlertEmpty(true);
     } else if (checkPassword()) {
@@ -96,10 +106,10 @@ const RestorePasswd = () => {
   // Mostrar contraseña
   const handleToggle = () => {
     if (typePass === "password") {
-      setIconPass(faEye);
+      setIconPass(true);
       setTypePass("text");
     } else {
-      setIconPass(faEyeSlash);
+      setIconPass(false);
       setTypePass("password");
     }
   };
@@ -107,10 +117,10 @@ const RestorePasswd = () => {
   // Mostrar contraseña
   const handleToggle2 = () => {
     if (typeCPass === "password") {
-      setIconCPass(faEye);
+      setIconCPass(true);
       setTypeCPass("text");
     } else {
-      setIconCPass(faEyeSlash);
+      setIconCPass(false);
       setTypeCPass("password");
     }
   };
@@ -134,14 +144,11 @@ const RestorePasswd = () => {
         </div>
         <div className="grid gap-3">
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-              <FontAwesomeIcon
-                className="text-zinc-200"
-                icon={faLock}
-                size="1x"
-              />
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <KeyIcon sx={{ color: "white" }} />
             </div>
             <TextField
+              onKeyDown={handleKeyDown}
               name="password"
               className="col-span-8"
               id="filled"
@@ -152,15 +159,14 @@ const RestorePasswd = () => {
               onChange={({ target }) => setPassword(target.value)}
             />
             <div
-              data-test="showpass-btn"
               onClick={handleToggle}
-              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
+              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
             >
-              <FontAwesomeIcon
-                className="text-zinc-600"
-                icon={iconPass}
-                size="1x"
-              />
+              {iconPass ? (
+                <VisibilityIcon className="text-slate-600" />
+              ) : (
+                <VisibilityOffIcon className="text-slate-600" />
+              )}
             </div>
             <PasswordStrengthBar
               className="col-span-10"
@@ -177,14 +183,11 @@ const RestorePasswd = () => {
             />
           </div>
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-              <FontAwesomeIcon
-                className="text-zinc-200"
-                icon={faLock}
-                size="1x"
-              />
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <KeyIcon sx={{ color: "white" }} />
             </div>
             <TextField
+              onKeyDown={handleKeyDown}
               name="cpassword"
               className="col-span-8"
               id="filled"
@@ -195,15 +198,14 @@ const RestorePasswd = () => {
               onChange={({ target }) => setCPassword(target.value)}
             />
             <div
-              data-test="showcpass-btn"
               onClick={handleToggle2}
-              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
+              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
             >
-              <FontAwesomeIcon
-                className="text-zinc-600"
-                icon={iconCPass}
-                size="1x"
-              />
+              {iconCPass ? (
+                <VisibilityIcon className="text-slate-600" />
+              ) : (
+                <VisibilityOffIcon className="text-slate-600" />
+              )}
             </div>
             <PasswordStrengthBar
               className="col-span-10"

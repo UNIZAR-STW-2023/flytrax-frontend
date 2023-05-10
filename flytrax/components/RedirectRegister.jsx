@@ -82,6 +82,8 @@ const RedirectRegister = ({ session }) => {
       });
   };
 
+  console.log(session.user.email);
+
   useEffect(() => {
     console.log(newUser);
     checkLoginUser();

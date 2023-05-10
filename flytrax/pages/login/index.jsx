@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
-import {
-  faLock,
-  faEye,
-  faEyeSlash,
-  faUserAstronaut,
-  faAt,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Snackbar } from "@mui/material";
 import axios from "axios";
-import { deleteCookie, setCookie } from "cookies-next";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Alert, Snackbar } from "@mui/material";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import KeyIcon from "@mui/icons-material/Key";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RedirectRegister from "../../components/RedirectRegister";
 import GoogleButton from "../../components/buttons/GoogleButton";
 import GitHubButton from "../../components/buttons/GitHubButton";
@@ -51,19 +47,29 @@ const Login = () => {
 
   // Visibilidad de la contraseña
   const [typePass, setTypePass] = useState("password");
-  const [iconPass, setIconPass] = useState(faEyeSlash);
+  const [iconPass, setIconPass] = useState(false);
 
   // Alertas de error
   const [showAlertEmpty, setShowAlertEmpty] = useState(false);
   const [showAlertLogin, setShowAlertLogin] = useState(false);
 
+  // Función para gestionar tecla pulsada
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleLogin();
+    } else {
+      return;
+    }
+  };
+
   // Mostrar contraseña
   const handleToggle = () => {
     if (typePass === "password") {
-      setIconPass(faEye);
+      setIconPass(true);
       setTypePass("text");
     } else {
-      setIconPass(faEyeSlash);
+      setIconPass(false);
       setTypePass("password");
     }
   };
@@ -78,8 +84,7 @@ const Login = () => {
   };
 
   // Función de inicio de sesión
-  const handleLogin = (event) => {
-    event.preventDefault();
+  const handleLogin = () => {
     // Comprobar si hay campos vacíos
     if (email === "" || password === "") {
       setShowAlertEmpty(true);
@@ -101,25 +106,32 @@ const Login = () => {
       .post(loginURL, data)
       .then((response) => {
         if (response.status === 200) {
-          // Borrar sesión previa
-          deleteCookie("sessionToken");
-          // Guardar sesión en una cookie (48h máximo)
-          const adminSession = response.data.tokenAdmin;
-          const newSession = response.data.tokenUser;
-          console.log(response.data);
-          if (adminSession === "") {
-            setCookie("sessionToken", newSession, { maxAge: 60 * 60 * 24 * 2 });
+          if (response.data.status === "Successful") {
+            // Borrar sesión previa
+            deleteCookie("sessionToken");
+            // Guardar sesión en una cookie (48h máximo)
+            const adminSession = response.data.tokenAdmin;
+            const newSession = response.data.tokenUser;
+            console.log(response.data);
+            if (adminSession === "") {
+              setCookie("userEmail", email, { maxAge: 60 * 60 * 24 * 2 });
+              setCookie("sessionToken", newSession, {
+                maxAge: 60 * 60 * 24 * 2,
+              });
+            } else {
+              setCookie("adminSessionToken", adminSession, {
+                maxAge: 60 * 60 * 24 * 2,
+              });
+            }
+            // Guardar sesión en el estado
+            setLoggedIn(true);
+            // Redireccionar a la página principal
+            setTimeout(() => {
+              router.push("/map");
+            }, 500);
           } else {
-            setCookie("adminSessionToken", adminSession, {
-              maxAge: 60 * 60 * 24 * 2,
-            });
+            setShowAlertLogin(true);
           }
-          // Guardar sesión en el estado
-          setLoggedIn(true);
-          // Redireccionar a la página principal
-          setTimeout(() => {
-            router.push("/map");
-          }, 500);
         } else {
           setShowAlertLogin(true);
         }
@@ -148,14 +160,11 @@ const Login = () => {
             O inicia sesión con tus credenciales
           </h2>
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-              <FontAwesomeIcon
-                className="text-zinc-200"
-                icon={faAt}
-                size="1x"
-              />
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <AlternateEmailIcon sx={{ color: "white" }} />
             </div>
             <TextField
+              onKeyDown={handleKeyDown}
               className="col-span-9"
               id="email"
               type="email"
@@ -166,14 +175,11 @@ const Login = () => {
             />
           </div>
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-              <FontAwesomeIcon
-                className="text-zinc-200"
-                icon={faLock}
-                size="1x"
-              />
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <KeyIcon sx={{ color: "white" }} />
             </div>
             <TextField
+              onKeyDown={handleKeyDown}
               className="col-span-8"
               id="password"
               type={typePass}
@@ -184,13 +190,13 @@ const Login = () => {
             />
             <div
               onClick={handleToggle}
-              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full p-1"
+              className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
             >
-              <FontAwesomeIcon
-                className="text-zinc-600"
-                icon={iconPass}
-                size="1x"
-              />
+              {iconPass ? (
+                <VisibilityIcon className="text-slate-600" />
+              ) : (
+                <VisibilityOffIcon className="text-slate-600" />
+              )}
             </div>
           </div>
           <button

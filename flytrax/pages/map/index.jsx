@@ -81,36 +81,40 @@ const MapRendered = () => {
     getUserLocation();
   }, [router]);
 
-  return SESSION_COOKIE || session ? (
-    <div className="flex flex-col items-center align-middle m-auto w-full my-24">
-      <h1 className="my-10 text-black font-bold max-sm:text-3xl sm:text-4xl">
-        Mapa de aeropuertos{" "}
-        <InfoOutlined
-          className="ml-2 cursor-pointer"
-          onClick={() => setShowAlertInfo(true)}
-          color="info"
-          fontSize="medium"
-        />
-      </h1>
-      <div className="w-full px-5 lg:px-10">
-        <Map latitude={latitude} longitude={longitude} country={country} />
+  return !loading ? (
+    SESSION_COOKIE || session ? (
+      <div className="flex flex-col items-center align-middle m-auto w-full my-24">
+        <h1 className="my-10 text-black font-bold max-sm:text-3xl sm:text-4xl">
+          Mapa de aeropuertos{" "}
+          <InfoOutlined
+            className="ml-2 cursor-pointer"
+            onClick={() => setShowAlertInfo(true)}
+            color="info"
+            fontSize="medium"
+          />
+        </h1>
+        <div className="w-full px-5 lg:px-10">
+          <Map latitude={latitude} longitude={longitude} country={country} />
+        </div>
+        <Snackbar
+          message="Activa la ubicación y haz clic en el mapa para ver tu posición actual (o reubicarte)."
+          open={showAlertInfo}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+        >
+          <Alert onClose={handleClose} severity="info">
+            Activa la ubicación y haz clic en el mapa para ver tu posición
+            actual (o reubicarte).
+          </Alert>
+        </Snackbar>
       </div>
-      <Snackbar
-        message="Activa la ubicación y haz clic en el mapa para ver tu posición actual (o reubicarte)."
-        open={showAlertInfo}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-      >
-        <Alert onClose={handleClose} severity="info">
-          Activa la ubicación y haz clic en el mapa para ver tu posición actual
-          (o reubicarte).
-        </Alert>
-      </Snackbar>
-    </div>
+    ) : (
+      <Loader />
+    )
   ) : (
     <Loader />
   );

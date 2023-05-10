@@ -21,7 +21,7 @@ function FlightPanel({ showDepartures, airport }) {
   const [field, setField] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const AirLabs_API_KEY = "02a4e640-3534-45db-a3dd-186c1c5a9325";
+  const AirLabs_API_KEY = process.env.API_KEY_AIRLABS;
   const AirLabs_URL_dep = `https://airlabs.co/api/v9/schedules?dep_iata=${airport}&api_key=${AirLabs_API_KEY}`;
   const AirLabs_URL_arr = `https://airlabs.co/api/v9/schedules?arr_iata=${airport}&api_key=${AirLabs_API_KEY}`;
 

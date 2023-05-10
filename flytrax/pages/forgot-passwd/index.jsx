@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
-import { faAt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { Alert, Snackbar } from "@mui/material";
 
 const theme = createTheme({
@@ -39,9 +38,18 @@ const ForgotPasswd = () => {
     setShowAlert(false);
   };
 
+  // Función para gestionar tecla pulsada
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleForgot();
+    } else {
+      return;
+    }
+  };
+
   // Función de inicio de sesión
-  const handleForgot = (event) => {
-    event.preventDefault();
+  const handleForgot = () => {
     // Comprobar si hay campos vacíos
     if (email === "") {
       setShowAlert(true);
@@ -72,14 +80,11 @@ const ForgotPasswd = () => {
         </div>
         <div className="grid gap-3">
           <div className="grid grid-cols-10 items-center text-center gap-1">
-            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full p-1">
-              <FontAwesomeIcon
-                className="text-zinc-200"
-                icon={faAt}
-                size="1x"
-              />
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <AlternateEmailIcon sx={{ color: "white" }} />
             </div>
             <TextField
+              onKeyDown={handleKeyDown}
               className="col-span-9"
               id="filled"
               type="text"
