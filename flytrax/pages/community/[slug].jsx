@@ -1,57 +1,120 @@
-import React, { useEffect, useState } from "react";
-import { ForoFeed, ForoForm } from "../../components";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react'
+import { ForoFeed, ForoForm } from '../../components'
+import { useRouter } from 'next/router'
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
 import { aeropuertos } from "../../assets/dummy/aeropuertos_iata";
+import { getCookie } from "cookies-next";
+import ForoItem from "../../components/foro/ForoItem";
+
 
 const CommunityDetails = () => {
-  const router = useRouter();
-  const { slug } = router.query;
+    const router = useRouter()
+    const { slug } = router.query
 
-  const [airports, setAirports] = useState([]);
-  const [actualAirport, setActualAirport] = useState("");
-  const [loading, setIsLoading] = useState(true);
+    const [airports, setAirports] = useState([]);
+    const [actualAirport, setActualAirport] = useState(null);
+    const [loading, setIsLoading] = useState(true);
+    const [topicsByIata, setTopicsByIata] = useState([]);
+    const [backURL, setBackURL] = useState("")
 
-  useEffect(() => {
-    if (!router.isReady) return;
-    aeropuertos.map(function (item) {
-      if (item.iata_code === slug) {
-        setActualAirport(item.iata_code);
+    // Cookie de la sesión
+    const USER_EMAIL = getCookie("userEmail");
+    const BEARER_TOKEN = getCookie("sessionToken");
+
+    const loadMore = () => {
+        getTopicsByIata()
+        setnoOfElement(noOfElement + noOfElement)
+    }
+
+    const [noOfElement, setnoOfElement] = useState(5);
+    const slice = topicsByIata.slice(0, noOfElement)
+
+    const getTopicsByIata = async () => {
+        await axios.get(backURL, {
+            headers: {
+                'Authorization': `Bearer ${BEARER_TOKEN}`,
+            }
+        }
+            ).then((res) => {
+            if (res.status === 200) {
+                console.log("Topics by IATA code retrieved");
+                setTopicsByIata(res.data); 
+            } else {
+                console.log("Error retrieving topics by IATA code");
+            }
+        })
+    };
+
+    useEffect(() => {
+
+        if (!router.isReady) return;
+        setBackURL(`https://flytrax-backend.vercel.app/getTopicsByIata/${slug}`)
+        aeropuertos.map(function (item) {
+            if (item.iata_code === slug) {
+                setActualAirport(item.iata_code);
+                setIsLoading(false);
+            }
+        })
+
         setIsLoading(false);
-      }
-    });
 
-    const getPosts = async () => {};
+        if (actualAirport != null && actualAirport != undefined) {
+            getTopicsByIata();
+        }
 
-    setIsLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.slug, router.isReady]);
+        console.log('Topics by IATA: ', topicsByIata)
 
-  return actualAirport.length != 0 ? (
-    <div className="max-w-[1400px] m-auto w-full my-24">
-      <h3 className="text-3xl font-bold mb-3 text-black">
-        Foro del aeropuerto {slug}
-      </h3>
-      <ForoForm />
-      <ForoFeed />
-    </div>
-  ) : (
-    <div className="max-w-[1400px] m-auto w-full my-24 py-20">
-      <div className="flex items-center justify-center">
-        {!loading ? (
-          <div>Este foro no existe</div>
+    }, [router.query.slug, router.isReady, actualAirport, setActualAirport]);
+
+
+    return (
+
+        actualAirport != null && actualAirport != undefined ? (
+            <div className="max-w-[1400px] m-auto w-full my-24">
+                <h3 className='text-3xl font-bold mb-3 opacity-0'>Foro del aeropuerto {slug}</h3>
+                
+                <h1 className="text-4xl text-center font-semibold mb-3">
+                    <span className="text-black">Foro del Aeropuerto: </span> <span className="text-red-700">
+                    {slug} </span>
+                </h1>
+                <ForoForm isTopic={"True"} iata_code={slug} getTopicsByIata={getTopicsByIata} />
+
+                <div>
+                    {slice.map((post, index) => (
+                        <ForoItem key={index} data={post} iata={slug} />
+                    ))}
+                </div>
+
+                <div className="flex items-center justify-center mt-10">
+                    <button 
+                        className="bg-blue-700 hover:bg-blue-800 px-10 w-full lg:max-w-[350px] h-14 rounded-xl flex justify-center items-center text-white text-xl xl:mt-10 lg:mt-6"
+                        onClick={() => loadMore()}
+                    >
+                        Load More
+                    </button>
+                </div>
+
+            </div>
         ) : (
-          <ClipLoader
-            loading={loading}
-            size={100}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        )}
-      </div>
-    </div>
-  );
-};
+            <div className="max-w-[1400px] m-auto w-full my-24 py-20">
+                <div className='flex items-center justify-center'>
+                    {
+                        !loading ? (
+                            <div>Este foro no existe</div>
+                        ) : (
+                            <ClipLoader
+                                loading={loading}
+                                size={100}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                            />
+                        )
+                    }
+                </div>
+            </div>
+        )
+    )
+}
 
-export default CommunityDetails;
+export default CommunityDetails

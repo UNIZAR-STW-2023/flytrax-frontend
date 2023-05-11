@@ -5,9 +5,7 @@ import Layout from "./Layout";
 import Banner from "./Banner";
 import Loader from "./Loader";
 import ForoForm from "./foro/ForoForm";
-import ForoFeed from "./foro/ForoFeed";
 import ForoItem from "./foro/ForoItem";
-import CommentFeed from "./foro/comments/CommentFeed";
 import CommentItem from "./foro/comments/CommentItem";
 import Sidebar from "./admin/Sidebar";
 import AdminUsuarios from "./admin/usuarios";
@@ -23,9 +21,7 @@ export {
   Banner,
   Loader,
   ForoForm,
-  ForoFeed,
   ForoItem,
-  CommentFeed,
   CommentItem,
   Sidebar,
   AdminUsuarios,

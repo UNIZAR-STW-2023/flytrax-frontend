@@ -9,17 +9,17 @@ const CommentItem = ({ data }) => {
   const router = useRouter();
 
   return (
-    <div className= "border-b-[1px] border-neutral-800 p-5 cursor-pointer hover:bg-neutral-200 transition bg-neutral-100 text-black">
+    <div className= "border-b-[1px] border-neutral-800 p-5 cursor-pointer hover:bg-neutral-200 transition bg-neutral-100 text-black shadow-lg rounded-lg transform duration-500 relative my-2">
       <div className="flex flex-row items-start gap-3">
         <div>
           <Image className='rounded-full h-12 w-12' src={userLogo} alt="" />
         </div>
         <div>
           <div className="flex flex-row items-start gap-3">
-            <p className="font-semibold cursor-pointer hover:underline"> {data.user} </p>
-            <span className="text-sm"> {data.createdAt} </span>
+            <p className="font-semibold cursor-pointer hover:underline"> {data.email} </p>
+            <span className="text-sm"> {data.date} </span>
           </div>
-          <div className="mt-1"> {data.body} </div>
+          <div className="mt-1"> {data.content} </div>
         </div>
       </div>
     </div>
