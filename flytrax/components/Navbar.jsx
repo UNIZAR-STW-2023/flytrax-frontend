@@ -54,7 +54,7 @@ const Navbar = () => {
   // Posición del menú de navegación
   const anchor = "top";
 
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState("");
   const [state, setState] = useState({
     top: false,
   });
@@ -67,7 +67,7 @@ const Navbar = () => {
     const sessionCookie = getCookie("sessionToken");
     // Update state with user cookie value
     setUser(sessionCookie);
-  }, []);
+  }, [user, setUser]);
 
   const handleLogout = () => {
     // Eliminar cookie de sesión
@@ -245,7 +245,7 @@ const Navbar = () => {
     </Box>
   );
 
-  return SESSION_COOKIE || session ? (
+  return user || session ? (
     <nav className="max-lg:shadow-md h-24 w-full bg-slate-200 fixed top-0 left-0 shadow-md backdrop-blur-md navbar">
       <div className="flex justify-between mx-8 lg:mx-16 h-24">
         <div className="grid grid-cols-6 max-lg:w-full">

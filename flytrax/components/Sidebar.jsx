@@ -1,29 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import {
   Add,
   AirplanemodeActive,
   KeyboardDoubleArrowUp,
-  Search,
 } from "@mui/icons-material";
-import { getDistance } from "geolib";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
 const SwipeableTemporaryDrawer = ({
@@ -35,8 +24,6 @@ const SwipeableTemporaryDrawer = ({
   const airportsPerPage = 10;
   const [query, setQuery] = useState("");
   const [airports, setAirports] = useState([]);
-  const [distance, setDistance] = useState([]);
-  const [matchingAirports, setMatchingAirports] = useState([]);
   const [position, setPosition] = useState([latitude, longitude]);
   const [data, setData] = useState({ name: "", iata_code: "" });
   const [paginate, setPaginate] = useState(airportsPerPage);
@@ -80,7 +67,7 @@ const SwipeableTemporaryDrawer = ({
     const getAirports = async () => {
       let aeropuertos = [];
 
-      await fetch("assets/data/[AirLabs]_Airports.json")
+      await fetch("/assets/data/[AirLabs]_Airports.json")
         .then((response) => response.json())
         .then((data) => {
           // Use the data from the JSON file
@@ -94,7 +81,6 @@ const SwipeableTemporaryDrawer = ({
         })
         .catch((error) => console.error(error));
     };
-    console.log(airports);
     getAirports();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [position]);

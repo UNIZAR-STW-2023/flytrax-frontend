@@ -8,7 +8,7 @@ import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 
 // URLs para manejo de datos en la BD
-const loginURL = "http://localhost:3000/loginUsers";
+const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
 
 const theme = createTheme({
   typography: {
@@ -48,11 +48,8 @@ const RedirectRegister = ({ session }) => {
     await axios
       .post(loginURL, data)
       .then((response) => {
-        console.log("Entro al login");
-        console.log(response);
         if (response.data.status === "No existe ese usuario") {
           setNewUser(true);
-          console.log(newUser);
           // Borrar sesión previa
           deleteCookie("sessionToken");
           // Guardar sesión en una cookie (48h máximo)
@@ -69,7 +66,6 @@ const RedirectRegister = ({ session }) => {
           setLoggedIn(true);
           // Redireccionar a la página principal
           setTimeout(() => {
-            console.log("Es la primera vez que ingresas con este correo.");
             setLoading(true);
             router.push("/register");
           }, 5000);
@@ -82,10 +78,7 @@ const RedirectRegister = ({ session }) => {
       });
   };
 
-  console.log(session.user.email);
-
   useEffect(() => {
-    console.log(newUser);
     checkLoginUser();
   }, [newUser, loading]);
 

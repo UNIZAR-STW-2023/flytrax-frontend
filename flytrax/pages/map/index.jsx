@@ -9,11 +9,12 @@ import { useSession } from "next-auth/react";
 
 const MapRendered = () => {
   const router = useRouter();
-  const SESSION_COOKIE = getCookie("sessionToken");
   const { data: session } = useSession();
+
+  const SESSION_COOKIE = getCookie("sessionToken");
   const BDC_API_KEY = "bdc_e893cb5013564fd3946b1cdad776c2e9";
 
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState("");
   const [country, setCountry] = useState("");
   const [latitude, setLatitude] = useState(41.6533533620931); // Default latitude
   const [longitude, setLongitude] = useState(-0.8903464782373229); // Default longitude
@@ -79,10 +80,10 @@ const MapRendered = () => {
     };
 
     getUserLocation();
-  }, [router]);
+  }, [router, user, setUser]);
 
   return !loading ? (
-    SESSION_COOKIE || session ? (
+    user || session ? (
       <div className="flex flex-col items-center align-middle m-auto w-full my-24">
         <h1 className="my-10 text-black font-bold max-sm:text-3xl sm:text-4xl">
           Mapa de aeropuertos{" "}

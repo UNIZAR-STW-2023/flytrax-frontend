@@ -112,23 +112,26 @@ const Login = () => {
             // Guardar sesión en una cookie (48h máximo)
             const adminSession = response.data.tokenAdmin;
             const newSession = response.data.tokenUser;
-            console.log(response.data);
             if (adminSession === "") {
               setCookie("userEmail", email, { maxAge: 60 * 60 * 24 * 2 });
               setCookie("sessionToken", newSession, {
                 maxAge: 60 * 60 * 24 * 2,
               });
+              // Redireccionar a la página del mapa
+              setTimeout(() => {
+                router.push("/map");
+              }, 500);
             } else {
               setCookie("adminSessionToken", adminSession, {
                 maxAge: 60 * 60 * 24 * 2,
               });
+              // Redireccionar a la página de gestión
+              setTimeout(() => {
+                router.push("/admin/user-management");
+              }, 500);
             }
             // Guardar sesión en el estado
             setLoggedIn(true);
-            // Redireccionar a la página principal
-            setTimeout(() => {
-              router.push("/map");
-            }, 500);
           } else {
             setShowAlertLogin(true);
           }

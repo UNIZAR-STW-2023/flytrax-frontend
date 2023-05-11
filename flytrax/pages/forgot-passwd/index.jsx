@@ -4,6 +4,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { Alert, Snackbar } from "@mui/material";
+import axios from "axios";
+
+// URLs para manejo de datos en la BD
+const resetPasswd_URL =
+  "https://flytrax-backend.vercel.app/resetPasswordByEmail/";
 
 const theme = createTheme({
   typography: {
@@ -54,8 +59,28 @@ const ForgotPasswd = () => {
     if (email === "") {
       setShowAlert(true);
     } else {
-      //sendEmail();
+      sendEmail();
     }
+  };
+
+  // Función para enviar el correo de recuperación
+  const sendEmail = async () => {
+    const data = {
+      email: email,
+    };
+
+    await axios
+      .post(resetPasswd_URL, data)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Correo enviado");
+        } else {
+          console.log("Error al enviar el correo");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
