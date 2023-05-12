@@ -138,7 +138,7 @@ const Dashboard = () => {
     getUsersByCountry();
     getUsersRegisteredByPeriod();
 
-    setTimeout(() => setLoading(false), 1500);
+    setTimeout(() => setLoading(false), 5000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminToken, setAdminToken]);
 

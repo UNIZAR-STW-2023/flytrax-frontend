@@ -16,7 +16,9 @@ const AirportDetails = () => {
   const AirLabs_API_KEY = process.env.NEXT_PUBLIC_AIRLABS_API_KEY;
   const AirLabs_URL = `https://airlabs.co/api/v9/airports?iata_code=${slug}&api_key=${AirLabs_API_KEY}`;
 
-  const [time, setTime] = useState(dayjs().format("HH:mm:ss"));
+  console.log(AirLabs_URL);
+
+  const [time, setTime] = useState(dayjs().format("HH:mm"));
   const [airport, setAirport] = useState(null);
   const [details, setDetails] = useState([]);
   const [showDepartures, setShowDepartures] = useState(true);
