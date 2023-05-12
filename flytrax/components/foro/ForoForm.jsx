@@ -37,7 +37,6 @@ const ForoForm = ( { iata_code, isTopic, topic, getAnswersByTopic, getTopicsByIa
 
             const data = {
                 email : email,
-                title : "prueba",
                 description : body,
                 iata: iata_code,
                 respuestas: [],

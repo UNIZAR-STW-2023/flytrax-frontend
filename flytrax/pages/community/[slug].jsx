@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { ForoFeed, ForoForm } from '../../components'
 import { useRouter } from 'next/router'
 import ClipLoader from "react-spinners/ClipLoader";
+import NotFound from "../404";
+import Loader from '../../components';
 import axios from "axios";
 import { aeropuertos } from "../../assets/dummy/aeropuertos_iata";
 import { getCookie } from "cookies-next";
@@ -71,13 +73,20 @@ const CommunityDetails = () => {
     return (
 
         actualAirport != null && actualAirport != undefined ? (
-            <div className="max-w-[1400px] m-auto w-full my-24">
-                <h3 className='text-3xl font-bold mb-3 opacity-0'>Foro del aeropuerto {slug}</h3>
+            <div className="max-w-[1400px] m-auto w-11/12 my-24">
                 
-                <h1 className="text-4xl text-center font-semibold mb-3">
-                    <span className="text-black">Foro del Aeropuerto: </span> <span className="text-red-700">
-                    {slug} </span>
-                </h1>
+
+                <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 mt-24 -mb-6 select-none">
+                    <h1 className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
+                        Foro del aeropuerto
+                        <h2 className="flex items-center align-middle justify-center">
+                            <h3 className="max-sm:w-fit max-sm:self-center border-2 border-gray-500 rounded-lg text-gray-500 text-2xl px-1 mx-2 font-normal">
+                                {slug}
+                            </h3>
+                        </h2>
+                    </h1>
+                </div>
+
                 <ForoForm isTopic={"True"} iata_code={slug} getTopicsByIata={getTopicsByIata} />
 
                 <div>
@@ -97,22 +106,24 @@ const CommunityDetails = () => {
 
             </div>
         ) : (
-            <div className="max-w-[1400px] m-auto w-full my-24 py-20">
-                <div className='flex items-center justify-center'>
-                    {
-                        !loading ? (
-                            <div>Este foro no existe</div>
-                        ) : (
-                            <ClipLoader
-                                loading={loading}
-                                size={100}
-                                aria-label="Loading Spinner"
-                                data-testid="loader"
-                            />
-                        )
-                    }
+            <>
+                {!loading ? (
+                <div className="flex items-center justify-center">
+                    <NotFound />
                 </div>
-            </div>
+                ) : (
+                <div className="max-w-[1400px] m-auto w-full my-24 py-20">
+                    <div className="flex items-center justify-center">
+                    <ClipLoader
+                        loading={loading}
+                        size={100}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                    </div>
+                </div>
+                )}
+            </>   
         )
     )
 }

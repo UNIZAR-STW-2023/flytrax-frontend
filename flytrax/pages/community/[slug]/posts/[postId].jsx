@@ -87,6 +87,9 @@ const PostDetails = ({  }) => {
     setAuxURL(`https://flytrax-backend.vercel.app/getTopicsByIata/${slug}`)
     setIsLoading(false);
   
+    console.log('Respuesta: ', respuesta)
+
+  
     getAnswersByTopic();
     getTopicsByIata();
     setIsLoading(false);
@@ -105,13 +108,13 @@ const PostDetails = ({  }) => {
           </div>
 
         ) : (
-          <div className="max-w-[1400px] m-auto w-full my-24">
+          <div className="max-w-[1400px] m-auto w-11/12 my-24">
 
-            <h3 className='text-3xl font-bold mb-3 opacity-0'>Foro del aeropuerto </h3>
-                  
-            <h1 className="text-4xl text-center font-semibold mb-3">
-                <span className="text-black">Hilo de mensajes </span> 
-            </h1>
+            <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 mt-24 -mb-6 select-none">
+                <h1 className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
+                    Hilo de mensajes
+                </h1>
+            </div>
 
             <div className= "border-b-[1px] border-neutral-800 p-5 cursor-pointer hover:bg-neutral-100 transition shadow-lg rounded-lg transform duration-500 relative my-2">
               <div className="flex flex-row items-start gap-3 mb-5">
@@ -120,7 +123,7 @@ const PostDetails = ({  }) => {
                 </div>
                 <div className='text-black'>
                   <div className="flex flex-row items-center gap-2">
-                    <p className="font-semibold cursor-pointer"> {discusion.email} </p>
+                    <p className="font-semibold cursor-pointer"> {discusion.nickname} </p>
                     <span className="text-sm"> {discusion.date} </span>
                   </div>
                   <div className="mt-1"> {discusion.description} </div>

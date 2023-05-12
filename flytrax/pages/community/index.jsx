@@ -80,10 +80,12 @@ const CommunityHome = () => {
     return (
         <div className="max-w-[1400px] m-auto w-full my-24">
 
-            <h3 className='text-3xl font-bold mb-3 opacity-0'>Foro del aeropuerto </h3>     
-            <h1 className="text-4xl text-center font-semibold mb-10">
-                <span className="text-black">Listado de foros </span> 
-            </h1>
+            <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 mt-24 -mb-6 select-none">
+                <h1 className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
+                    Listado de foros 
+                </h1>
+            </div>
+
 
             {/* Airport by IATA Searcher */}
             <div className="px-[30px] py-6 max-w-[1170px] mx-auto flex  lg:flex-row justify-between gap-4 lg:gap-x-3 relative lg:-top-4  rounded-lg ">

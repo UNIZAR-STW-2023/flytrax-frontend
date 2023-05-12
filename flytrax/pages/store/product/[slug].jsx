@@ -6,6 +6,7 @@ import { Product } from "../../../components";
 import { useRouter } from "next/router";
 import { productsData } from "../../../assets/dummy/dummyDatos";
 import { Banner } from "../../../components";
+import NotFound from "../../404";
 import { useStateContext } from "../../../context/StateContext";
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -135,20 +136,24 @@ const ProductDetails = () => {
       </div>
     </div>
   ) : (
-    <div className="max-w-[1400px] m-auto w-full my-24 py-20">
-      <div className="flex items-center justify-center">
+      <>
         {!loading ? (
-          <div>Este producto no existe</div>
+          <div className="flex items-center justify-center">
+            <NotFound />
+          </div>
         ) : (
-          <ClipLoader
-            loading={loading}
-            size={100}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
+          <div className="max-w-[1400px] m-auto w-full my-24 py-20">
+            <div className="flex items-center justify-center">
+              <ClipLoader
+                loading={loading}
+                size={100}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+              </div>
+          </div>
         )}
-      </div>
-    </div>
+      </>
   );
 };
 

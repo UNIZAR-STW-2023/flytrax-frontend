@@ -16,7 +16,7 @@ const CommentItem = ({ data }) => {
         </div>
         <div>
           <div className="flex flex-row items-start gap-3">
-            <p className="font-semibold cursor-pointer hover:underline"> {data.email} </p>
+            <p className="font-semibold cursor-pointer hover:underline"> {data.nickname} </p>
             <span className="text-sm"> {data.date} </span>
           </div>
           <div className="mt-1"> {data.content} </div>

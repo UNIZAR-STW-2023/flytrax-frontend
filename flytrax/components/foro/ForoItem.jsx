@@ -27,7 +27,7 @@ const ForoItem = ({ data, iata }) => {
           </div>
           <div className='text-black'>
             <div className="flex flex-row items-center gap-2">
-              <p className="font-semibold cursor-pointer"> {data.email} </p>
+              <p className="font-semibold cursor-pointer"> {data.nickname} </p>
               <span className="text-sm"> {data.date} </span>
             </div>
             <div className="mt-1"> {data.description} </div>

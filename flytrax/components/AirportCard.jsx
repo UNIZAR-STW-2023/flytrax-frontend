@@ -7,20 +7,21 @@ import cardImage from "../assets/dummy/images/3.jpg";
 import Link from "next/link";
 import { useStateContext } from '../context/StateContext';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { getCookie } from "cookies-next";
+import axios from "axios";
 
 
-const AirportCard = ({ aeropuertos }) => {
+const AirportCard = ({ aeropuertos, isFavorite }) => {
 
   const favURL = "https://flytrax-backend.vercel.app/saveAirports";
-  const desFavURL = "https://flytrax-backend.vercel.app/deleteFavAirports";
-  //const favAirportsListURL = "https://flytrax-backend.vercel.app/getFavAirports";
+  const desFavURL = "https://flytrax-backend.vercel.app/deleteFavAirport";
 
-  const [email, setEmail] = useState("");
   const [data, setData] = useState(false);
   const [page, setPage] = useState(1);
   //const [country, setCountry] = useState([]);
   const [airports, setAirports] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [listOfFavAirports, setListOfFavAirports] = useState([]);
 
   const loadMore = () => {
     setnoOfElement(noOfElement + noOfElement)
@@ -28,17 +29,33 @@ const AirportCard = ({ aeropuertos }) => {
 
   const [noOfElement, setnoOfElement] = useState(12);
   const slice = aeropuertos.slice(0, noOfElement)
+  
+  if(isFavorite === "True"){
+    console.log('Slice', slice)
+  }
+
+  const email = getCookie('userEmail')
+  const favAirportsListURL = `https://flytrax-backend.vercel.app/getFavAirports/${email}`;
+  const BEARER_TOKEN = getCookie("sessionToken");
 
   const { country, airport } = useStateContext();
 
   const favAirport = async (iata_code) => {
+
+    console.log('Email:', email)
+    console.log('IATA:', iata_code)
+
     const data = {
-      email : email,
+      email: email,
       iata: iata_code
     }
 
     await axios
-      .post(favURL, data)
+      .post(favURL, data, {
+        headers: {
+          'Authorization': `Bearer ${BEARER_TOKEN}`,
+        }
+      })
       .then((res) => {
         if (res.status === 200) {
           console.log("Airport saved");
@@ -53,16 +70,25 @@ const AirportCard = ({ aeropuertos }) => {
   }
 
   const deleteFavAirport = async (iata_code) => {
-    const data = {
-      email : email,
+
+    console.log('Email:', email)
+    console.log('iata:', iata_code)
+
+    const data_des = {
+      email: email,
       iata: iata_code
     }
 
     await axios
-      .post(desFavURL, data)
+      .post(desFavURL, data_des, {
+        headers: {
+          'Authorization': `Bearer ${BEARER_TOKEN}`,
+        }
+      })
       .then((res) => {
         if (res.status === 200) {
           console.log("Airport delete from favs");
+          getFavAirports();
         } else {
           alert("Error al desfavear aeropuerto");
         }
@@ -71,62 +97,37 @@ const AirportCard = ({ aeropuertos }) => {
         console.log(err);
         alert("Error al desfavear aeropuerto");
       });
+  }
+
+  const getFavAirports = async () => {
+    await axios.get(favAirportsListURL, {
+      headers: {
+        'Authorization': `Bearer ${BEARER_TOKEN}`,
+        }
+      }).then((res) => {
+        if (res.status === 200) {
+          setListOfFavAirports(res.data);
+        } else {
+          console.log("Failed to get list of favorites")
+        }
+      })
     }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('https://reqres.in/api/users?page=2')
-        const json = res.json()
-        setData(json.data)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    fetchData()
+    
+    getFavAirports();
+    setLoading(false);
 
-    if(country != ""){
-      const filtered = aeropuertos.filter(function (item) {
-        return item.country_code === country;
-      });
-      setAirports(filtered);
-    }
-
-  }, [page])
-
-
-  const favList = async () => {
-    const data = {
-      email : email,
-    }
-
-    //Get fav airports
-
-    /*const getCountryFromLocation = async (latitude, longitude) => {
-      try {
-        const response = await fetch(
-          `https://api-bdc.net/data/reverse-geocode?latitude=${latitude}&longitude=${longitude}&localityLanguage=en&key=${BDC_API_KEY}`
-        );
-        const data = await response.json();
-        const countryCode = data.countryCode;
-        setCountry(countryCode);
-      } catch (error) {
-        console.error("Failed to get country from location:", error);
-      }*/
-
-    //setListOfFavAirports(res.data);
-  }
+  })
 
 
   function isFavorite(airport) {
     return listOfFavAirports.includes(airport);
   }
 
-  const [listOfFavAirports, setListOfFavAirports] = useState([]);
-
   return (
     <div className="container mx-auto px-8">
-      <div className="grid xl:-mt-5 lg:grid-cols-3 lg:mt-0 md:grid-cols-2 md:mt-5 grid-cols-1 mt-20 gap-6">
+      <div className="grid xl:-mt-5 lg:grid-cols-3 lg:mt-0 md:grid-cols-2 md:mt-5 grid-cols-1 mt-20 gap-6 z-10">
         
         {slice.map((card, index) => {
           let countryCode = card.country_code;
@@ -134,7 +135,6 @@ const AirportCard = ({ aeropuertos }) => {
           return(
             
             card.iata_code ? ( 
-              <Link href={`/airports/${card.iata_code}`}>
               <div 
                 key={index} 
                 className="shadow-lg rounded-lg transform transition duration-500 hover:scale-110 relative"
@@ -142,7 +142,7 @@ const AirportCard = ({ aeropuertos }) => {
                 {/*<Image className="rounded-t-lg" src={flagUrl} width={width} height={height} alt="" />*/}
 
                 { isFavorite(card.iata_code) ? (
-                  <div className="p-5">
+                  <div className="p-5 z-20">
                     <AiFillHeart 
                       className="absolute right-2 mb-5 text-red-700" 
                       size={30} 
@@ -157,7 +157,7 @@ const AirportCard = ({ aeropuertos }) => {
                     <p className="text-lg font-normal text-gray-600">{card.name}</p>
                   </div>
                 ) : (
-                  <div className="p-5">
+                  <div className="p-5 z-20">
                     <AiOutlineHeart 
                       className="absolute right-2 mb-5 " 
                       size={30} 
@@ -174,7 +174,6 @@ const AirportCard = ({ aeropuertos }) => {
                 )}
 
               </div>
-            </Link>
             ) : (
               null
             )
