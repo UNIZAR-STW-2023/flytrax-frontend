@@ -137,21 +137,78 @@ const UserManagement = () => {
     });
   };
 
-  const sortFlights = (array, param, orderBy, setArray, setOrderBy) => {
+  const sortUsers = (array, param, orderBy, setArray, setOrderBy) => {
+    // En caso de ser una fecha de nacimiento, se ordena de otra forma
+    if (param === "dateOfBirth") {
+      // Hay que calcular primero la edad de cada usuario
+      const sortedArray = [...array].sort((a, b) => {
+        if (a.dateOfBirth === null) return -1;
+        if (b.dateOfBirth === null) return 1;
+        return dayjs().diff(
+          a.dateOfBirth.split("/")[2] +
+            "-" +
+            a.dateOfBirth.split("/")[1] +
+            "-" +
+            a.dateOfBirth.split("/")[0],
+          "year"
+        ) <
+          dayjs().diff(
+            b.dateOfBirth.split("/")[2] +
+              "-" +
+              b.dateOfBirth.split("/")[1] +
+              "-" +
+              b.dateOfBirth.split("/")[0],
+            "year"
+          )
+          ? -1
+          : 1;
+      });
+      setArray(orderBy === "asc" ? sortedArray : sortedArray.reverse());
+      setOrderBy(orderBy === "asc" ? "desc" : "asc");
+      setField(param);
+    } else {
+      const sortedArray = [...array].sort((a, b) => {
+        if (a[param] === null) return -1;
+        if (b[param] === null) return 1;
+        return a[param] < b[param] ? -1 : 1;
+      });
+      setArray(orderBy === "asc" ? sortedArray : sortedArray.reverse());
+      setOrderBy(orderBy === "asc" ? "desc" : "asc");
+      setField(param);
+    }
+  };
+
+  const sortUsersByBD = (array, orderBy, setArray, setOrderBy) => {
     const sortedArray = [...array].sort((a, b) => {
-      if (a[param] === null) return -1;
-      if (b[param] === null) return 1;
-      return a[param] < b[param] ? -1 : 1;
+      if (a.dateOfBirth === null) return -1;
+      if (b.dateOfBirth === null) return 1;
+      return dayjs().diff(
+        a.dateOfBirth.split("/")[2] +
+          "-" +
+          a.dateOfBirth.split("/")[1] +
+          "-" +
+          a.dateOfBirth.split("/")[0],
+        "year"
+      ) <
+        dayjs().diff(
+          b.dateOfBirth.split("/")[2] +
+            "-" +
+            b.dateOfBirth.split("/")[1] +
+            "-" +
+            b.dateOfBirth.split("/")[0],
+          "year"
+        )
+        ? -1
+        : 1;
     });
 
     setArray(orderBy === "asc" ? sortedArray : sortedArray.reverse());
     setOrderBy(orderBy === "asc" ? "desc" : "asc");
-    setField(param);
   };
 
   return !loading ? (
     <>
-      <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 my-24 select-none">
+      <div className="flex flex-col justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">
         <h1 className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
           Gestión de usuarios
         </h1>
@@ -201,7 +258,7 @@ const UserManagement = () => {
                   }}
                   align="left"
                   onClick={() =>
-                    sortFlights(users, "name", orderBy, setUsers, setOrderBy)
+                    sortUsers(users, "name", orderBy, setUsers, setOrderBy)
                   }
                 >
                   <div className="flex align-middle items-center flight-panel-head">
@@ -236,7 +293,7 @@ const UserManagement = () => {
                   }}
                   align="left"
                   onClick={() =>
-                    sortFlights(users, "surname", orderBy, setUsers, setOrderBy)
+                    sortUsers(users, "surname", orderBy, setUsers, setOrderBy)
                   }
                 >
                   <div className="flex align-middle items-center flight-panel-head">
@@ -271,13 +328,7 @@ const UserManagement = () => {
                   }}
                   align="left"
                   onClick={() =>
-                    sortFlights(
-                      users,
-                      "nickname",
-                      orderBy,
-                      setUsers,
-                      setOrderBy
-                    )
+                    sortUsers(users, "nickname", orderBy, setUsers, setOrderBy)
                   }
                 >
                   <div className="flex align-middle items-center flight-panel-head">
@@ -312,7 +363,7 @@ const UserManagement = () => {
                   }}
                   align="left"
                   onClick={() =>
-                    sortFlights(users, "email", orderBy, setUsers, setOrderBy)
+                    sortUsers(users, "email", orderBy, setUsers, setOrderBy)
                   }
                 >
                   <div className="flex align-middle items-center flight-panel-head">
@@ -347,7 +398,7 @@ const UserManagement = () => {
                   }}
                   align="left"
                   onClick={() =>
-                    sortFlights(users, "gender", orderBy, setUsers, setOrderBy)
+                    sortUsers(users, "gender", orderBy, setUsers, setOrderBy)
                   }
                 >
                   <div className="flex align-middle items-center flight-panel-head">
@@ -382,7 +433,7 @@ const UserManagement = () => {
                   }}
                   align="left"
                   onClick={() =>
-                    sortFlights(users, "country", orderBy, setUsers, setOrderBy)
+                    sortUsers(users, "country", orderBy, setUsers, setOrderBy)
                   }
                 >
                   <div className="flex align-middle items-center flight-panel-head">
@@ -417,7 +468,7 @@ const UserManagement = () => {
                   }}
                   align="left"
                   onClick={() =>
-                    sortFlights(
+                    sortUsers(
                       users,
                       "dateOfBirth",
                       orderBy,
@@ -458,7 +509,7 @@ const UserManagement = () => {
                   }}
                   align="left"
                   onClick={() =>
-                    sortFlights(users, "banned", orderBy, setUsers, setOrderBy)
+                    sortUsers(users, "banned", orderBy, setUsers, setOrderBy)
                   }
                 >
                   <div className="flex align-middle items-center flight-panel-head">
@@ -653,12 +704,6 @@ const UserManagement = () => {
           )}
         </TableContainer>
       </div>
-      <button
-        onClick={() => router.back()}
-        className="flex gap-2 hover:text-orange-600 transition ease-in-out duration-200 font-semibold uppercase text-2xl align-middle items-center w-40 m-5"
-      >
-        <ArrowBack /> Volver
-      </button>
       <div>
         <Snackbar
           message="¡Usuario bloqueado! — acceso denegado"
@@ -689,6 +734,12 @@ const UserManagement = () => {
           </Alert>
         </Snackbar>
       </div>
+      <button
+        onClick={() => router.back()}
+        className="flex gap-2 hover:text-orange-600 transition ease-in-out duration-200 font-semibold uppercase text-2xl align-middle items-center w-40 m-5"
+      >
+        <ArrowBack /> Volver
+      </button>
     </>
   ) : (
     <Loader />

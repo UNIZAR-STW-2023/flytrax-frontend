@@ -102,7 +102,7 @@ const RedirectRegister = ({ session }) => {
               className="relative mx-auto rounded-full"
             />
             <div className="absolute inset-0 text-center justify-center w-full h-full">
-              <CircularProgress color="success" size={100} thickness="1.5" />
+              <CircularProgress color="success" size={100} thickness={1.5} />
             </div>
           </div>
           <button

@@ -127,7 +127,7 @@ const Login = () => {
               });
               // Redireccionar a la página de gestión
               setTimeout(() => {
-                router.push("/admin/user-management");
+                router.push("/admin");
               }, 500);
             }
             // Guardar sesión en el estado
