@@ -8,7 +8,7 @@ import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 
 // URLs para manejo de datos en la BD
-const loginURL = "http://localhost:3000/loginUsers";
+const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
 
 const theme = createTheme({
   typography: {
@@ -102,7 +102,7 @@ const RedirectRegister = ({ session }) => {
               className="relative mx-auto rounded-full"
             />
             <div className="absolute inset-0 text-center justify-center w-full h-full">
-              <CircularProgress color="success" size={100} thickness="1.5" />
+              <CircularProgress color="success" size={100} thickness={1.5} />
             </div>
           </div>
           <button

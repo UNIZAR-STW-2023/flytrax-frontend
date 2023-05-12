@@ -7,6 +7,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "avatars.githubusercontent.com",
       "www.countryflagicons.com",
+      "flagcdn.com",
     ],
   },
 };

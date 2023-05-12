@@ -117,17 +117,21 @@ const Login = () => {
               setCookie("sessionToken", newSession, {
                 maxAge: 60 * 60 * 24 * 2,
               });
+              // Redireccionar a la página del mapa
+              setTimeout(() => {
+                router.push("/map");
+              }, 500);
             } else {
               setCookie("adminSessionToken", adminSession, {
                 maxAge: 60 * 60 * 24 * 2,
               });
+              // Redireccionar a la página de gestión
+              setTimeout(() => {
+                router.push("/admin");
+              }, 500);
             }
             // Guardar sesión en el estado
             setLoggedIn(true);
-            // Redireccionar a la página principal
-            setTimeout(() => {
-              router.push("/map");
-            }, 500);
           } else {
             setShowAlertLogin(true);
           }

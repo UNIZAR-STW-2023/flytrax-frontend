@@ -35,14 +35,6 @@ function FlightPanel({ showDepartures, airport }) {
         .catch((error) => {
           console.log("Error fetching the data: ", error);
         });
-
-      /* await fetch("../assets/data/[AirLabs]_Flights_BCN.json")
-        .then((response) => response.json())
-        .then((data) => {
-          vuelos = data.response;
-          setDepartureFlights(data.response);
-        })
-        .catch((error) => console.error(error)); */
     };
 
     const getArrivalFlights = async () => {
@@ -54,22 +46,14 @@ function FlightPanel({ showDepartures, airport }) {
         .catch((error) => {
           console.log("Error fetching the data: ", error);
         });
-
-      /* await fetch("../assets/data/[AirLabs]_Flights_arr_BCN.json")
-        .then((response) => response.json())
-        .then((data) => {
-          vuelos = data.response;
-          setArrivalFlights(data.response);
-        })
-        .catch((error) => console.error(error)); */
     };
 
-    /* getCountryFromLocation(); */
     getDepartureFlights();
     getArrivalFlights();
     /* setTimeout(() => setLoading(false), 1500); */
     // eslint-disable-next-line react-hooks/exhaustive-deps
     setTimeout(() => setLoading(false), 1500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Función para cargar más aeropuertos
@@ -134,7 +118,7 @@ function FlightPanel({ showDepartures, airport }) {
               onClick={() =>
                 sortFlights(
                   showDepartures ? departureFlights : arrivalFlights,
-                  showDepartures ? "dep_time_utc" : "arr_time_utc",
+                  showDepartures ? "dep_time" : "arr_time",
                   orderBy,
                   showDepartures ? setDepartureFlights : setArrivalFlights,
                   setOrderBy
@@ -151,7 +135,7 @@ function FlightPanel({ showDepartures, airport }) {
                       orderBy === "asc" ? "rotate(-180deg)" : "rotate(0deg)",
                     transition: "color 300ms, transform 300ms",
                     display:
-                      field === "dep_time_utc" || field === "arr_time_utc"
+                      field === "dep_time" || field === "arr_time"
                         ? "block"
                         : "none",
                   }}
@@ -368,7 +352,7 @@ function FlightPanel({ showDepartures, airport }) {
           {showDepartures
             ? departureFlights.slice(0, paginate).map((row) => (
                 <TableRow
-                  key={row.iata_code}
+                  key={row.flight_iata}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell
@@ -379,7 +363,7 @@ function FlightPanel({ showDepartures, airport }) {
                       color: "#facc15",
                     }}
                   >
-                    {row.dep_time_utc.split(" ")[1]}
+                    {row.dep_time.split(" ")[1]}
                   </TableCell>
                   <TableCell
                     align="left"
@@ -444,7 +428,7 @@ function FlightPanel({ showDepartures, airport }) {
               ))
             : arrivalFlights.slice(0, paginate).map((row) => (
                 <TableRow
-                  key={row.iata_code}
+                  key={row.flight_iata}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell
@@ -455,7 +439,7 @@ function FlightPanel({ showDepartures, airport }) {
                       color: "#facc15",
                     }}
                   >
-                    {row.arr_time_utc.split(" ")[1]}
+                    {row.arr_time.split(" ")[1]}
                   </TableCell>
                   <TableCell
                     align="left"

@@ -150,6 +150,34 @@
   background-clip: text;
 }
 
+.stats-text {
+  background: linear-gradient(220.55deg, #5ee2ff 0%, #00576a 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.gold-text {
+  background: linear-gradient(220.55deg, #ffe6a4 0%, #ad8211 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.silver-text {
+  background: linear-gradient(220.55deg, #eaeaea 0%, #8b8b8b 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.bronze-text {
+  background: linear-gradient(220.55deg, #fadd76 0%, #9f3311 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 .light-font {
   font-family: SF-Pro-Display-Light;
   src: url(/assets/fonts/SF-Pro-Display-Light.otf);
@@ -223,7 +251,6 @@
   display: none;
 }
 
-
 .error-text {
   background: linear-gradient(220.55deg, #ff9d7e 0%, #4d6ad0 100%);
   -webkit-text-fill-color: transparent;
@@ -233,6 +260,10 @@
 
 .error-text-resize {
   font-size: 20rem;
+}
+
+.stats-bg {
+  background: linear-gradient(220.55deg, #fff6eb 0%, #dfd1c5 100%);
 }
 
 @keyframes fade-in {

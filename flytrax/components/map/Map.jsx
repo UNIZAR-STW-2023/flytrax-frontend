@@ -1,5 +1,5 @@
 // components/Map.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import L from "leaflet";
 import { Circle, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -11,7 +11,6 @@ import SwipeableEdgeDrawer from "../Sidebar";
 import axios from "axios";
 import Loader from "../Loader";
 import { getDistance } from "geolib";
-import { useCallback } from "react";
 import { Navigation } from "@mui/icons-material";
 import Link from "next/link";
 
@@ -29,7 +28,6 @@ const Map = ({ latitude, longitude }) => {
   const [loading, setLoading] = useState(true);
 
   const BDC_URL = `https://api-bdc.net/data/reverse-geocode?latitude=${latitude}&longitude=${longitude}&localityLanguage=en&key=${BDC_API_KEY}`;
-  const AirLabs_URL = `https://airlabs.co/api/v9/airports?country_code=${country}&api_key=a06c41d2-1fc4-4d92-864e-fd641accfa06`;
 
   // Define a custom icon
   const airportLocation = L.icon({
@@ -62,7 +60,7 @@ const Map = ({ latitude, longitude }) => {
       let distancias = [];
       let aeropuertos = [];
 
-      await fetch("assets/data/[AirLabs]_Airports.json")
+      await fetch("/assets/data/[AirLabs]_Airports.json")
         .then((response) => response.json())
         .then((data) => {
           // Use the data from the JSON file
@@ -96,7 +94,7 @@ const Map = ({ latitude, longitude }) => {
 
   // Controlar posición del usuario
   const [value, setValue] = useState(DEFAULT_POSITION);
-  const [data, setData] = useState("Estás aquí");
+  const [data, setData] = useState({ name: "Estás aquí", iata_code: "HERE" });
 
   const handleChildValue = useCallback(
     (childValue) => {
