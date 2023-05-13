@@ -19,27 +19,6 @@ const FavAirports = () => {
   const favAirportsListURL = `https://flytrax-backend.vercel.app/getFavAirports/${email}`;
   const BEARER_TOKEN = getCookie("sessionToken");
 
-  const getFavAirports = async () => {
-    await axios.get(favAirportsListURL, {
-      headers: {
-        'Authorization': `Bearer ${BEARER_TOKEN}`,
-        }
-      }).then((res) => {
-        if (res.status === 200) {
-          console.log("Fav airports list");
-          setListOfFavAirports(res.data);
-        } else {
-          console.log("Failed to get list of favorites")
-        }
-      })
-  }
-
-  useEffect(() => {
-    getFavAirports();
-    setLoading(false);
-    console.log('List of favorites', listOfFavAirports);
-  }, [])
-  
   return (
     <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 my-24 select-none">
 
@@ -48,7 +27,7 @@ const FavAirports = () => {
         </h1>
             
         {/* Airport Cards */}      
-        <FavAirportCard aeropuertos={listOfFavAirports} />
+        <FavAirportCard aeropuertos={aeropuertos} />
     </div>
   );
 };

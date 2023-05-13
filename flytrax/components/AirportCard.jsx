@@ -42,8 +42,7 @@ const AirportCard = ({ aeropuertos, isFavorite }) => {
 
   const favAirport = async (iata_code) => {
 
-    console.log('Email:', email)
-    console.log('IATA:', iata_code)
+    console.log('Adding favorite airport...')
 
     const data = {
       email: email,
@@ -59,6 +58,7 @@ const AirportCard = ({ aeropuertos, isFavorite }) => {
       .then((res) => {
         if (res.status === 200) {
           console.log("Airport saved");
+          getFavAirports();
         } else {
           alert("Error al favear aeropuerto");
         }
@@ -71,8 +71,7 @@ const AirportCard = ({ aeropuertos, isFavorite }) => {
 
   const deleteFavAirport = async (iata_code) => {
 
-    console.log('Email:', email)
-    console.log('iata:', iata_code)
+    console.log('Deleting favorite airport...')
 
     const data_des = {
       email: email,
@@ -100,6 +99,9 @@ const AirportCard = ({ aeropuertos, isFavorite }) => {
   }
 
   const getFavAirports = async () => {
+
+    console.log('Loading favorites...')
+    
     await axios.get(favAirportsListURL, {
       headers: {
         'Authorization': `Bearer ${BEARER_TOKEN}`,
@@ -111,18 +113,21 @@ const AirportCard = ({ aeropuertos, isFavorite }) => {
           console.log("Failed to get list of favorites")
         }
       })
-    }
+  }
 
   useEffect(() => {
-    
+  
     getFavAirports();
     setLoading(false);
 
-  })
+    console.log('Lista de favoritos:', listOfFavAirports)
+
+  }, [])
 
 
   function isFavorite(airport) {
-    return listOfFavAirports.includes(airport);
+    //return listOfFavAirports.includes(airport);
+    return listOfFavAirports.find(componente => componente.iata === airport);
   }
 
   return (
