@@ -44,7 +44,7 @@ export const countryCodes = [
     name: "Alemania",
     code: "DE",
   },
-]
+];
 
 export const countriesData = [
   {
@@ -905,38 +905,75 @@ export const usersData = [
 export const productsData = [
   {
     _id: 1,
-    name: "Camiseta Flytrax 1",
+    name: "Camiseta Minimal Limited Edition",
     price: 19.99,
-    image: ["/images/camiseta_1_total.jpg", "/images/camiseta_1_delante.png", "/images/camiseta_1_detras.png"],
-    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
+    image: [
+      "/images/camiseta_1_total.jpg",
+      "/images/camiseta_1_delante.png",
+      "/images/camiseta_1_detras.png",
+    ],
+    description:
+      "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Diseñada y confeccionada con mucho cariño y cuidado. Take off with confidence.",
   },
   {
     _id: 2,
-    name: "Camiseta Flytrax 2",
+    name: "Camiseta O&W Limited Edition",
     price: 19.99,
-    image: ["/images/camiseta_2_total.jpg", "/images/camiseta_2_delante.png", "/images/camiseta_2_detras.png"],
-    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
+    image: [
+      "/images/camiseta_2_total.jpg",
+      "/images/camiseta_2_delante.png",
+      "/images/camiseta_2_detras.png",
+    ],
+    description:
+      "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Blanca y naranja, como el sol y la luna.",
   },
   {
     _id: 3,
-    name: "Camiseta Flytrax 3",
+    name: "Camiseta O&B Limited Edition",
     price: 19.99,
-    image: ["/images/camiseta_3_total.jpg", "/images/camiseta_3_delante.png", "/images/camiseta_3_detras.png"],
-    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
+    image: [
+      "/images/camiseta_3_total.jpg",
+      "/images/camiseta_3_delante.png",
+      "/images/camiseta_3_detras.png",
+    ],
+    description:
+      "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Negra y naranja, como la noche y el fuego.",
   },
   {
     _id: 4,
-    name: "Camiseta Flytrax 4",
+    name: "Camiseta B&W Limited Edition",
     price: 19.99,
-    image: ["/images/camiseta_4_total.jpg", "/images/camiseta_4_delante.png", "/images/camiseta_4_detras.png"],
-    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
+    image: [
+      "/images/camiseta_4_total.jpg",
+      "/images/camiseta_4_delante.png",
+      "/images/camiseta_4_detras.png",
+    ],
+    description:
+      "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Negra y blanca, como la noche y la luna.",
   },
   {
     _id: 5,
-    name: "Camiseta Flytrax 5",
+    name: "Camiseta B&W&m Limited Edition",
     price: 19.99,
-    image: ["/images/camiseta_5_total.jpg", "/images/camiseta_5_delante.jpg", "/images/camiseta_5_detras.jpg"],
-    description: "Camiseton bacana para apoyar a los panas de Flytrax, te la pones y te conviertes en Cbum, unas alas que ni el Boeing 737 MAX"
+    image: [
+      "/images/camiseta_5_total.jpg",
+      "/images/camiseta_5_delante.jpg",
+      "/images/camiseta_5_detras.jpg",
+    ],
+    description:
+      "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Blanca y naranja, como el sol y la luna. Minimalista.",
+  },
+  {
+    _id: 6,
+    name: "Camiseta Nano Limited Edition",
+    price: 33.33,
+    image: [
+      "/images/nano_total.jpg",
+      "/images/nano_delante.jpg",
+      "/images/nano_detras.jpg",
+    ],
+    description:
+      "Cómo 33???? No podemos asegurar de que te conviertas en el Nano porque Nano sólo hay uno, pero con esta camiseta estamos seguros de que vas programar más rapido que un Alpine.",
   },
 ];
 

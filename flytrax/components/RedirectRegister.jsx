@@ -80,6 +80,7 @@ const RedirectRegister = ({ session }) => {
 
   useEffect(() => {
     checkLoginUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newUser, loading]);
 
   return !newUser ? (

@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 // Custom Link component props
 function CustomLink({ to, children, ...props }) {
   const router = useRouter();
-  const isActive = router.pathname === to;
+  const isActive =
+    router.pathname === to || router.pathname.startsWith(`${to}/`);
 
   return (
     <span

@@ -138,8 +138,8 @@ const Map = ({ latitude, longitude }) => {
         style={{
           height: "80vh",
           width: "100%",
-          border: "2px solid #27272A",
-          borderRadius: "10px",
+          border: "4px solid #918998",
+          borderRadius: "15px",
           boxShadow: "0 0 2px #27272A",
         }}
       >

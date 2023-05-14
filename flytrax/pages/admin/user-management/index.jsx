@@ -178,34 +178,6 @@ const UserManagement = () => {
     }
   };
 
-  const sortUsersByBD = (array, orderBy, setArray, setOrderBy) => {
-    const sortedArray = [...array].sort((a, b) => {
-      if (a.dateOfBirth === null) return -1;
-      if (b.dateOfBirth === null) return 1;
-      return dayjs().diff(
-        a.dateOfBirth.split("/")[2] +
-          "-" +
-          a.dateOfBirth.split("/")[1] +
-          "-" +
-          a.dateOfBirth.split("/")[0],
-        "year"
-      ) <
-        dayjs().diff(
-          b.dateOfBirth.split("/")[2] +
-            "-" +
-            b.dateOfBirth.split("/")[1] +
-            "-" +
-            b.dateOfBirth.split("/")[0],
-          "year"
-        )
-        ? -1
-        : 1;
-    });
-
-    setArray(orderBy === "asc" ? sortedArray : sortedArray.reverse());
-    setOrderBy(orderBy === "asc" ? "desc" : "asc");
-  };
-
   return !loading ? (
     <>
       <div className="flex flex-col justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">

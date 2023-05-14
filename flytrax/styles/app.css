@@ -56,7 +56,7 @@
 }
 
 .App-main {
-  background: #eaeaf3;
+  background: linear-gradient(220.55deg, #cce6ff 0%, #fcb7f5 100%);
   flex-direction: column;
   justify-content: center;
   font-size: 1em;

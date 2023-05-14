@@ -28,6 +28,7 @@ const Navbar = () => {
 
   // Cookie de la sesión
   const SESSION_COOKIE = getCookie("sessionToken");
+  const ADMIN_COOKIE = getCookie("adminSessionToken");
 
   // Links para el menú de navegación (logged in)
   const linksLoggedIN = [
@@ -35,8 +36,8 @@ const Navbar = () => {
       name: "Mapa",
       value: "/map",
     },
-    { name: "Aeropuertos", value: "" },
-    { name: "Favoritos", value: "" },
+    { name: "Aeropuertos", value: "/airports-list" },
+    { name: "Favoritos", value: "/fav-airports" },
     { name: "Tienda", value: "/store" },
   ];
 
@@ -44,9 +45,9 @@ const Navbar = () => {
   const linksLoggedOUT = [
     {
       name: "Quiénes somos",
-      value: "",
+      value: "/who-we-are",
     },
-    { name: "Contacto", value: "" },
+    { name: "Contacto", value: "/contact" },
     { name: "FAQ", value: "/faq" },
     { name: "Tienda", value: "/store" },
   ];
@@ -55,6 +56,7 @@ const Navbar = () => {
   const anchor = "top";
 
   const [user, setUser] = useState("");
+  const [admin, setAdmin] = useState("");
   const [state, setState] = useState({
     top: false,
   });
@@ -65,19 +67,15 @@ const Navbar = () => {
   useEffect(() => {
     // Fetch user cookie value
     const sessionCookie = getCookie("sessionToken");
+    const adminCookie = getCookie("adminSessionToken");
     // Update state with user cookie value
     setUser(sessionCookie);
-  }, [user, setUser]);
+    setAdmin(adminCookie);
+  }, [user, setUser, admin, setAdmin, SESSION_COOKIE, ADMIN_COOKIE]);
 
-  const handleLogout = () => {
-    // Eliminar cookie de sesión
-    deleteCookie("sessionToken");
-    // Actualizar estado de usuario
-    setUser(false);
-    // Redireccionar a la página principal
-    setTimeout(() => {
-      router.push("/");
-    }, 500);
+  const handleLogoutAdmin = () => {
+    deleteCookie("adminSessionToken");
+    router.push("/login");
   };
 
   // Abrir y cerrar el menú de navegación
@@ -161,7 +159,7 @@ const Navbar = () => {
           >
             <CustomLink
               className="hover:text-orange-600 ease-in-out duration-150 uppercase"
-              to={"/login"}
+              to={"/profile"}
             >
               Perfil
             </CustomLink>
@@ -294,10 +292,78 @@ const Navbar = () => {
           >
             <CustomLink
               className="text-xl hover:text-orange-600 ease-in-out duration-150"
-              to={"/login"}
+              to={"/profile"}
             >
               Perfil
             </CustomLink>
+          </div>
+        </div>
+      </div>
+      <div className="md:hidden">
+        <div>
+          <React.Fragment key={anchor}>
+            <SwipeableDrawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+              onOpen={toggleDrawer(anchor, true)}
+            >
+              {listLoggedIN(anchor)}
+            </SwipeableDrawer>
+          </React.Fragment>
+        </div>
+      </div>
+    </nav>
+  ) : admin ? (
+    <nav className="max-lg:shadow-md h-24 w-full bg-slate-200 fixed top-0 left-0 shadow-md backdrop-blur-md navbar">
+      <div className="flex justify-between mx-8 lg:mx-16 h-24">
+        <div className="grid grid-cols-6 max-lg:w-full">
+          <Link
+            href="/"
+            className="grid sm:grid-cols-4 lg:grid-cols-3 max-md:grid-cols-5 col-span-5 justify-items-center lg:gap-2"
+          >
+            <Image
+              src={LogoMobile}
+              className="max-sm:w-20 w-12 lg:w-16 self-center col-span-1"
+              alt="Flytrax Logo"
+            />
+            <Image
+              src={Logo}
+              className="md:w-32 lg:w-40 self-center justify-self-start md:col-span-3 lg:col-span-2 max-lg:col-span-1 max-md:hidden"
+              alt="Flytrax Logo"
+            />
+          </Link>
+          <button
+            data-test="menu-button"
+            className="sm:hidden col-span-1 text-orange-600"
+            onClick={toggleDrawer(anchor, true)}
+          >
+            <FontAwesomeIcon
+              icon={state.top ? faClose : faBars}
+              size="3x"
+              className="scale-75 md:scale-50"
+            />
+          </button>
+        </div>
+        <div className="flex max-sm:hidden">
+          <div className="flex items-center col-span-4 gap-6 uppercase m-3 max-md:text-sm">
+            <CustomLink
+              className="hover:text-orange-600 ease-in-out duration-150 uppercase"
+              to={"/admin"}
+            >
+              Administración
+            </CustomLink>
+          </div>
+          <div
+            data-test="join-web-button"
+            className="flex border-l-2 col-span-1 border-l-gray-600 pl-6 items-center gap-6 uppercase m-3"
+          >
+            <button
+              onClick={handleLogoutAdmin}
+              className="text-gray-700 font-bold uppercase text-xl hover:text-orange-600 ease-in-out duration-150"
+            >
+              Salir
+            </button>
           </div>
         </div>
       </div>
@@ -360,18 +426,17 @@ const Navbar = () => {
             ))}
 
             {/* Carrito */}
-            <button
+            {/* <button
               type="button"
               className="cart-icon mr-5"
               onClick={() => setShowCart(!showCart)}
             >
               <AiOutlineShoppingCart />
               <span className="cart-item-qty">{totalQuantities}</span>{" "}
-              {/* LOGO DEL CARROITO */}
-            </button>
+            </button> */}
 
             {/* si la variable showCart es true entonces renderizamos el carrito */}
-            {showCart && <Carrito />}
+            {/* {showCart && <Carrito />} */}
           </div>
           <div
             data-test="join-web-button"

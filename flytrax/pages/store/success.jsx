@@ -9,7 +9,7 @@ const Success = () => {
   const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();
 
   useEffect(() => {
-    localStorage.clear();
+    //localStorage.clear();
     setCartItems([]);
     setTotalPrice(0);
     setTotalQuantities(0);
@@ -26,7 +26,7 @@ const Success = () => {
         <h2 className="text-2xl font-bold mt-4">Gracias por tu pedido!</h2>
         <p className="text-xl mt-2">Comprueba tu email para el recibo.</p>
         <p className="text-xl mb-4">
-          Si tienes cualquier duda envianos un correo
+          Si tienes cualquier duda envíanos un correo
           <a
             className="text-blue-700 font-bold ml-2"
             href="mailto:order@example.com"
