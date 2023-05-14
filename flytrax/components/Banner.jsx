@@ -15,7 +15,7 @@ const Banner = () => {
           Encuentra información sobre los aeropuertos más grandes y pequeños del mundo con facilidad. 
           Busca por nombre, país o código IATA. Te proporcionamos toda la información que necesitas 
           para que tu viaje sea todo un éxito. 
-          ¡Estamos aquí para hacer que tu experiencia en el aeropuerto sea lo mejor sin estrés posible!
+          ¡Estamos aquí para hacer que tu experiencia en el aeropuerto sea lo mejor posible!
         </p>
       </div>
 

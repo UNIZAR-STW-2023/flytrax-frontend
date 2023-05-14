@@ -72,10 +72,8 @@ const CommunityDetails = () => {
 
     return (
 
-        actualAirport != null && actualAirport != undefined ? (
+        actualAirport != null || actualAirport != undefined ? (
             <div className="max-w-[1400px] m-auto w-11/12 my-24">
-                
-
                 <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 mt-24 -mb-6 select-none">
                     <h1 className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
                         Foro del aeropuerto

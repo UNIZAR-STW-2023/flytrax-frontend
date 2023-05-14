@@ -1,59 +1,52 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { FlightPanel, Loader } from "../../components";
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import FlightLandIcon from "@mui/icons-material/FlightLand";
-import { Alert, Snackbar, Typography } from "@mui/material";
-import { ArrowBack, InfoOutlined } from "@mui/icons-material";
-import NotFound from "../404";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import dayjs from "dayjs";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import { aeropuertos } from "../../assets/dummy/aeropuertos_iata";
+import BannerImage from "../../assets/images/banner-image.jpg";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const AirportDetails = () => {
   const router = useRouter();
   const { slug } = router.query;
 
+  //const UNSPLASH_ACCESS_KEY = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
+  const UNSPLASH_ACCESS_KEY = "TzhXe7X0RHz8T6XMyyEe1jEXRAiO7GyIlUTSz4Zu5RM";
+
+  console.log(UNSPLASH_ACCESS_KEY);
+
   const AirLabs_API_KEY = process.env.NEXT_PUBLIC_AIRLABS_API_KEY;
-  const AirLabs_URL = `https://airlabs.co/api/v9/airports?iata_code=${slug}&api_key=${AirLabs_API_KEY}`;
+  console.log(AirLabs_API_KEY);
 
-  console.log(AirLabs_URL);
-
-  const [time, setTime] = useState(dayjs().format("HH:mm"));
-  const [airport, setAirport] = useState(null);
-  const [details, setDetails] = useState([]);
-  const [showDepartures, setShowDepartures] = useState(true);
-  const [loading, setLoading] = useState(true);
-
-  // Alerta de información
-  const [showAlertInfo, setShowAlertInfo] = useState(false);
-
-  // Cerrar alerta
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setShowAlertInfo(false);
-  };
+  const [airport, setAirport] = useState([]);
+  const [airportImage, setAirportImage] = useState("");
+  const [flagUrl, setFlagUrl] = useState("");
+  const [loading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkAirport = async (slug) => {
-      let aeropuertos = [];
+    if (!router.isReady) return;
 
-      await fetch("/assets/data/[AirLabs]_Airports.json")
-        .then((response) => response.json())
-        .then((data) => {
-          // Use the data from the JSON file
-          aeropuertos.push(...data.response);
-          const currentAirport = aeropuertos.find(
-            (elem) => elem.iata_code === slug
-          );
-          if (currentAirport === undefined) {
-            setAirport(null);
-          } else {
-            setAirport(currentAirport.iata_code);
+    const query = `airport ${slug}`;
+    const auth = `Client-ID ${UNSPLASH_ACCESS_KEY}`;
+
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.unsplash.com/search/photos",
+          {
+            params: {
+              query: query,
+            },
+            headers: {
+              Authorization: auth,
+            },
           }
-        })
-        .catch((error) => console.error(error));
+        );
+        console.log(response.data.results[1].urls.raw);
+        setAirportImage(response.data.results[1].urls.raw);
+      } catch (error) {
+        console.error(error); // Manejar el error aquí
+      }
     };
 
     const getAirportDetails = async () => {
@@ -67,157 +60,73 @@ const AirportDetails = () => {
         });
     };
 
-    checkAirport(slug);
-    getAirportDetails();
-    setTimeout(() => setLoading(false), 1500);
+    setIsLoading(false);
 
-    const intervalId = setInterval(() => {
-      setTime(dayjs().format("HH:mm"));
-    }, 60000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.slug, router.isReady, airport, setAirport]);
+    //fetchImage();
+  }, [router.query.slug, router.isReady]);
 
   return !loading ? (
-    airport !== null && airport !== undefined ? (
-      <>
-        <div className="flex flex-col justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">
-          <div className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
-            {details.name}{" "}
-            <div className="flex items-center align-middle justify-center">
-              <h3 className="max-sm:w-fit max-sm:self-center border-2 border-gray-500 rounded-lg text-gray-500 text-2xl px-1 mx-2 font-normal">
-                {details.iata_code}
-              </h3>
-              <InfoOutlined
-                className="cursor-pointer"
-                onClick={() => setShowAlertInfo(true)}
-                color="info"
-                fontSize="medium"
-              />
-            </div>
-          </div>
-          <div className="max-sm:hidden flex gap-2 justify-between text-yellow-400 font-mono my-2 w-full align-middle items-center px-3 bg-gray-900 rounded-md h-20 py-3 uppercase">
-            <button
-              className="flex gap-2 align-middle items-center text-center justify-center"
-              onClick={() => setShowDepartures(!showDepartures)}
-            >
-              {showDepartures ? (
-                <FlightTakeoffIcon sx={{ fontSize: 45 }} />
-              ) : (
-                <FlightLandIcon sx={{ fontSize: 45 }} />
-              )}
-              <Typography
-                sx={{
-                  fontFamily: "Oswald",
-                  fontSize: 45,
-                  fontWeight: 400,
-                  textTransform: "uppercase",
-                  transition: "color 200ms ease-in-out", // Equivalent to transition ease-in-out duration-200
-                  "&:hover": {
-                    // Equivalent to hover:bg-gray-700
-                    color: "#f8fafc",
-                  },
-                  color: "#facc15",
-                }}
-              >
-                {showDepartures ? "Salidas" : "Llegadas"}
-              </Typography>
-            </button>
-            <div>
-              <Typography
-                sx={{
-                  fontFamily: "Oswald",
-                  fontSize: 45,
-                  fontWeight: 400,
-                  textTransform: "uppercase",
-                  color: "#facc15",
-                }}
-              >
-                {time}
-              </Typography>
-            </div>
-          </div>
-          <div className="flex sm:hidden gap-2 justify-between text-yellow-400 font-mono my-2 w-full align-middle items-center px-3 bg-gray-900 rounded-md h-20 py-3 uppercase">
-            <button
-              className="flex gap-2 align-middle items-center text-center justify-center"
-              onClick={() => setShowDepartures(!showDepartures)}
-            >
-              {showDepartures ? (
-                <FlightTakeoffIcon sx={{ fontSize: 30 }} />
-              ) : (
-                <FlightLandIcon sx={{ fontSize: 30 }} />
-              )}
-              <Typography
-                sx={{
-                  fontFamily: "Oswald",
-                  fontSize: 30,
-                  fontWeight: 400,
-                  textTransform: "uppercase",
-                  transition: "color 200ms ease-in-out", // Equivalent to transition ease-in-out duration-200
-                  "&:hover": {
-                    // Equivalent to hover:bg-gray-700
-                    color: "#f8fafc",
-                  },
-                  color: "#facc15",
-                }}
-              >
-                {showDepartures ? "Salidas" : "Llegadas"}
-              </Typography>
-            </button>
-            <div>
-              <Typography
-                sx={{
-                  fontFamily: "Oswald",
-                  fontSize: 30,
-                  fontWeight: 400,
-                  textTransform: "uppercase",
-                  color: "#facc15",
-                }}
-              >
-                {time}
-              </Typography>
-            </div>
-          </div>
-          <FlightPanel showDepartures={showDepartures} airport={airport} />
-          <Snackbar
-            message={`Pulsa en la cabecera de ${
-              showDepartures ? "Salidas" : "Llegadas"
-            } para cambiar de vista.`}
-            open={showAlertInfo}
-            autoHideDuration={3000}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-          >
-            <Alert onClose={handleClose} severity="info">
-              Pulsa en la cabecera de{" "}
-              {showDepartures ? (
-                <strong>SALIDAS</strong>
-              ) : (
-                <strong>LLEGADAS</strong>
-              )}{" "}
-              para cambiar de vista.
-            </Alert>
-          </Snackbar>
+    <div>
+      {/* Titulo */}
+      <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 mt-24 -mb-6 select-none">
+        <h1 className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
+          {airport.name}
+          <h2 className="flex items-center align-middle justify-center">
+            <h3 className="max-sm:w-fit max-sm:self-center border-2 border-gray-500 rounded-lg text-gray-500 text-2xl px-1 mx-2 font-normal">
+              {slug}
+            </h3>
+          </h2>
+        </h1>
+      </div>
+
+      {/* Info del aeropuerto */}
+      <div className="container mx-auto min-h-[800px] mb-14">
+        <div className="flex flex-col justify-center items-center align-middle m-auto w-11/12 my-24 select-none">
+          <h2>{slug}</h2>
+          <h3>{airport.name}</h3>
+          <h3>{airport.country_code}</h3>
+          <Image
+            className="rounded-t-lg"
+            src={flagUrl}
+            width={64}
+            height={64}
+            alt=""
+          />
         </div>
+      </div>
+
+      {/* Imagen */}
+      <div className="flex-1 lg:flex justify-end items-end mb-6">
+        <Image
+          src={BannerImage}
+          className="rounded-lg shadow-xl"
+          alt="Home page"
+        />
+      </div>
+
+      {/* Mapa */}
+
+      {/* Paneles de vuelo */}
+      <div className="flex items-center justify-center mb-10">
         <button
-          onClick={() => router.back()}
-          className="flex gap-2 hover:text-orange-600 transition ease-in-out duration-200 font-semibold uppercase text-2xl align-middle items-center w-40 m-5"
+          className="bg-blue-700 hover:bg-blue-800 px-10 w-full lg:max-w-[350px] h-14 rounded-xl flex justify-center items-center text-white text-xl xl:mt-10 lg:mt-6"
+          //onClick={() => router.push(`/airport/${airport.iata_code}/flight-panels`)}
         >
-          <ArrowBack /> Volver
+          Ver paneles de vuelo
         </button>
-      </>
-    ) : (
-      <NotFound />
-    )
+      </div>
+    </div>
   ) : (
-    <Loader />
+    <div className="max-w-[1400px] m-auto w-full my-24 py-20">
+      <div className="flex items-center justify-center">
+        <ClipLoader
+          loading={loading}
+          size={100}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    </div>
   );
 };
 
