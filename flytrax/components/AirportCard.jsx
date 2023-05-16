@@ -40,10 +40,6 @@ const AirportCard = ({ aeropuertos, isFavorite, query }) => {
     })
     .slice(0, noOfElement);
 
-  if (isFavorite === "True") {
-    console.log("Slice", slice);
-  }
-
   // Alerta de información
   const [showAlertInfo, setShowAlertInfo] = useState(false);
 
@@ -153,7 +149,6 @@ const AirportCard = ({ aeropuertos, isFavorite, query }) => {
   }, []);
 
   function isFavorite(airport) {
-    //return listOfFavAirports.includes(airport);
     return listOfFavAirports.find((componente) => componente.iata === airport);
   }
 

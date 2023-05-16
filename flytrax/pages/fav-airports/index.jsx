@@ -190,8 +190,17 @@ const FavAirports = () => {
             />
           </div>
         </div>
-        <div className="lg:mt-12 w-full">
-          <FavAirportCard aeropuertos={filteredAirports} query={query} />
+        <div className="lg:mt-12 w-full flex flex-col items-center align-middle justify-center">
+          {listOfFavAirports.length > 0 ? (
+            <FavAirportCard aeropuertos={filteredAirports} query={query} />
+          ) : (
+            <div className="flex flex-col w-full md:w-1/3 xl:1/4 align-middle items-center justify-center max-lg:my-10">
+              <div className="font-normal text-xl text-gray-600 text-center">
+                Todavía no tienes ningún aeropuerto añadido en tus favoritos,
+                ¡busca uno y empieza a coleccionarlos!
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Snackbar
