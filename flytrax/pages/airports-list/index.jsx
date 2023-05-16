@@ -1,3 +1,9 @@
+/*
+  File's name: /airports-list/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect, Fragment } from "react";
 import { AirportCard, Loader } from "../../components";
 import { Alert, Autocomplete, Box, Snackbar, TextField } from "@mui/material";
@@ -6,7 +12,6 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import { InfoOutlined } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
-import { getCookie } from "cookies-next";
 
 const AirportsList = () => {
   const [query, setQuery] = useState("");
@@ -15,10 +20,6 @@ const AirportsList = () => {
   const [filteredAirports, setFilteredAirports] = useState(airports);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const email = getCookie("userEmail");
-  const BEARER_TOKEN = getCookie("sessionToken");
-  const favAirportsListURL = `https://flytrax-backend.vercel.app/getFavAirports/${email}`;
 
   // Alerta de información
   const [showAlertInfo, setShowAlertInfo] = useState(false);

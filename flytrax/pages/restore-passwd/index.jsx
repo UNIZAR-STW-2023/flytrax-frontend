@@ -1,3 +1,9 @@
+/*
+  File's name: /restore-passwd/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState } from "react";
 import Link from "next/link";
 import TextField from "@mui/material/TextField";
@@ -11,7 +17,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 // URLs para manejo de datos en la BD
-const restorePasswd_URL = "https://flytrax-backend.vercel.app/resetPassword";
+const restorePasswd_URL = process.env.NEXT_PUBLIC_BACKEND_URL + "resetPassword";
 
 const theme = createTheme({
   typography: {

@@ -1,3 +1,9 @@
+/*
+  File's name: MinimapControl.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useCallback, useMemo, useState } from "react";
 import {
   MapContainer,

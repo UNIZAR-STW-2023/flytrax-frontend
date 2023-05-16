@@ -1,3 +1,9 @@
+/*
+  File's name: /faq/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

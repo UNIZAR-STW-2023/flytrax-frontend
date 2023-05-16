@@ -1,18 +1,15 @@
+/*
+  File's name: /[slug]/posts/[postId].jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useEffect, useState } from "react";
-import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/router";
-import {
-  ForoItem,
-  ForoForm,
-  CommentFeed,
-  Loader,
-} from "../../../../components";
-import { foroData } from "../../../../assets/dummy/dummyDatos";
-import { useParams } from "react-router-dom";
+import { ForoForm, Loader } from "../../../../components";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import { useStateContext } from "../../../../context/StateContext";
-import userLogo from "../../../../assets/images/user-logo.png";
 import Image from "next/image";
 import CommentItem from "../../../../components/foro/comments/CommentItem";
 import { Add, ArrowBack, KeyboardDoubleArrowUp } from "@mui/icons-material";
@@ -118,16 +115,16 @@ const PostDetails = ({}) => {
   useEffect(() => {
     if (!router.isReady) return;
     setBackURL(
-      `https://flytrax-backend.vercel.app/getAnswersByTopic/${postId}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}getAnswersByTopic/${postId}`
     );
     setActualPost(postId);
-    setAuxURL(`https://flytrax-backend.vercel.app/getTopicsByIata/${slug}`);
+    setAuxURL(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getTopicsByIata/${slug}`);
     setIsLoading(false);
 
     getAnswersByTopic();
     getTopicsByIata();
     setRandomIndex(Math.floor(Math.random() * images.length));
-    setIsLoading(false);
+
     // eslint-disable-next-line
   }, [
     router.query.postId,
@@ -145,7 +142,10 @@ const PostDetails = ({}) => {
         <Loader value={"respuestas"} />
       ) : (
         <>
-          <div className="flex flex-col min-h-[70vh] justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">
+          <div
+            id="list-top"
+            className="flex flex-col min-h-[70vh] justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none"
+          >
             <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 -mb-6 select-none">
               <div className="w-full flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
                 Hilo de mensajes

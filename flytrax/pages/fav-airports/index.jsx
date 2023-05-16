@@ -1,3 +1,9 @@
+/*
+  File's name: /fav-airports/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect, Fragment } from "react";
 import { Banner, AirportCard, Loader } from "../../components";
 import FavAirportCard from "../../components/FavAirportCard";
@@ -15,7 +21,7 @@ const FavAirports = () => {
   const [loading, setLoading] = useState(true);
 
   const email = getCookie("userEmail");
-  const favAirportsListURL = `https://flytrax-backend.vercel.app/getFavAirports/${email}`;
+  const favAirportsListURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}getFavAirports/${email}`;
   const BEARER_TOKEN = getCookie("sessionToken");
 
   const [query, setQuery] = useState("");
@@ -104,8 +110,6 @@ const FavAirports = () => {
     setTimeout(() => setLoading(false), 5000);
     // eslint-disable-next-line
   }, [selectedCountry]);
-
-  console.log(filteredAirports);
 
   return !loading ? (
     <div className="flex flex-col min-h-[70vh] justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">

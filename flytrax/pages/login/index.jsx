@@ -1,3 +1,9 @@
+/*
+  File's name: /login/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Link from "next/link";
@@ -17,7 +23,7 @@ import GitHubButton from "../../components/buttons/GitHubButton";
 import { useEffect } from "react";
 
 // URLs para manejo de datos en la BD
-const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
+const loginURL = process.env.NEXT_PUBLIC_BACKEND_URL + "loginUsers";
 
 const theme = createTheme({
   typography: {
@@ -165,6 +171,7 @@ const Login = () => {
     } else if (admin) {
       if (router.pathname === "/login") router.push("/admin");
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, setUser, admin, setAdmin, SESSION_COOKIE, ADMIN_COOKIE]);
 

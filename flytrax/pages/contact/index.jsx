@@ -1,5 +1,5 @@
 /*
-  File's name: /forgot-passwd/index.jsx
+  File's name: /contact/index.jsx
   Authors: Paul Huszak & Guillermo Cánovas 
   Date: 16/05/2023
 */
@@ -7,15 +7,11 @@
 import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Alert, Snackbar } from "@mui/material";
-import Link from "next/link";
 import TextField from "@mui/material/TextField";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import axios from "axios";
 import { useRouter } from "next/router";
-
-// URLs para manejo de datos en la BD
-const resetPasswd_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL + "resetPasswordByEmail/";
+import { Message } from "@mui/icons-material";
+import Link from "next/link";
 
 const theme = createTheme({
   typography: {
@@ -35,11 +31,10 @@ const theme = createTheme({
   },
 });
 
-const ForgotPasswd = () => {
-  const router = useRouter();
-
+const Contact = () => {
   // Variables de estado
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   // Alerta de error
   const [showEmptyAlert, setShowEmptyAlert] = useState(false);
@@ -67,34 +62,13 @@ const ForgotPasswd = () => {
   };
 
   // Función de inicio de sesión
-  const handleForgot = () => {
+  const handleContact = () => {
     // Comprobar si hay campos vacíos
-    if (email === "") {
+    if (email === "" || message === "") {
       setShowEmptyAlert(true);
     } else {
-      sendEmail();
+      setShowSuccessAlert(true);
     }
-  };
-
-  // Función para enviar el correo de recuperación
-  const sendEmail = async () => {
-    await axios
-      .post(resetPasswd_URL + email)
-      .then((response) => {
-        if (response.status === 200) {
-          setShowSuccessAlert(true);
-          setTimeout(() => {
-            router.push("/login");
-          }, 3000);
-          return () => clearTimeout(timeout);
-        } else {
-          setShowErrorAlert(true);
-        }
-      })
-      .catch((error) => {
-        setShowErrorAlert(true);
-        console.log(error);
-      });
   };
 
   return (
@@ -104,20 +78,20 @@ const ForgotPasswd = () => {
           className="text-4xl max-sm:text-3xl font-bold text-slate-900
         my-5"
         >
-          Recuperar contraseña
+          Contacta con nosotros
         </h1>
         <div className="w-80 md:w-96">
           <p className="mb-5 text-justify text-gray-600 sm:mt-4 sm:text-xl font-light">
             <span className="font-medium text-red-600">
-              ¿Has olvidado tu contraseña?
+              ¿Tienes alguna duda o sugerencia?
             </span>{" "}
             <br className="inline" />
-            ¡No te preocupes! Aquí podrás restaurarla de nuevo. Simplemente
-            introduce tu correo electrónico para recibir un enlace de
-            recuperación.
+            ¡No te preocupes! Aquí podrás resolverla. Simplemente introduce tu
+            correo electrónico al que contestarte y el mensaje que quieres
+            enviarnos.
           </p>
         </div>
-        <div className="grid gap-3">
+        <form className="grid gap-3" onSubmit={handleContact}>
           <div className="grid grid-cols-10 items-center text-center gap-1">
             <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
               <AlternateEmailIcon sx={{ color: "white" }} />
@@ -125,7 +99,7 @@ const ForgotPasswd = () => {
             <TextField
               onKeyDown={handleKeyDown}
               className="col-span-9"
-              id="filled"
+              id="filled-email"
               type="text"
               label="Correo electrónico"
               placeholder="Introduce tu correo electrónico"
@@ -133,8 +107,27 @@ const ForgotPasswd = () => {
               onChange={({ target }) => setEmail(target.value)}
             />
           </div>
+          <div className="grid grid-cols-10 items-center text-center gap-1 h-[150px]">
+            <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+              <Message sx={{ color: "white" }} />
+            </div>
+            <TextField
+              style={{ height: "100%" }}
+              multiline
+              rows={5}
+              onKeyDown={handleKeyDown}
+              className="col-span-9"
+              id="filled-message"
+              type="text"
+              label="Mensaje"
+              placeholder="Introduce tu correo electrónico"
+              variant="filled"
+              onChange={({ target }) => setMessage(target.value)}
+            />
+          </div>
           <button
-            onClick={handleForgot}
+            type="submit"
+            onClick={handleContact}
             className="bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10"
           >
             Enviar
@@ -143,7 +136,7 @@ const ForgotPasswd = () => {
             <p className="text-center text-zinc-700">
               <Link
                 className="font-medium text-rose-600 hover:text-rose-800 ease-in duration-150"
-                href="/login"
+                href="/"
               >
                 Volver
               </Link>{" "}
@@ -181,7 +174,7 @@ const ForgotPasswd = () => {
               </Alert>
             </Snackbar>
             <Snackbar
-              message="Petición procesada con éxito — comprueba tu correo electrónico"
+              message="¡Éxito! Gracias por enviar tu mensaje."
               open={showSuccessAlert}
               autoHideDuration={3000}
               onClose={handleClose}
@@ -191,15 +184,14 @@ const ForgotPasswd = () => {
               }}
             >
               <Alert onClose={handleClose} severity="success">
-                Petición procesada con éxito —{" "}
-                <strong>comprueba tu correo electrónico</strong>
+                ¡Éxito! Gracias por enviar tu mensaje.
               </Alert>
             </Snackbar>
           </div>
-        </div>
+        </form>
       </div>
     </ThemeProvider>
   );
 };
 
-export default ForgotPasswd;
+export default Contact;

@@ -1,3 +1,9 @@
+/*
+  File's name: FlightsBarChart.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
@@ -24,7 +30,7 @@ ChartJS.register(
 const FlightsBarChart = ({ airport }) => {
   const USER_COOKIE = getCookie("sessionToken");
   const [userToken, setUserToken] = useState(USER_COOKIE);
-  const numFlightsURL = `https://flytrax-backend.vercel.app/getFlightsEachDay/${airport}`;
+  const numFlightsURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}getFlightsEachDay/${airport}`;
 
   const [numFlights, setNumFlights] = useState([]);
   const [loading, setLoading] = useState(true);

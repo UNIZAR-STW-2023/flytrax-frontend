@@ -1,3 +1,9 @@
+/*
+  File's name: /index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import { getCookie } from "cookies-next";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";

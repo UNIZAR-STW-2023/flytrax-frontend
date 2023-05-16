@@ -1,6 +1,11 @@
+/*
+  File's name: RedirectRegister.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useSession, signIn, signOut } from "next-auth/react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { deleteCookie, setCookie } from "cookies-next";
 import axios from "axios";
@@ -8,8 +13,8 @@ import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 
 // URLs para manejo de datos en la BD
-const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
-const nexLoginURL = "https://flytrax-backend.vercel.app/nextLogin";
+const loginURL = process.env.NEXT_PUBLIC_BACKEND_URL + "loginUsers";
+const nexLoginURL = process.env.NEXT_PUBLIC_BACKEND_URL + "nextLogin";
 
 const theme = createTheme({
   typography: {

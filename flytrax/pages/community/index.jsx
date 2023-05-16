@@ -1,3 +1,9 @@
+/*
+  File's name: /community/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect, Fragment } from "react";
 import { Loader } from "../../components";
 import CommunityCard from "../../components/foro/CommunityCard";

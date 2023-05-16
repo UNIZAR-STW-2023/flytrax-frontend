@@ -1,5 +1,10 @@
+/*
+  File's name: Carrito.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useRef } from "react";
-import Link from "next/link";
 import {
   AiOutlineMinus,
   AiOutlinePlus,

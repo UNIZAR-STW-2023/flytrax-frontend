@@ -1,3 +1,9 @@
+/*
+  File's name: stripe.js
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import Stripe from "stripe";
 
 //Stripe nos proporciona el metodo de pago

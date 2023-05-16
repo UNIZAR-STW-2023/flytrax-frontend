@@ -1,3 +1,9 @@
+/*
+  File's name: /register/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -5,28 +11,15 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Alert, Autocomplete, Box, Snackbar } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import countries from "../../assets/dummy/countries";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import Link from "next/link";
 import dayjs from "dayjs";
 import PasswordStrengthBar from "react-password-strength-bar";
-import {
-  faAt,
-  faCalendarAlt,
-  faGlobeAmericas,
-  faLock,
-  faPhone,
-  faTransgender,
-  faUser,
-  faUserAstronaut,
-  faEye,
-  faEyeSlash,
-} from "@fortawesome/free-solid-svg-icons";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
@@ -42,7 +35,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 // URLs para manejo de datos en la BD
-const registerURL = "https://flytrax-backend.vercel.app/users";
+const registerURL = process.env.NEXT_PUBLIC_BACKEND_URL + "users";
 
 const theme = createTheme({
   typography: {

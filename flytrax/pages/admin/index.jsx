@@ -1,3 +1,9 @@
+/*
+  File's name: /admin/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect } from "react";
 import { getCookie } from "cookies-next";
 import BarChart from "../../components/charts/BarChart";
@@ -11,17 +17,18 @@ import UserMgmt from "../../components/charts/UserMgmt";
 
 const Dashboard = () => {
   const ADMIN_COOKIE = getCookie("adminSessionToken");
-  const usersURL = "https://flytrax-backend.vercel.app/users";
-  const usersByGenderURL = "https://flytrax-backend.vercel.app/getUsersByGenre";
-  const usersBannedURL = "https://flytrax-backend.vercel.app/getUsersBanned";
+  const usersURL = "users";
+  const usersByGenderURL =
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersByGenre";
+  const usersBannedURL = process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersBanned";
   const usersBannedByGenderURL =
-    "https://flytrax-backend.vercel.app/getUsersBannedByGenre";
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersBannedByGenre";
   const usersByAgeRangeURL =
-    "https://flytrax-backend.vercel.app/getUsersByAgeRange";
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersByAgeRange";
   const usersByCountryURL =
-    "https://flytrax-backend.vercel.app/getUsersByCountry";
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersByCountry";
   const usersRegisteredByPeriodURL =
-    "https://flytrax-backend.vercel.app/getUsersRegisteredByPeriod";
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersRegisteredByPeriod";
 
   const [adminToken, setAdminToken] = useState(ADMIN_COOKIE);
   const [users, setUsers] = useState([]);
@@ -141,16 +148,6 @@ const Dashboard = () => {
     setTimeout(() => setLoading(false), 10000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminToken, setAdminToken]);
-
-  console.log("USUARIOS POR GÉNERO: ", usersByGender);
-  console.log("USUARIOS BANEADOS: ", usersBanned);
-  console.log("USUARIOS BANEADOS POR GÉNERO: ", usersBannedByGender);
-  console.log("USUARIOS POR RANGO DE EDAD: ", usersByAgeRange);
-  console.log("USUARIOS USUARIOS POR PAÍS: ", usersByCountry);
-  console.log(
-    "USUARIOS USUARIOS REGISTRADOS POR FECHA: ",
-    usersRegisteredByPeriod
-  );
 
   return !loading ? (
     <div className="flex flex-col justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">

@@ -1,3 +1,9 @@
+/*
+  File's name: /[slug]/flight-panel/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { FlightPanel, Loader } from "../../../../components";

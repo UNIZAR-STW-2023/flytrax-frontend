@@ -1,3 +1,9 @@
+/*
+  File's name: Navbar.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "../assets/images/logo_desktop_gray.png";
@@ -9,9 +15,6 @@ import CustomLink from "./CustomLink";
 import { useSession } from "next-auth/react";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import Carrito from "./Carrito";
-import { useStateContext } from "../context/StateContext";
 import {
   AppBar,
   Box,

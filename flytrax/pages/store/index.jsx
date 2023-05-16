@@ -1,3 +1,9 @@
+/*
+  File's name: /store/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState } from "react";
 import { ProductCard, Banner, Carrito } from "../../components";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";

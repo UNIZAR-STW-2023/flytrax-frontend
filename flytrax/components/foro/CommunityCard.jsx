@@ -1,3 +1,9 @@
+/*
+  File's name: CommunityCard.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState } from "react";
 import Link from "next/link";
 import { Add, KeyboardDoubleArrowUp } from "@mui/icons-material";

@@ -1,3 +1,9 @@
+/*
+  File's name: /airport/[slug].jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Loader } from "../../components";
@@ -98,7 +104,7 @@ const AirportDetails = () => {
     getAirportDetails();
     getAirportInfo(slug);
 
-    setTimeout(() => setLoading(false), 3000);
+    setTimeout(() => setLoading(false), 5000);
 
     //fetchImage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,7 +113,7 @@ const AirportDetails = () => {
   return !loading ? (
     airport !== null && airport !== undefined ? (
       <>
-        <div className="flex flex-col justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">
+        <div className="flex flex-col justify-center items-center align-middle m-auto lg:w-3/4 max-sm:w-10/12 my-24 select-none">
           <div className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
             {details.name}{" "}
             <div className="flex items-center align-middle justify-center">
@@ -140,14 +146,25 @@ const AirportDetails = () => {
                 </div>
                 <div className="flex flex-col w-full h-full gap-2">
                   <div className="w-full h-1/2 rounded-xl shadow-md uppercase text-2xl font-bold justify-center">
-                    <Image
-                      className="rounded-xl w-full h-full object-fill"
-                      width={500}
-                      height={500}
-                      src={airportImage}
-                      alt={`${airport} City`}
-                      style={{ objectFit: "cover" }}
-                    />
+                    {airportImage ? (
+                      <Image
+                        className="rounded-xl w-full h-full object-fill"
+                        width={500}
+                        height={500}
+                        src={airportImage}
+                        alt={`${airport} City`}
+                        style={{ objectFit: "cover" }}
+                      />
+                    ) : (
+                      <Image
+                        className="rounded-xl w-full h-full object-fill"
+                        width={500}
+                        height={500}
+                        src="/assets/images/airports.jpg"
+                        alt={`${airport} City`}
+                        style={{ objectFit: "cover" }}
+                      />
+                    )}
                   </div>
                   <div className="w-full h-full flex align-middle items-center shadow-md rounded-xl uppercase text-2xl font-bold justify-center">
                     <FlightsBarChart airport={airport} />

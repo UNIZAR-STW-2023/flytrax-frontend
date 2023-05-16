@@ -150,6 +150,13 @@
   background-clip: text;
 }
 
+.who-text {
+  background: linear-gradient(220.55deg, #ffed46 0%, #ff7ec7 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 .light-font {
   font-family: SF-Pro-Display-Light;
   src: url(/assets/fonts/SF-Pro-Display-Light.otf);

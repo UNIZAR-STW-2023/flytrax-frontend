@@ -1,3 +1,9 @@
+/*
+  File's name: GitHubButton.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import Image from "next/image";
 import GitHubIcon from "../../assets/icons/github.svg";
 import { signIn, getCsrfToken } from "next-auth/react";

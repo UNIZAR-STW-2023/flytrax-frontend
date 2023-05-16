@@ -1,9 +1,11 @@
+/*
+  File's name: AirportCard.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
 import Image from "next/image";
-import { cardsData } from "../assets/dummy/dummyDatos";
-//import { aeropuertos } from "../assets/dummy/aeropuertos_iata";
-import cardImage from "../assets/dummy/images/3.jpg";
 import Link from "next/link";
 import { useStateContext } from "../context/StateContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -13,16 +15,16 @@ import { Add, KeyboardDoubleArrowUp } from "@mui/icons-material";
 import { Alert, Snackbar } from "@mui/material";
 
 const AirportCard = ({ aeropuertos, isFavorite, query }) => {
-  const favURL = "https://flytrax-backend.vercel.app/saveAirports";
-  const desFavURL = "https://flytrax-backend.vercel.app/deleteFavAirport";
+  const favURL = process.env.NEXT_PUBLIC_BACKEND_URL + "saveAirports";
+  const desFavURL = process.env.NEXT_PUBLIC_BACKEND_URL + "deleteFavAirport";
+  const favAirportsListURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}getFavAirports/${email}`;
 
-  const [data, setData] = useState(false);
-  const [page, setPage] = useState(1);
-  //const [country, setCountry] = useState([]);
-  const [airports, setAirports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [listOfFavAirports, setListOfFavAirports] = useState([]);
   const [cardSelected, setCardSelected] = useState([]);
+
+  const BEARER_TOKEN = getCookie("sessionToken");
+  const email = getCookie("userEmail");
 
   const [noOfElement, setnoOfElement] = useState(12);
   const slice = aeropuertos
@@ -41,12 +43,6 @@ const AirportCard = ({ aeropuertos, isFavorite, query }) => {
   if (isFavorite === "True") {
     console.log("Slice", slice);
   }
-
-  const email = getCookie("userEmail");
-  const favAirportsListURL = `https://flytrax-backend.vercel.app/getFavAirports/${email}`;
-  const BEARER_TOKEN = getCookie("sessionToken");
-
-  const { country, airport } = useStateContext();
 
   // Alerta de información
   const [showAlertInfo, setShowAlertInfo] = useState(false);

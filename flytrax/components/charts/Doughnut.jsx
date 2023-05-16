@@ -1,3 +1,9 @@
+/*
+  File's name: Doughnut.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,

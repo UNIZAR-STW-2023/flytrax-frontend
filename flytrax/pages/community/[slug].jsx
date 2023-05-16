@@ -1,3 +1,9 @@
+/*
+  File's name: /[slug].jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useEffect, useState } from "react";
 import { ForoFeed, ForoForm } from "../../components";
 import { useRouter } from "next/router";
@@ -60,7 +66,7 @@ const CommunityDetails = () => {
 
   useEffect(() => {
     if (!router.isReady) return;
-    setBackURL(`https://flytrax-backend.vercel.app/getTopicsByIata/${slug}`);
+    setBackURL(`${process.env.NEXT_PUBLIC_BACKEND_URL}getTopicsByIata/${slug}`);
     aeropuertos.map(function (item) {
       if (item.iata_code === slug) {
         setActualAirport(item.iata_code);
@@ -74,7 +80,13 @@ const CommunityDetails = () => {
       getTopicsByIata();
     }
     //eslint-disable-next-line
-  }, [router.query.slug, router.isReady, actualAirport, setActualAirport]);
+  }, [
+    router.query.slug,
+    router.isReady,
+    actualAirport,
+    setActualAirport,
+    topicsByIata,
+  ]);
 
   return BEARER_TOKEN || session ? (
     actualAirport !== null || actualAirport !== undefined ? (

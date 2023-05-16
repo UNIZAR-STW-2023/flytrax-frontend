@@ -1,3 +1,9 @@
+/*
+  File's name: /profile/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -16,7 +22,7 @@ import Image from "next/image";
 import Loader from "../../components/Loader";
 
 // URLs para manejo de datos en la BD
-const getUserURL = "https://flytrax-backend.vercel.app/usersByEmail/";
+const getUserURL = process.env.NEXT_PUBLIC_BACKEND_URL + "usersByEmail/";
 
 const theme = createTheme({
   typography: {

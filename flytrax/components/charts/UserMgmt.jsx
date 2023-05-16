@@ -1,3 +1,9 @@
+/*
+  File's name: UserMgmt.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
@@ -9,9 +15,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import { Bar, Pie } from "react-chartjs-2";
 import { getCookie } from "cookies-next";
-import axios from "axios";
 import UserIcon from "/assets/images/man.svg";
 import Image from "next/image";
 import Link from "next/link";

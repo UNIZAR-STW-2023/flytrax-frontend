@@ -1,11 +1,13 @@
+/*
+  File's name: ForoForm.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useContext, useEffect } from "react";
 import Image from "next/image";
-//import userAvatar from "/assets/icons/avatars/avatar-1.svg";
-import Link from "next/link";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { useStateContext } from "../../context/StateContext";
-import NotFound from "../../pages/404";
 
 const ForoForm = ({
   iata_code,
@@ -38,8 +40,8 @@ const ForoForm = ({
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(false);
 
-  const createTopicURL = `https://flytrax-backend.vercel.app/createTopics`;
-  const createAnswerURL = `https://flytrax-backend.vercel.app/createAnswers`;
+  const createTopicURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}createTopics`;
+  const createAnswerURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}createAnswers`;
 
   const email = getCookie("userEmail");
   const BEARER_TOKEN = getCookie("sessionToken");

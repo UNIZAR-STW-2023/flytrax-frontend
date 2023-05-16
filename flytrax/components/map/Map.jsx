@@ -1,4 +1,9 @@
-// components/Map.jsx
+/*
+  File's name: Map.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useEffect, useState, useCallback } from "react";
 import L from "leaflet";
 import { Circle, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";

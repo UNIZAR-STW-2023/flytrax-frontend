@@ -1,13 +1,16 @@
+/*
+  File's name: FavAirportCard.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import { getCookie } from "cookies-next";
 import axios from "axios";
-import ClipLoader from "react-spinners/ClipLoader";
-import Loader from "./Loader";
 import { Add, KeyboardDoubleArrowUp } from "@mui/icons-material";
 import { Alert, Snackbar } from "@mui/material";
-import { Link } from "react-router-dom";
 import { useRouter } from "next/router";
 
 const FavAirportCard = ({ aeropuertos, query }) => {
@@ -21,15 +24,13 @@ const FavAirportCard = ({ aeropuertos, query }) => {
   // Alerta de información
   const [showAlertInfo, setShowAlertInfo] = useState(false);
 
-  console.log(aeropuertos);
-
   const slice = aeropuertos
     .filter((airport) => {
       if (query === "") {
         return airport;
       } else if (
         airport.name.toLowerCase().includes(query.toLowerCase()) ||
-        airport.iata_code.toLowerCase().includes(query.toLowerCase())
+        airport.iata.toLowerCase().includes(query.toLowerCase())
       ) {
         return airport;
       }
@@ -38,8 +39,8 @@ const FavAirportCard = ({ aeropuertos, query }) => {
 
   const email = getCookie("userEmail");
   const BEARER_TOKEN = getCookie("sessionToken");
-  const favAirportsListURL = `https://flytrax-backend.vercel.app/getFavAirports/${email}`;
-  const desFavURL = "https://flytrax-backend.vercel.app/deleteFavAirport";
+  const favAirportsListURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}getFavAirports/${email}`;
+  const desFavURL = process.env.NEXT_PUBLIC_BACKEND_URL + "deleteFavAirport";
 
   const loadMore = () => {
     setnoOfElement(noOfElement + noOfElement);
@@ -101,7 +102,6 @@ const FavAirportCard = ({ aeropuertos, query }) => {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log("Fav airports list");
           setListOfFavAirports(res.data);
         } else {
           console.log("Failed to get list of favorites");
@@ -111,11 +111,13 @@ const FavAirportCard = ({ aeropuertos, query }) => {
 
   function isFavorite(airport) {
     //return listOfFavAirports.includes(airport);
-    return aeropuertos.find((componente) => componente.iata === airport);
+    return listOfFavAirports.find((componente) => componente.iata === airport);
   }
 
   useEffect(() => {
-    //getFavAirports();
+    getFavAirports();
+    setLoading(false);
+    // eslint-disable-next-line
   }, []);
 
   return (
