@@ -34,7 +34,7 @@ const theme = createTheme({
 const RestorePasswd = () => {
   const router = useRouter();
   const currentUrl = router.asPath;
-  const urlParams = new URLSearchParams(str);
+  const urlParams = new URLSearchParams(currentUrl);
 
   const RESET_TOKEN = urlParams.get("token");
   const RESET_ID = urlParams.get("id");

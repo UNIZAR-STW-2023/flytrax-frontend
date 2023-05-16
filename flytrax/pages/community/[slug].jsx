@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ForoFeed, ForoForm } from "../../components";
 import { useRouter } from "next/router";
-import ClipLoader from "react-spinners/ClipLoader";
 import NotFound from "../404";
-import Loader from "../../components";
+import Loader from "../../components/Loader";
 import axios from "axios";
 import { aeropuertos } from "../../assets/dummy/aeropuertos_iata";
 import { getCookie } from "cookies-next";
