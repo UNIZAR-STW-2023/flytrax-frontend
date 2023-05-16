@@ -7,7 +7,7 @@ import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import LocationMarker from "./LocationMarker";
 import MinimapControl from "./MinimapControl";
-import SwipeableEdgeDrawer from "../Sidebar";
+import SwipeableTemporaryDrawer from "../Sidebar";
 import axios from "axios";
 import Loader from "../Loader";
 import { getDistance } from "geolib";
@@ -115,10 +115,10 @@ const Map = ({ latitude, longitude }) => {
     setData({ name: "Estás aquí", iata_code: "HERE" });
   };
 
-  return (
+  return !loading ? (
     <div id="map">
       <div className="flex gap-2 max-sm:justify-between">
-        <SwipeableEdgeDrawer
+        <SwipeableTemporaryDrawer
           latitude={latitude}
           longitude={longitude}
           onValueChange={handleChildValue}
@@ -173,6 +173,8 @@ const Map = ({ latitude, longitude }) => {
         <LocationMarker value={value} data={data} />
       </MapContainer>
     </div>
+  ) : (
+    <Loader value={"mapa"} />
   );
 };
 

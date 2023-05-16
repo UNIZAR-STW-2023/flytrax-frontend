@@ -479,7 +479,10 @@ const Register = () => {
               </div>
               <Autocomplete
                 onKeyDown={handleKeyDown}
-                onSelect={({ target }) => setCountryCode(target.value)}
+                country={country}
+                onInputChange={(event, newCountryCode) =>
+                  setCountryCode(newCountryCode)
+                }
                 className="col-span-9"
                 required
                 autoHighlight

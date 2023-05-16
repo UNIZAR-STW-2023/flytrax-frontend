@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 import { airportsData, countriesData } from "../assets/dummy/dummyDatos";
 
@@ -39,79 +39,104 @@ export const StateContext = ({ children }) => {
   // Agregar al carrito
   const onAdd = (product, quantity) => {
     //mirar si esta ya en el carrito para sumar cantidad y no meterlo de nuevo
-    const checkProductInCart = cartItems.find((item) => item._id === product._id);
+    const checkProductInCart = cartItems.find(
+      (item) => item._id === product._id
+    );
 
-    setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
+    setTotalPrice(
+      (prevTotalPrice) => prevTotalPrice + product.price * quantity
+    );
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
 
-    if(checkProductInCart){
-        setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
-        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
+    if (checkProductInCart) {
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice + product.price * quantity
+      );
+      setTotalQuantities(
+        (prevTotalQuantities) => prevTotalQuantities + quantity
+      );
 
-        const updatedCartItems = cartItems.map((cartProduct) => {
-            if(cartProduct._id === product._id) return {
-                ...cartProduct,
-                quantity: cartProduct.quantity + quantity
-            }
-        })
-        setCartItems(updatedCartItems);
-
+      const updatedCartItems = cartItems.map((cartProduct) => {
+        if (cartProduct._id === product._id)
+          return {
+            ...cartProduct,
+            quantity: cartProduct.quantity + quantity,
+          };
+      });
+      setCartItems(updatedCartItems);
     } else {
-        product.quantity = quantity;
-        setCartItems([...cartItems, { ...product }]);
+      product.quantity = quantity;
+      setCartItems([...cartItems, { ...product }]);
     }
-    toast.success(`${qty} ${product.name} añadido al carrito.`);
-  }
+    toast.success(
+      <div>
+        ¡Éxito! Has añadido {qty}{" "}
+        <strong className="uppercase">{product.name}</strong> al carrito.
+      </div>,
+      {
+        position: "bottom-center",
+        duration: 3000,
+      }
+    );
+  };
 
   //Eliminar producto del carrito
   const onRemove = (product) => {
-    console.log("El carrito tiene: " + cartItems)
+    console.log("El carrito tiene: " + cartItems);
     foundProduct = cartItems.find((item) => item._id === product._id);
     //el carrito actual menos el "product"
     const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
-    setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity);
-    setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
+    setTotalPrice(
+      (prevTotalPrice) =>
+        prevTotalPrice - foundProduct.price * foundProduct.quantity
+    );
+    setTotalQuantities(
+      (prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity
+    );
     setCartItems(newCartItems);
-  }
+  };
 
   //Sumar o restar unidades de un producto
   const toggleCartItemQuanitity = (id, value) => {
-    console.log("El carrito tiene: " + cartItems)
-    foundProduct = cartItems.find((item) => item._id === id)
-    index = cartItems.findIndex((product) => product._id === id)
-    
+    console.log("El carrito tiene: " + cartItems);
+    foundProduct = cartItems.find((item) => item._id === id);
+    index = cartItems.findIndex((product) => product._id === id);
+
     //quedarnos todos los items menos el que estamos actualizando "id"
     const newCartItems = cartItems;
 
-    if(value === 'sumar'){
-        newCartItems.map((item) => (item._id === id) && (item.quantity = foundProduct.quantity + 1));
+    if (value === "sumar") {
+      newCartItems.map(
+        (item) => item._id === id && (item.quantity = foundProduct.quantity + 1)
+      );
+      setCartItems([...newCartItems]);
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
+    } else if (value === "restar") {
+      if (foundProduct.quantity > 1) {
+        newCartItems.map(
+          (item) =>
+            item._id === id && (item.quantity = foundProduct.quantity - 1)
+        );
         setCartItems([...newCartItems]);
-        setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price)
-        setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
-    } 
-    
-    else if(value === 'restar'){
-        if(foundProduct.quantity > 1){
-            newCartItems.map((item) => (item._id === id) && (item.quantity = foundProduct.quantity - 1));
-            setCartItems([...newCartItems]);
-            setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price)
-            setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
-        }
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+      }
     }
-  }
+  };
 
   const sumarCantidad = () => {
     setQty((prevQty) => prevQty + 1);
-  }
+  };
 
   const restarCantidad = () => {
-      setQty((prevQty) => {
-          if(prevQty - 1 < 1) return 1;
+    setQty((prevQty) => {
+      if (prevQty - 1 < 1) return 1;
 
-          return prevQty - 1;
-      });
-  }
+      return prevQty - 1;
+    });
+  };
 
   return (
     <Context.Provider
@@ -137,7 +162,7 @@ export const StateContext = ({ children }) => {
         sumarCantidad,
         restarCantidad,
         onAdd,
-        toggleCartItemQuanitity, 
+        toggleCartItemQuanitity,
         onRemove,
         respuesta,
         setRespuesta,

@@ -164,7 +164,7 @@ const Dashboard = () => {
       </div>
     </div>
   ) : (
-    <Loader />
+    <Loader value={"estadísticas"} />
   );
 };
 

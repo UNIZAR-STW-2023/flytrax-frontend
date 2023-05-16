@@ -7,6 +7,7 @@ import PasswordStrengthBar from "react-password-strength-bar";
 import KeyIcon from "@mui/icons-material/Key";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useRouter } from "next/router";
 
 const theme = createTheme({
   typography: {
@@ -27,6 +28,10 @@ const theme = createTheme({
 });
 
 const RestorePasswd = () => {
+  const router = useRouter();
+  const currentUrl = router.asPath;
+  console.log("URL: " + currentUrl);
+
   // Variables de estado
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");

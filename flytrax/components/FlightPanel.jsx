@@ -526,7 +526,7 @@ function FlightPanel({ showDepartures, airport }) {
       )}
     </TableContainer>
   ) : (
-    <Loader />
+    <Loader value={"panel de vuelos"} />
   );
 }
 

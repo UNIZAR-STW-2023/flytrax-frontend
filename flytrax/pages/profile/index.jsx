@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useForm } from "react-hook-form";
-import dayjs from "dayjs";
+import { useSession, signIn, signOut } from "next-auth/react";
+import NotFound from "../404";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
@@ -11,7 +11,6 @@ import PublicIcon from "@mui/icons-material/Public";
 import KeyIcon from "@mui/icons-material/Key";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 import { getCookie, deleteCookie } from "cookies-next";
 import Image from "next/image";
 import Loader from "../../components/Loader";
@@ -42,6 +41,7 @@ const Profile = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const USER_COOKIE = getCookie("sessionToken");
+  const ADMIN_COOKIE = getCookie("adminSessionToken");
   const USER_EMAIL = getCookie("userEmail");
 
   // Variables de estado
@@ -58,12 +58,17 @@ const Profile = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [userSession, setUserSession] = useState(USER_COOKIE);
+  const [adminSession, setAdminSession] = useState(ADMIN_COOKIE);
   const [loading, setLoading] = useState(true);
 
   // Función de cierre de sesión
   const handleLogout = () => {
     if (session) {
-      signOut();
+      // Borrar sesión previa
+      deleteCookie("adminToken");
+      deleteCookie("sessionToken");
+      deleteCookie("userEmail");
+      signOut({ callbackUrl: "/login" });
     } else {
       // Borrar sesión previa
       deleteCookie("adminToken");
@@ -125,132 +130,136 @@ const Profile = () => {
     getUser();
     checkCountry();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userSession, setUserSession, country]);
+  }, [userSession, setUserSession, adminSession, setAdminSession, country]);
 
   return !loading ? (
-    <ThemeProvider theme={theme}>
-      <div className="App-header justify-center select-none">
-        <h1
-          className="text-center text-4xl
+    session || userSession ? (
+      <ThemeProvider theme={theme}>
+        <div className="App-header justify-center select-none">
+          <h1
+            className="text-center text-4xl
         pt-32 pb-5 font-bold text-slate-900 w-full"
-        >
-          Bienvenido,
-          <br />{" "}
-          <span className="text-center text-3xl font-bold login-text">
-            {session ? session.user.name : firstName + " " + lastName}
-          </span>{" "}
-        </h1>
-        <div className="flex align-middle items-center rounded-full relative text-center py-3">
-          <Image
-            src={
-              session
-                ? session.user.image
-                : gender === "M"
-                ? "/assets/icons/male_icon.svg"
-                : gender === "F"
-                ? "/assets/icons/female_icon.svg"
-                : gender === "NB"
-                ? "/assets/icons/nb_icon,svg"
-                : "/assets/icons/na_icon.svg"
-            }
-            alt="User Image"
-            width={100}
-            height={100}
-            className="relative mx-auto rounded-full shadow-md border-4"
-          />
-        </div>
-        <div className="grid lg:grid-cols-2 gap-3 my-10">
-          <div className="grid col-span-1 gap-3 lg:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <PersonIcon sx={{ color: "white" }} />
-              </div>
-              <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
-                {firstName}
-              </div>
-            </div>
-          </div>
-          <div className="grid col-span-1 gap-3 lg:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <PersonIcon sx={{ color: "white" }} />
-              </div>
-              <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
-                {lastName}
-              </div>
-            </div>
-          </div>
-          <div className="grid col-span-1 gap-3 lg:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <PersonOutlineIcon sx={{ color: "white" }} />
-              </div>
-              <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
-                {nickName}
-              </div>
-            </div>
-          </div>
-          <div className="grid col-span-1 gap-3 lg:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <AlternateEmailIcon sx={{ color: "white" }} />
-              </div>
-              <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
-                {email}
-              </div>
-            </div>
-          </div>
-          <div className="grid col-span-1 gap-3 lg:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <CalendarMonthIcon sx={{ color: "white" }} />
-              </div>
-              <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
-                {birthday}
-              </div>
-            </div>
-          </div>
-          <div className="grid col-span-1 gap-3 lg:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <PhoneIcon sx={{ color: "white" }} />
-              </div>
-              <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
-                {phone}
-              </div>
-            </div>
-          </div>
-          <div className="grid col-span-1 gap-3 lg:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <PublicIcon sx={{ color: "white" }} />
-              </div>
-              <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
-                {countryName}
-              </div>
-            </div>
-          </div>
-          <div className="grid col-span-1 gap-3 lg:w-96">
-            <div className="grid grid-cols-10 items-center text-center gap-1">
-              <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
-                <KeyIcon sx={{ color: "white" }} />
-              </div>
-              <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
-                *********
-              </div>
-            </div>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="md:col-span-2 w-80 mt-3 md:w-96 md:mx-auto bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10"
           >
-            Cerrar sesión
-          </button>
+            Bienvenido,
+            <br />{" "}
+            <span className="text-center text-3xl font-bold login-text">
+              {session ? session.user.name : firstName + " " + lastName}
+            </span>{" "}
+          </h1>
+          <div className="flex align-middle items-center rounded-full relative text-center py-3">
+            <Image
+              src={
+                session
+                  ? session.user.image
+                  : gender === "M"
+                  ? "/assets/icons/male_icon.svg"
+                  : gender === "F"
+                  ? "/assets/icons/female_icon.svg"
+                  : gender === "NB"
+                  ? "/assets/icons/nb_icon,svg"
+                  : "/assets/icons/na_icon.svg"
+              }
+              alt="User Image"
+              width={100}
+              height={100}
+              className="relative mx-auto rounded-full shadow-md border-4"
+            />
+          </div>
+          <div className="grid lg:grid-cols-2 gap-3 my-10">
+            <div className="grid col-span-1 gap-3 lg:w-96">
+              <div className="grid grid-cols-10 items-center text-center gap-1">
+                <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                  <PersonIcon sx={{ color: "white" }} />
+                </div>
+                <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
+                  {firstName}
+                </div>
+              </div>
+            </div>
+            <div className="grid col-span-1 gap-3 lg:w-96">
+              <div className="grid grid-cols-10 items-center text-center gap-1">
+                <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                  <PersonIcon sx={{ color: "white" }} />
+                </div>
+                <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
+                  {lastName}
+                </div>
+              </div>
+            </div>
+            <div className="grid col-span-1 gap-3 lg:w-96">
+              <div className="grid grid-cols-10 items-center text-center gap-1">
+                <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                  <PersonOutlineIcon sx={{ color: "white" }} />
+                </div>
+                <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
+                  {nickName}
+                </div>
+              </div>
+            </div>
+            <div className="grid col-span-1 gap-3 lg:w-96">
+              <div className="grid grid-cols-10 items-center text-center gap-1">
+                <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                  <AlternateEmailIcon sx={{ color: "white" }} />
+                </div>
+                <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
+                  {email}
+                </div>
+              </div>
+            </div>
+            <div className="grid col-span-1 gap-3 lg:w-96">
+              <div className="grid grid-cols-10 items-center text-center gap-1">
+                <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                  <CalendarMonthIcon sx={{ color: "white" }} />
+                </div>
+                <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
+                  {birthday}
+                </div>
+              </div>
+            </div>
+            <div className="grid col-span-1 gap-3 lg:w-96">
+              <div className="grid grid-cols-10 items-center text-center gap-1">
+                <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                  <PhoneIcon sx={{ color: "white" }} />
+                </div>
+                <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
+                  {phone}
+                </div>
+              </div>
+            </div>
+            <div className="grid col-span-1 gap-3 lg:w-96">
+              <div className="grid grid-cols-10 items-center text-center gap-1">
+                <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                  <PublicIcon sx={{ color: "white" }} />
+                </div>
+                <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
+                  {countryName}
+                </div>
+              </div>
+            </div>
+            <div className="grid col-span-1 gap-3 lg:w-96">
+              <div className="grid grid-cols-10 items-center text-center gap-1">
+                <div className="grid place-items-center col-span-1 bg-slate-600 shadow-sm shadow-slate-400 rounded-t-md h-full">
+                  <KeyIcon sx={{ color: "white" }} />
+                </div>
+                <div className="flex align-middle items-center p-3 text-md backdrop-blur-sm bg-opacity-50 italic border-b-2 border-slate-600 rounded-t-md bg-slate-50 justify-start w-full h-full col-span-9">
+                  *********
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="md:col-span-2 w-80 mt-3 md:w-96 md:mx-auto bg-rose-600 text-slate-50 uppercase rounded-xl hover:bg-rose-800 ease-in-out duration-150 shadow-md h-10"
+            >
+              Cerrar sesión
+            </button>
+          </div>
         </div>
-      </div>
-    </ThemeProvider>
+      </ThemeProvider>
+    ) : (
+      <NotFound />
+    )
   ) : (
-    <Loader />
+    <Loader value={"perfil"} />
   );
 };
 

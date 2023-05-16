@@ -912,6 +912,7 @@ export const productsData = [
       "/images/camiseta_1_delante.png",
       "/images/camiseta_1_detras.png",
     ],
+    size: "Talla única.",
     description:
       "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Diseñada y confeccionada con mucho cariño y cuidado. Take off with confidence.",
   },
@@ -924,6 +925,7 @@ export const productsData = [
       "/images/camiseta_2_delante.png",
       "/images/camiseta_2_detras.png",
     ],
+    size: "Talla única.",
     description:
       "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Blanca y naranja, como el sol y la luna.",
   },
@@ -936,6 +938,7 @@ export const productsData = [
       "/images/camiseta_3_delante.png",
       "/images/camiseta_3_detras.png",
     ],
+    size: "Talla única.",
     description:
       "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Negra y naranja, como la noche y el fuego.",
   },
@@ -948,6 +951,7 @@ export const productsData = [
       "/images/camiseta_4_delante.png",
       "/images/camiseta_4_detras.png",
     ],
+    size: "Talla única.",
     description:
       "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Negra y blanca, como la noche y la luna.",
   },
@@ -960,6 +964,7 @@ export const productsData = [
       "/images/camiseta_5_delante.jpg",
       "/images/camiseta_5_detras.jpg",
     ],
+    size: "Talla única.",
     description:
       "Camiseta bacana para apoyar al equipo de Flytrax, te la pones y te conviertes en Cbum. Unas alas que ni el Boeing 737 MAX. Blanca y naranja, como el sol y la luna. Minimalista.",
   },
@@ -972,6 +977,7 @@ export const productsData = [
       "/images/nano_delante.jpg",
       "/images/nano_detras.jpg",
     ],
+    size: "Talla única.",
     description:
       "Cómo 33???? No podemos asegurar de que te conviertas en el Nano porque Nano sólo hay uno, pero con esta camiseta estamos seguros de que vas programar más rapido que un Alpine.",
   },

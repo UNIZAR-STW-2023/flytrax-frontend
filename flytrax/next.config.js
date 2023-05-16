@@ -8,6 +8,7 @@ const nextConfig = {
       "avatars.githubusercontent.com",
       "www.countryflagicons.com",
       "flagcdn.com",
+      "images.pexels.com",
     ],
   },
 };

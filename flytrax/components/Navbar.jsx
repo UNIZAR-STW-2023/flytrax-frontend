@@ -3,12 +3,12 @@ import Link from "next/link";
 import Logo from "../assets/images/logo_desktop_gray.png";
 import LogoMobile from "../assets/images/logo_mobile.png";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { getCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import CustomLink from "./CustomLink";
 import { useSession } from "next-auth/react";
+import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Carrito from "./Carrito";
 import { useStateContext } from "../context/StateContext";
@@ -38,6 +38,7 @@ const Navbar = () => {
     },
     { name: "Aeropuertos", value: "/airports-list" },
     { name: "Favoritos", value: "/fav-airports" },
+    { name: "Comunidad", value: "/community" },
     { name: "Tienda", value: "/store" },
   ];
 
@@ -60,9 +61,6 @@ const Navbar = () => {
   const [state, setState] = useState({
     top: false,
   });
-
-  // Variables para el carrito
-  const { showCart, setShowCart, totalQuantities } = useStateContext();
 
   useEffect(() => {
     // Fetch user cookie value
@@ -267,11 +265,11 @@ const Navbar = () => {
             className="sm:hidden col-span-1 text-orange-600"
             onClick={toggleDrawer(anchor, true)}
           >
-            <FontAwesomeIcon
-              icon={state.top ? faClose : faBars}
-              size="3x"
-              className="scale-75 md:scale-50"
-            />
+            {state.top ? (
+              <CloseIcon sx={{ width: 50, height: 50 }} fontSize="large" />
+            ) : (
+              <MenuIcon sx={{ width: 50, height: 50 }} fontSize="large" />
+            )}
           </button>
         </div>
         <div className="flex max-sm:hidden">
@@ -338,11 +336,11 @@ const Navbar = () => {
             className="sm:hidden col-span-1 text-orange-600"
             onClick={toggleDrawer(anchor, true)}
           >
-            <FontAwesomeIcon
-              icon={state.top ? faClose : faBars}
-              size="3x"
-              className="scale-75 md:scale-50"
-            />
+            {state.top ? (
+              <CloseIcon sx={{ width: 50, height: 50 }} fontSize="large" />
+            ) : (
+              <MenuIcon sx={{ width: 50, height: 50 }} fontSize="large" />
+            )}
           </button>
         </div>
         <div className="flex max-sm:hidden">
@@ -406,11 +404,11 @@ const Navbar = () => {
             className="sm:hidden col-span-1 text-orange-600"
             onClick={toggleDrawer(anchor, true)}
           >
-            <FontAwesomeIcon
-              icon={state.top ? faClose : faBars}
-              size="3x"
-              className="scale-75 md:scale-50"
-            />
+            {state.top ? (
+              <CloseIcon sx={{ width: 50, height: 50 }} fontSize="large" />
+            ) : (
+              <MenuIcon sx={{ width: 50, height: 50 }} fontSize="large" />
+            )}
           </button>
         </div>
         <div className="flex max-sm:hidden">
@@ -424,19 +422,6 @@ const Navbar = () => {
                 {item.name}
               </CustomLink>
             ))}
-
-            {/* Carrito */}
-            {/* <button
-              type="button"
-              className="cart-icon mr-5"
-              onClick={() => setShowCart(!showCart)}
-            >
-              <AiOutlineShoppingCart />
-              <span className="cart-item-qty">{totalQuantities}</span>{" "}
-            </button> */}
-
-            {/* si la variable showCart es true entonces renderizamos el carrito */}
-            {/* {showCart && <Carrito />} */}
           </div>
           <div
             data-test="join-web-button"

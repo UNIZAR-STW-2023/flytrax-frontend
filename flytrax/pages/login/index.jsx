@@ -160,7 +160,7 @@ const Login = () => {
     setAdmin(adminCookie);
 
     // Comprobar si hay sesión iniciada
-    if (user || admin) {
+    if (session || user || admin) {
       if (router.pathname === "/login") router.push("/profile");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

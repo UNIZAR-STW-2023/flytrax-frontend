@@ -73,10 +73,6 @@
   background-color: #0054ff;
 }
 
-.products-wrapper {
-  margin-top: 90px;
-}
-
 .products-wrapper h2 {
   text-align: center;
   margin: 50px;
@@ -117,7 +113,6 @@
 
 .marquee {
   position: relative;
-  height: 18rem;
   width: 100%;
   overflow-x: hidden;
 }

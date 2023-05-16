@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { cardsData } from "../assets/dummy/dummyDatos";
-//import { aeropuertos } from "../assets/dummy/aeropuertos_iata"; 
+//import { aeropuertos } from "../assets/dummy/aeropuertos_iata";
 import cardImage from "../assets/dummy/images/3.jpg";
 import Link from "next/link";
-import { useStateContext } from '../context/StateContext';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { useStateContext } from "../context/StateContext";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { getCookie } from "cookies-next";
 import axios from "axios";
+import { Add, KeyboardDoubleArrowUp } from "@mui/icons-material";
+import { Alert, Snackbar } from "@mui/material";
 
-
-const AirportCard = ({ aeropuertos, isFavorite }) => {
-
+const AirportCard = ({ aeropuertos, isFavorite, query }) => {
   const favURL = "https://flytrax-backend.vercel.app/saveAirports";
   const desFavURL = "https://flytrax-backend.vercel.app/deleteFavAirport";
 
@@ -22,38 +22,75 @@ const AirportCard = ({ aeropuertos, isFavorite }) => {
   const [airports, setAirports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [listOfFavAirports, setListOfFavAirports] = useState([]);
-
-  const loadMore = () => {
-    setnoOfElement(noOfElement + noOfElement)
-  }
+  const [cardSelected, setCardSelected] = useState([]);
 
   const [noOfElement, setnoOfElement] = useState(12);
-  const slice = aeropuertos.slice(0, noOfElement)
-  
-  if(isFavorite === "True"){
-    console.log('Slice', slice)
+  const slice = aeropuertos
+    .filter((airport) => {
+      if (query === "") {
+        return airport;
+      } else if (
+        airport.name.toLowerCase().includes(query.toLowerCase()) ||
+        airport.iata_code.toLowerCase().includes(query.toLowerCase())
+      ) {
+        return airport;
+      }
+    })
+    .slice(0, noOfElement);
+
+  if (isFavorite === "True") {
+    console.log("Slice", slice);
   }
 
-  const email = getCookie('userEmail')
+  const email = getCookie("userEmail");
   const favAirportsListURL = `https://flytrax-backend.vercel.app/getFavAirports/${email}`;
   const BEARER_TOKEN = getCookie("sessionToken");
 
   const { country, airport } = useStateContext();
 
-  const favAirport = async (iata_code) => {
+  // Alerta de información
+  const [showAlertInfo, setShowAlertInfo] = useState(false);
 
-    console.log('Adding favorite airport...')
+  const loadMore = () => {
+    setnoOfElement(noOfElement + noOfElement);
+  };
+
+  const scrollToTop = () => {
+    const element = document.getElementById("list-top");
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  };
+
+  // Cerrar alerta
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowAlertInfo(false);
+  };
+
+  const viewInfo = (card) => {
+    setCardSelected(card);
+    setShowAlertInfo(true);
+    console.log(card);
+  };
+
+  const favAirport = async (iata_code) => {
+    console.log("Adding favorite airport...");
 
     const data = {
       email: email,
-      iata: iata_code
-    }
+      iata: iata_code,
+    };
 
     await axios
       .post(favURL, data, {
         headers: {
-          'Authorization': `Bearer ${BEARER_TOKEN}`,
-        }
+          Authorization: `Bearer ${BEARER_TOKEN}`,
+        },
       })
       .then((res) => {
         if (res.status === 200) {
@@ -67,22 +104,21 @@ const AirportCard = ({ aeropuertos, isFavorite }) => {
         console.log(err);
         alert("Error al favear aeropuerto");
       });
-  }
+  };
 
   const deleteFavAirport = async (iata_code) => {
-
-    console.log('Deleting favorite airport...')
+    console.log("Deleting favorite airport...");
 
     const data_des = {
       email: email,
-      iata: iata_code
-    }
+      iata: iata_code,
+    };
 
     await axios
       .post(desFavURL, data_des, {
         headers: {
-          'Authorization': `Bearer ${BEARER_TOKEN}`,
-        }
+          Authorization: `Bearer ${BEARER_TOKEN}`,
+        },
       })
       .then((res) => {
         if (res.status === 200) {
@@ -96,104 +132,137 @@ const AirportCard = ({ aeropuertos, isFavorite }) => {
         console.log(err);
         alert("Error al desfavear aeropuerto");
       });
-  }
+  };
 
   const getFavAirports = async () => {
-
-    console.log('Loading favorites...')
-    
-    await axios.get(favAirportsListURL, {
-      headers: {
-        'Authorization': `Bearer ${BEARER_TOKEN}`,
-        }
-      }).then((res) => {
+    await axios
+      .get(favAirportsListURL, {
+        headers: {
+          Authorization: `Bearer ${BEARER_TOKEN}`,
+        },
+      })
+      .then((res) => {
         if (res.status === 200) {
           setListOfFavAirports(res.data);
         } else {
-          console.log("Failed to get list of favorites")
+          console.log("Failed to get list of favorites");
         }
-      })
-  }
+      });
+  };
 
   useEffect(() => {
-  
     getFavAirports();
     setLoading(false);
-
-    console.log('Lista de favoritos:', listOfFavAirports)
-
-  }, [])
-
+    // eslint-disable-next-line
+  }, []);
 
   function isFavorite(airport) {
     //return listOfFavAirports.includes(airport);
-    return listOfFavAirports.find(componente => componente.iata === airport);
+    return listOfFavAirports.find((componente) => componente.iata === airport);
   }
 
   return (
-    <div className="container mx-auto px-8">
-      <div className="grid xl:-mt-5 lg:grid-cols-3 lg:mt-0 md:grid-cols-2 md:mt-5 grid-cols-1 mt-20 gap-6 z-10">
-        
+    <div className="container mx-auto px-8 w-full">
+      <div className="grid xl:-mt-5 xl:grid-cols-4 lg:grid-cols-3 lg:mt-0 md:grid-cols-2 md:mt-5 grid-cols-1 mt-20 gap-6 z-10">
         {slice.map((card, index) => {
           let countryCode = card.country_code;
           let flagUrl = `https://www.countryflagicons.com/FLAT/64/${countryCode}.png`;
-          return(
-            
-            card.iata_code ? ( 
-              <div 
-                key={index} 
-                className="shadow-lg rounded-lg transform transition duration-500 hover:scale-110 relative"
-              >
-                {/*<Image className="rounded-t-lg" src={flagUrl} width={width} height={height} alt="" />*/}
-
-                { isFavorite(card.iata_code) ? (
-                  <div className="p-5 z-20">
-                    <AiFillHeart 
-                      className="absolute right-2 mb-5 text-red-700" 
-                      size={30} 
-                      onClick={() => deleteFavAirport(card.iata_code)}
+          return card.iata_code ? (
+            <div
+              key={index}
+              onClick={() => viewInfo(card)}
+              className="shadow-lg rounded-lg bg-slate-100 bg-opacity-75 transform transition duration-200 hover:scale-105 relative"
+            >
+              {isFavorite(card.iata_code) ? (
+                <div className="p-5 z-20">
+                  <AiFillHeart
+                    className="absolute right-2 mb-5 text-red-700 cursor-pointer"
+                    size={30}
+                    onClick={() => deleteFavAirport(card.iata_code)}
+                  />
+                  <div className="flex flex-row items-center gap-3">
+                    <Image
+                      className="rounded-t-lg"
+                      src={flagUrl}
+                      width={64}
+                      height={64}
+                      alt=""
                     />
-                    <div className="flex flex-row items-center gap-3">
-                      <Image className="rounded-t-lg" src={flagUrl} width={64} height={64} alt="" />
-                      <h3 className="text-3xl font-bold text-slate-700 mb-3">
-                        {card.iata_code}
-                      </h3>
-                    </div>
-                    <p className="text-lg font-normal text-gray-600">{card.name}</p>
+                    <h3 className="text-3xl font-bold text-slate-700 mb-3">
+                      {card.iata_code}
+                    </h3>
                   </div>
-                ) : (
-                  <div className="p-5 z-20">
-                    <AiOutlineHeart 
-                      className="absolute right-2 mb-5 " 
-                      size={30} 
-                      onClick={() => favAirport(card.iata_code)}
+                  <p className="text-lg font-normal text-gray-600">
+                    {card.name}
+                  </p>
+                </div>
+              ) : (
+                <div className="p-5 z-20">
+                  <AiOutlineHeart
+                    className="absolute right-2 mb-5 cursor-pointer"
+                    size={30}
+                    onClick={() => favAirport(card.iata_code)}
+                  />
+                  <div className="flex flex-row items-center gap-3">
+                    <Image
+                      className="rounded-t-lg"
+                      src={flagUrl}
+                      width={64}
+                      height={64}
+                      alt=""
                     />
-                    <div className="flex flex-row items-center gap-3">
-                      <Image className="rounded-t-lg" src={flagUrl} width={64} height={64} alt="" />
-                      <h3 className="text-3xl font-bold text-slate-700 mb-3">
-                        {card.iata_code}
-                      </h3>
-                    </div>
-                    <p className="text-lg font-normal text-gray-600">{card.name}</p>
+                    <h3 className="text-3xl font-bold text-slate-700 mb-3">
+                      {card.iata_code}
+                    </h3>
                   </div>
-                )}
-
-              </div>
-            ) : (
-              null
-            )
-          )
+                  <p className="text-lg font-normal text-gray-600">
+                    {card.name}
+                  </p>
+                </div>
+              )}
+            </div>
+          ) : null;
         })}
       </div>
 
-      <div className="flex items-center justify-center mt-10">
-        <button 
-          className="bg-blue-700 hover:bg-blue-800 px-10 w-full lg:max-w-[350px] h-14 rounded-xl flex justify-center items-center text-white text-xl xl:mt-10 lg:mt-6"
-          onClick={() => loadMore()}
+      <div className="flex mt-12">
+        <button
+          data-test="more-button"
+          type="button"
+          className="flex pl-10  align-middle items-center w-full justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
+          onClick={loadMore}
         >
-            Load More
+          <Add /> <h2>Ver más</h2>
+        </button>
+        <button
+          data-test="more-button"
+          type="button"
+          className="flex px-3 sm:px-5 align-middle items-center w-fit justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
+          onClick={scrollToTop}
+        >
+          <KeyboardDoubleArrowUp />
         </button>
       </div>
+      <Snackbar
+        message={`${cardSelected.name}. Ver más información.`}
+        open={showAlertInfo}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleClose} severity="info">
+          {cardSelected.name}.{" "}
+          <Link
+            className="font-semibold hover:underline transition ease-in duration-200"
+            href={`/airport/${cardSelected.iata_code}`}
+          >
+            Ver más información.
+          </Link>
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

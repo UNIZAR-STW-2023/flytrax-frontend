@@ -714,7 +714,7 @@ const UserManagement = () => {
       </button>
     </>
   ) : (
-    <Loader />
+    <Loader value={"panel de usuarios"} />
   );
 };
 
