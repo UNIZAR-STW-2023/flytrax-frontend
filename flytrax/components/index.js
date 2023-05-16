@@ -1,8 +1,15 @@
+/*
+  File's name: index.js
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import AirportCard from "./AirportCard";
+import Banner from "./Banner";
+import Carrito from "./Carrito";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Layout from "./Layout";
-import Banner from "./Banner";
 import Loader from "./Loader";
 import ForoForm from "./foro/ForoForm";
 import ForoFeed from "./foro/ForoFeed";
@@ -13,7 +20,6 @@ import Sidebar from "./admin/Sidebar";
 import AdminUsuarios from "./admin/usuarios";
 import FlightPanel from "./FlightPanel";
 import ProductCard from "./ProductCard";
-import Carrito from "./Carrito";
 
 export {
   AirportCard,

@@ -1,30 +1,41 @@
-import React from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
+/*
+  File's name: ProductCard.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { productsData } from "../assets/dummy/dummyDatos";
 
 const ProductCard = () => {
   return (
-    <div className="mt-32">
-        <div className='flex flex-wrap justify-center mt-5 w-full gap-4'>
+    <div>
+      <div className="flex flex-wrap justify-center mt-5 w-full gap-3">
         {productsData.map((product) => (
-            <div key={product._id} className='mx-2'>
+          <div key={product._id} className="mx-2 my-2">
+            <div>
+              <div className="product-image shadow-sm">
                 <Link href={`/store/product/${product._id}`}>
-                    <div className="product-card">
-                        <Image 
-                            src={product.image[0]}
-                            alt=""
-                            width={350}
-                            height={350}
-                            className="product-image"
-                        />
-                        <p className="font-medium">{product.name}</p>
-                        <p className="font-extrabold mt-1 text-black">${product.price.toFixed(2)}</p>
-                    </div>
+                  <Image
+                    src={product.image[0]}
+                    alt="Image"
+                    width={350}
+                    height={350}
+                  />
                 </Link>
+              </div>
+              <div className="flex flex-row justify-between">
+                <p className="font-light text-sm uppercase">{product.name}</p>
+                <p className="font-bold text-sm text-right text-slate-700">
+                  {product.price.toFixed(2)} EUR
+                </p>
+              </div>
             </div>
+          </div>
         ))}
-        </div>
+      </div>
     </div>
   );
 };

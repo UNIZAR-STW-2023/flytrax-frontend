@@ -1,3 +1,9 @@
+/*
+  File's name: /forgot-passwd/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -8,7 +14,7 @@ import axios from "axios";
 
 // URLs para manejo de datos en la BD
 const resetPasswd_URL =
-  "https://flytrax-backend.vercel.app/resetPasswordByEmail/";
+  process.env.NEXT_PUBLIC_BACKEND_URL + "resetPasswordByEmail/";
 
 const theme = createTheme({
   typography: {

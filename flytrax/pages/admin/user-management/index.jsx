@@ -1,3 +1,9 @@
+/*
+  File's name: /user-management/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCookie } from "cookies-next";
@@ -28,9 +34,9 @@ import Loader from "../../../components/Loader";
 const UserManagement = () => {
   const router = useRouter();
 
-  const usersURL = "https://flytrax-backend.vercel.app/users";
-  const banUserURL = "https://flytrax-backend.vercel.app/banUsers/";
-  const unBanUserURL = "https://flytrax-backend.vercel.app/unBanUsers/";
+  const usersURL = process.env.NEXT_PUBLIC_BACKEND_URL + "users";
+  const banUserURL = process.env.NEXT_PUBLIC_BACKEND_URL + "banUsers/";
+  const unBanUserURL = process.env.NEXT_PUBLIC_BACKEND_URL + "unBanUsers/";
 
   // Comprobar Admin User
   const ADMIN_COOKIE = getCookie("adminSessionToken");

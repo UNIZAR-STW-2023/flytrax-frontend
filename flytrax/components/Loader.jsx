@@ -1,3 +1,9 @@
+/*
+  File's name: Loader.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React from "react";
 import { CircularProgress } from "@mui/material";
 //import "../css/catalog.css";

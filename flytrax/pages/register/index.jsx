@@ -1,3 +1,9 @@
+/*
+  File's name: /register/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -5,28 +11,15 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Alert, Autocomplete, Box, Snackbar } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import countries from "../../assets/dummy/countries";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import Link from "next/link";
 import dayjs from "dayjs";
 import PasswordStrengthBar from "react-password-strength-bar";
-import {
-  faAt,
-  faCalendarAlt,
-  faGlobeAmericas,
-  faLock,
-  faPhone,
-  faTransgender,
-  faUser,
-  faUserAstronaut,
-  faEye,
-  faEyeSlash,
-} from "@fortawesome/free-solid-svg-icons";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
@@ -42,7 +35,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 // URLs para manejo de datos en la BD
-const registerURL = "http://localhost:3000/users";
+const registerURL = process.env.NEXT_PUBLIC_BACKEND_URL + "users";
 
 const theme = createTheme({
   typography: {
@@ -216,6 +209,14 @@ const Register = () => {
     }
   };
 
+  const setCountryCode = (value) => {
+    countries.map((country) => {
+      if (country.name === value) {
+        setCountry(country.code);
+      }
+    });
+  };
+
   // Función de registro
   const handleRegister = () => {
     if (checkNullForm()) {
@@ -286,7 +287,7 @@ const Register = () => {
                 name="firstName"
                 className="col-span-9"
                 required
-                id="filled"
+                id="fistName-input"
                 type="text"
                 label="Nombre"
                 placeholder="Introduce tu nombre"
@@ -305,7 +306,7 @@ const Register = () => {
                 name="lastName"
                 className="col-span-9"
                 required
-                id="filled"
+                id="lastName-input"
                 type="text"
                 label="Apellido"
                 placeholder="Introduce tu apellido"
@@ -338,7 +339,7 @@ const Register = () => {
                 })}
                 className="col-span-9"
                 required
-                id="filled"
+                id="nickName-input"
                 type="text"
                 label="Nombre de usuario"
                 placeholder="Introduce tu nombre de usuario"
@@ -363,7 +364,7 @@ const Register = () => {
                 })}
                 className="col-span-9"
                 required={!session ? true : false}
-                id="filled"
+                id="email-input"
                 type="email"
                 label={!session ? "Correo electrónico" : session.user.email}
                 placeholder={
@@ -452,7 +453,7 @@ const Register = () => {
                 name="phone"
                 className="col-span-9"
                 required
-                id="filled"
+                id="phone-input"
                 type="text"
                 label="Teléfono"
                 placeholder="Introduce tu número de teléfono"
@@ -471,7 +472,10 @@ const Register = () => {
               </div>
               <Autocomplete
                 onKeyDown={handleKeyDown}
-                onSelect={({ target }) => setCountry(target.value)}
+                country={country}
+                onInputChange={(event, newCountryCode) =>
+                  setCountryCode(newCountryCode)
+                }
                 className="col-span-9"
                 required
                 autoHighlight
@@ -519,7 +523,7 @@ const Register = () => {
                 name="password"
                 className="col-span-8"
                 required
-                id="filled"
+                id="password-input"
                 type={typePass}
                 label="Contraseña"
                 placeholder="Introduce tu contraseña"
@@ -561,7 +565,7 @@ const Register = () => {
                 name="cpassword"
                 className="col-span-8"
                 required
-                id="filled"
+                id="cpassword-input"
                 type={typeCPass}
                 label="Confirmar contraseña"
                 placeholder="Confirma tu contraseña"

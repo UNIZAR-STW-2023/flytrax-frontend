@@ -1,359 +1,194 @@
+/*
+  File's name: /airports-list/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect, Fragment } from "react";
-import { Banner, AirportCard } from "../../components";
-import { FaTrashAlt } from "react-icons/fa";
-import { useStateContext } from "../../context/StateContext";
-import { aeropuertos } from "../../assets/dummy/aeropuertos_iata";
-import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { AirportCard, Loader } from "../../components";
+import { Alert, Autocomplete, Box, Snackbar, TextField } from "@mui/material";
+import countries from "../../assets/dummy/countries";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
+import { InfoOutlined } from "@mui/icons-material";
+import SearchIcon from "@mui/icons-material/Search";
 
 const AirportsList = () => {
-  const [selectedName, setSelectedName] = useState("");
-  const [selectedIata, setSelectedIata] = useState("");
+  const [query, setQuery] = useState("");
+  const [airports, setAirports] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
+  const [filteredAirports, setFilteredAirports] = useState(airports);
   const [selectedCountry, setSelectedCountry] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const longTotal = aeropuertos.length;
+  // Alerta de información
+  const [showAlertInfo, setShowAlertInfo] = useState(false);
 
-  const [queryName, setQueryName] = useState("");
-  const [queryIata, setQueryIata] = useState("");
-  const [queryCountry, setQueryCountry] = useState("");
-  const [airports, setAirports] = useState(aeropuertos);
-
-  const airportName = aeropuertos.map((airport) => airport.name);
-
-  const countryCodes = aeropuertos.map((airport) => airport.country_code);
-  const airportCountry = countryCodes.filter(
-    (code, index, array) => array.indexOf(code) === index
-  );
-
-  const airportIata = aeropuertos.map((airport) => airport.iata_code);
-
-  const deleteSearch = () => {
-    setQueryName("");
-    setQueryIata("");
-    setQueryCountry("");
-    setAirports(aeropuertos);
+  // Cerrar alerta
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowAlertInfo(false);
   };
 
-  /* Cada vez quee cambie el valor de selected entonces se filtra */
+  const inputQuery = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const filterAirports = (selectedCountry) => {
+    if (isFiltered === false) {
+      if (selectedCountry === "") {
+        deleteFilter();
+      } else {
+        let aeropuertos = [];
+        aeropuertos.push(...airports);
+        setFilteredAirports(
+          aeropuertos.filter(
+            (object) => object.country_code === selectedCountry
+          )
+        );
+        setIsFiltered(true);
+      }
+    } else {
+      deleteFilter();
+    }
+  };
+
+  const deleteFilter = () => {
+    setIsFiltered(false);
+    setFilteredAirports(airports);
+  };
+
+  /* Cada vez que cambie el valor de selected entonces se filtra */
   useEffect(() => {
-    console.log("Selected Name: " + selectedName);
-    console.log("Selected Iata: " + selectedIata);
-    console.log("Selected Country: " + selectedCountry);
+    const getAirports = async () => {
+      let aeropuertos = [];
 
-    if (selectedName !== "") {
-      const filtrado = aeropuertos.filter((item) => item.name === selectedName);
-      console.log("Filtrado: " + filtrado);
+      await fetch("/assets/data/[AirLabs]_Airports.json")
+        .then((response) => response.json())
+        .then((data) => {
+          // Use the data from the JSON file
+          aeropuertos.push(...data.response);
+          setAirports(
+            aeropuertos.filter(
+              (object) =>
+                object.iata_code !== undefined && object.iata_code !== null
+            )
+          );
+          setFilteredAirports(
+            aeropuertos.filter(
+              (object) =>
+                object.iata_code !== undefined && object.iata_code !== null
+            )
+          );
+        })
+        .catch((error) => console.error(error));
+    };
+    getAirports();
+    setTimeout(() => setLoading(false), 3000);
+  }, [selectedCountry]);
 
-      if (airports.length == longTotal) {
-        setAirports(filtrado);
-      } else {
-        setAirports(airports.concat(filtrado));
-      }
-      setSelectedName("");
-    } else if (selectedIata !== "") {
-      const filtrado = aeropuertos.filter(
-        (item) => item.iata_code === selectedIata
-      );
-      console.log("Filtrado: " + filtrado);
-      if (airports.length == longTotal) {
-        setAirports(filtrado);
-      } else {
-        setAirports(airports.concat(filtrado));
-      }
-      setSelectedIata("");
-    } else if (selectedCountry !== "") {
-      const filtrado = aeropuertos.filter(
-        (item) => item.country_code === selectedCountry
-      );
-      if (airports.length == longTotal) {
-        setAirports(filtrado);
-      } else {
-        setAirports(airports.concat(filtrado));
-      }
-      setSelectedCountry("");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedName, selectedIata, selectedCountry]);
-
-  function getMatches(query, vector) {
-    const matches = [];
-    let count = 0;
-
-    if (query === "") {
-      return [];
-    } else {
-      for (let i = 0; i < vector.length && count < 3; i++) {
-        if (vector[i].toLowerCase().includes(query.toLowerCase())) {
-          matches.push(vector[i]);
-          count++;
-        }
-      }
-    }
-    return matches;
-  }
-
-  function getMatchesIata(query, vector) {
-    const matches = [];
-    let count = 0;
-
-    if (query === "") {
-      return [];
-    } else {
-      for (let i = 0; i < vector.length && count < 3; i++) {
-        query = query.toUpperCase();
-
-        if (query.length == 3) {
-          let vector_aux = vector[i];
-          if (vector_aux === query) {
-            matches.push(vector[i]);
-            count++;
-          }
-        } else {
-          let vector_aux = vector[i];
-          for (let j = 0; j < query.length; j++) {
-            if (vector_aux[j] == query[j]) {
-              matches.push(vector[i]);
-              count++;
-            }
-          }
-        }
-      }
-    }
-    return matches;
-  }
-
-  const filteredAirportName = getMatches(queryName, airportName);
-  const filteredAirportIata = getMatchesIata(queryIata, airportIata);
-  const filteredAirportCountry = getMatches(queryCountry, airportCountry);
-
-  return (
-    <div className="max-w-[1400px] m-auto w-full my-24">
-      {/* Banner */}
-      <section className="h-full max-h-[640px] mt-20 xl:mb-16">
-        <Banner />
-        {/* Search Section */}
-        <div className="px-[30px] py-6 max-w-[1170px] mx-auto flex flex-col lg:flex-row justify-between gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-lg bg-white lg:bg-transparent rounded-lg">
-          {/* Airport by Country Searcher */}
-          <div className="w-full cursor-pointer relative">
-            <h1 className="font-light text-sm">Search by Country Code </h1>
-            <Combobox value={selectedCountry} onChange={setSelectedCountry}>
-              <div className="relative">
-                <div className=" w-full cursor-default rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-                  <Combobox.Input
-                    className="flex h-[64px] items-center px-[18px] border rounded-lg w-full text-left focus:ring-0 leading-5 text-black"
-                    displayValue={(airport) => airport}
-                    onChange={(event) => setQueryCountry(event.target.value)}
-                  />
-                </div>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                  afterLeave={() => setQueryCountry("")}
-                >
-                  <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {filteredAirportCountry.length === 0 &&
-                    queryCountry !== "" ? (
-                      <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                        Nothing found.
-                      </div>
-                    ) : (
-                      filteredAirportCountry.map((airport) => (
-                        <Combobox.Option
-                          key={airport}
-                          className={({ active }) =>
-                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              active
-                                ? "bg-teal-600 text-white"
-                                : "text-gray-900"
-                            }`
-                          }
-                          value={airport}
-                        >
-                          {({ active, selected }) => (
-                            <>
-                              <span
-                                className={`block truncate ${
-                                  selected ? "font-medium" : "font-normal"
-                                }`}
-                              >
-                                {airport}
-                              </span>
-                              {selected ? (
-                                <span
-                                  className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                    active ? "text-white" : "text-teal-600"
-                                  }`}
-                                >
-                                  <CheckIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                </span>
-                              ) : null}
-                            </>
-                          )}
-                        </Combobox.Option>
-                      ))
-                    )}
-                  </Combobox.Options>
-                </Transition>
-              </div>
-            </Combobox>
-          </div>
-
-          {/* Airport by IATA Searcher */}
-          <div className="w-full cursor-pointer relative">
-            <h1 className="font-light text-sm">Search by IATA </h1>
-            <Combobox value={selectedIata} onChange={setSelectedIata}>
-              <div className="relative">
-                <div className=" w-full cursor-default rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-                  <Combobox.Input
-                    className="flex h-[64px] items-center px-[18px] border rounded-lg w-full text-left focus:ring-0 leading-5 text-black"
-                    displayValue={(airport) => airport}
-                    onChange={(event) => setQueryIata(event.target.value)}
-                  />
-                </div>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                  afterLeave={() => setQueryIata("")}
-                >
-                  <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {filteredAirportIata.length === 0 && queryIata !== "" ? (
-                      <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                        Nothing found.
-                      </div>
-                    ) : (
-                      filteredAirportIata.map((airport) => (
-                        <Combobox.Option
-                          key={airport}
-                          className={({ active }) =>
-                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              active
-                                ? "bg-teal-600 text-white"
-                                : "text-gray-900"
-                            }`
-                          }
-                          value={airport}
-                        >
-                          {({ active, selected }) => (
-                            <>
-                              <span
-                                className={`block truncate ${
-                                  selected ? "font-medium" : "font-normal"
-                                }`}
-                              >
-                                {airport}
-                              </span>
-                              {selected ? (
-                                <span
-                                  className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                    active ? "text-white" : "text-teal-600"
-                                  }`}
-                                >
-                                  <CheckIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                </span>
-                              ) : null}
-                            </>
-                          )}
-                        </Combobox.Option>
-                      ))
-                    )}
-                  </Combobox.Options>
-                </Transition>
-              </div>
-            </Combobox>
-          </div>
-
-          {/* Airport by Name Searcher */}
-          <div className="w-full cursor-pointer relative">
-            <h1 className="font-light text-sm">Search by Name </h1>
-            <Combobox value={selectedName} onChange={setSelectedName}>
-              <div className="relative">
-                <div className=" w-full cursor-default rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-                  <Combobox.Input
-                    className="flex h-[64px] items-center px-[18px] border rounded-lg w-full text-left focus:ring-0 leading-5 text-black"
-                    displayValue={(airport) => airport}
-                    onChange={(event) => setQueryName(event.target.value)}
-                  />
-                </div>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                  afterLeave={() => setQueryName("")}
-                >
-                  <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {filteredAirportName.length === 0 && queryName !== "" ? (
-                      <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                        Nothing found.
-                      </div>
-                    ) : (
-                      filteredAirportName.map((airport) => (
-                        <Combobox.Option
-                          key={airport}
-                          className={({ active }) =>
-                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              active
-                                ? "bg-teal-600 text-white"
-                                : "text-gray-900"
-                            }`
-                          }
-                          value={airport}
-                        >
-                          {({ active, selected }) => (
-                            <>
-                              <span
-                                className={`block truncate ${
-                                  selected ? "font-medium" : "font-normal"
-                                }`}
-                              >
-                                {airport}
-                              </span>
-                              {selected ? (
-                                <span
-                                  className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                    active ? "text-white" : "text-teal-600"
-                                  }`}
-                                >
-                                  <CheckIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                </span>
-                              ) : null}
-                            </>
-                          )}
-                        </Combobox.Option>
-                      ))
-                    )}
-                  </Combobox.Options>
-                </Transition>
-              </div>
-            </Combobox>
-          </div>
-
-          {/* Search Button */}
-          <button
-            className="bg-red-700 hover:bg-red-800 transition w-full lg:max-w-[75px] h-16 rounded-lg flex justify-center items-center text-white text-lg mt-5"
-            onClick={() => deleteSearch()}
-          >
-            <FaTrashAlt />
-          </button>
+  return !loading ? (
+    <div className="flex flex-col min-h-[70vh] justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">
+      <div
+        id="list-top"
+        className="flex flex-col items-center align-middle justify-center w-full my-10"
+      >
+        <div className="w-full flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
+          Aeropuertos
+          <InfoOutlined
+            className="cursor-pointer"
+            onClick={() => setShowAlertInfo(true)}
+            color="info"
+            fontSize="medium"
+          />
         </div>
-      </section>
-
-      {/* Airport Cards */}
-      <AirportCard aeropuertos={airports} />
+        <div className="flex flex-col w-full align-middle items-center justify-center gap-3">
+          <div className="flex align-middle items-center justify-center w-full md:w-1/2 xl:w-1/3 gap-4 mx-10 h-full">
+            <Autocomplete
+              selectedCountry={selectedCountry}
+              onInputChange={(event, newSelectedCountry) =>
+                setSelectedCountry(newSelectedCountry)
+              }
+              sx={{ width: "100%", height: "100%" }}
+              required
+              autoHighlight
+              id="combo-box-demo"
+              options={countries}
+              getOptionLabel={(option) => option.code}
+              renderOption={(props, option) => (
+                <Box
+                  component="li"
+                  sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                  {...props}
+                >
+                  {/* eslint-disable-next-line */}
+                  <img
+                    src={`https://flagcdn.com/20x15/${option.code.toLowerCase()}.png`}
+                    srcSet={`https://flagcdn.com/40x30/${option.code.toLowerCase()}.png 2x`}
+                    width="20"
+                    height="15"
+                    alt={option.name}
+                  />
+                  {option.name} ({option.code})
+                </Box>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  label="Selecciona un país"
+                  variant="filled"
+                  {...params}
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "country", // disable autocomplete and autofill
+                  }}
+                />
+              )}
+            />
+            <button
+              className={`w-14 h-14 text-white ${
+                isFiltered
+                  ? "bg-orange-600 hover:bg-orange-800 transition ease-in duration-200"
+                  : "bg-indigo-600 hover:bg-indigo-800 transition ease-in duration-200"
+              } rounded-md shadow-md`}
+              onClick={() => filterAirports(selectedCountry)}
+            >
+              {isFiltered ? <FilterAltOffIcon /> : <FilterAltIcon />}
+            </button>
+          </div>
+          <div className="flex justify-between gap-2 shadow-gray-800 shadow-sm bg-slate-500 hover:bg-slate-700 rounded-lg p-2 w-full md:w-1/2 xl:w-1/3 transition ease-in-out duration-200">
+            <SearchIcon sx={{ color: "white" }} />
+            <input
+              className="bg-transparent outline-none placeholder-slate-300 text-zinc-100 w-full"
+              value={query}
+              type="search"
+              placeholder="Busca aquí un aeropuerto..."
+              onChange={inputQuery}
+            />
+          </div>
+        </div>
+        <div className="lg:mt-12 w-full">
+          <AirportCard aeropuertos={filteredAirports} query={query} />
+        </div>
+      </div>
+      <Snackbar
+        message="Filtra por país para hacer tu búsqueda más sencilla."
+        open={showAlertInfo}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleClose} severity="info">
+          Filtra por <strong>país</strong> para hacer tu búsqueda más sencilla.
+        </Alert>
+      </Snackbar>
     </div>
+  ) : (
+    <Loader value={"listado de aeropuertos"} />
   );
 };
 

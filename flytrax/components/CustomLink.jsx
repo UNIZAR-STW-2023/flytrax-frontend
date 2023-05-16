@@ -1,3 +1,9 @@
+/*
+  File's name: CustomLink.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 

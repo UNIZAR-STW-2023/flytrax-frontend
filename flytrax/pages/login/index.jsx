@@ -1,3 +1,9 @@
+/*
+  File's name: /login/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Link from "next/link";
@@ -14,9 +20,10 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RedirectRegister from "../../components/RedirectRegister";
 import GoogleButton from "../../components/buttons/GoogleButton";
 import GitHubButton from "../../components/buttons/GitHubButton";
+import { useEffect } from "react";
 
 // URLs para manejo de datos en la BD
-const loginURL = "https://flytrax-backend.vercel.app/loginUsers";
+const loginURL = process.env.NEXT_PUBLIC_BACKEND_URL + "loginUsers";
 
 const theme = createTheme({
   typography: {
@@ -39,6 +46,11 @@ const theme = createTheme({
 const Login = () => {
   const { data: session } = useSession();
   const router = useRouter();
+  const SESSION_COOKIE = getCookie("sessionToken");
+  const ADMIN_COOKIE = getCookie("adminSessionToken");
+
+  const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(null);
 
   // Variables de estado
   const [email, setEmail] = useState("");
@@ -144,6 +156,24 @@ const Login = () => {
         setShowAlertLogin(true);
       });
   };
+
+  useEffect(() => {
+    // Fetch user cookie value
+    const sessionCookie = getCookie("sessionToken");
+    const adminCookie = getCookie("adminSessionToken");
+    // Update state with user cookie value
+    setUser(sessionCookie);
+    setAdmin(adminCookie);
+
+    // Comprobar si hay sesión iniciada
+    if (session || user) {
+      if (router.pathname === "/login") router.push("/profile");
+    } else if (admin) {
+      if (router.pathname === "/login") router.push("/admin");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, setUser, admin, setAdmin, SESSION_COOKIE, ADMIN_COOKIE]);
 
   return !session ? (
     <ThemeProvider theme={theme}>

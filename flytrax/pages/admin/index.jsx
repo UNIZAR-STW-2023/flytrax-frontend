@@ -1,3 +1,9 @@
+/*
+  File's name: /admin/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect } from "react";
 import { getCookie } from "cookies-next";
 import BarChart from "../../components/charts/BarChart";
@@ -11,17 +17,18 @@ import UserMgmt from "../../components/charts/UserMgmt";
 
 const Dashboard = () => {
   const ADMIN_COOKIE = getCookie("adminSessionToken");
-  const usersURL = "https://flytrax-backend.vercel.app/users";
-  const usersByGenderURL = "https://flytrax-backend.vercel.app/getUsersByGenre";
-  const usersBannedURL = "https://flytrax-backend.vercel.app/getUsersBanned";
+  const usersURL = "users";
+  const usersByGenderURL =
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersByGenre";
+  const usersBannedURL = process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersBanned";
   const usersBannedByGenderURL =
-    "https://flytrax-backend.vercel.app/getUsersBannedByGenre";
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersBannedByGenre";
   const usersByAgeRangeURL =
-    "https://flytrax-backend.vercel.app/getUsersByAgeRange";
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersByAgeRange";
   const usersByCountryURL =
-    "https://flytrax-backend.vercel.app/getUsersByCountry";
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersByCountry";
   const usersRegisteredByPeriodURL =
-    "https://flytrax-backend.vercel.app/getUsersRegisteredByPeriod";
+    process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersRegisteredByPeriod";
 
   const [adminToken, setAdminToken] = useState(ADMIN_COOKIE);
   const [users, setUsers] = useState([]);

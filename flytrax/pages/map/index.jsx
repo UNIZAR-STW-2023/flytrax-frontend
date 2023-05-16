@@ -1,3 +1,9 @@
+/*
+  File's name: /map/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState, useEffect } from "react";
 import Map from "../../components/map/index";
 import { Alert, Snackbar, SwipeableDrawer } from "@mui/material";

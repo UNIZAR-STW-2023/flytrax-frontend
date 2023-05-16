@@ -1,3 +1,9 @@
+/*
+  File's name: Layout.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React from "react";
 import Head from "next/head";
 import { Navbar, Footer } from "../components";

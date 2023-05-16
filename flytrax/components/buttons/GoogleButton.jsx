@@ -1,3 +1,9 @@
+/*
+  File's name: GoogleButton.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import Image from "next/image";
 import GoogleIcon from "../../assets/icons/google.svg";
 import { signIn, getCsrfToken } from "next-auth/react";

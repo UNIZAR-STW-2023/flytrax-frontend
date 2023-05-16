@@ -1,3 +1,9 @@
+/*
+  File's name: Footer.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React from "react";
 import {
   FaFacebook,

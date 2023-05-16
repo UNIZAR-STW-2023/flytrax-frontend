@@ -1,3 +1,9 @@
+/*
+  File's name: /restore-passwd/index.jsx
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 import React, { useState } from "react";
 import Link from "next/link";
 import TextField from "@mui/material/TextField";
@@ -7,6 +13,11 @@ import PasswordStrengthBar from "react-password-strength-bar";
 import KeyIcon from "@mui/icons-material/Key";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useRouter } from "next/router";
+import axios from "axios";
+
+// URLs para manejo de datos en la BD
+const restorePasswd_URL = process.env.NEXT_PUBLIC_BACKEND_URL + "resetPassword";
 
 const theme = createTheme({
   typography: {
@@ -27,6 +38,14 @@ const theme = createTheme({
 });
 
 const RestorePasswd = () => {
+  const router = useRouter();
+  const currentUrl = router.asPath;
+  const host = "https://www.flytrax.es";
+  const url = new URL(currentUrl, host); // Provide a base URL if the string is not a complete URL
+
+  const RESET_TOKEN = url.searchParams.get("token");
+  const RESET_ID = url.searchParams.get("id");
+
   // Variables de estado
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
@@ -41,6 +60,8 @@ const RestorePasswd = () => {
   // Alertas de error
   const [showAlertPasswd, setShowAlertPasswd] = useState(false);
   const [showAlertEmpty, setShowAlertEmpty] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showAlertPassStrength, setShowAlertPassStrength] = useState(false);
 
   // Cerrar alertas
@@ -51,6 +72,28 @@ const RestorePasswd = () => {
     setShowAlertPasswd(false);
     setShowAlertEmpty(false);
     setShowAlertPassStrength(false);
+  };
+
+  // Mostrar contraseña
+  const handleToggle = () => {
+    if (typePass === "password") {
+      setIconPass(true);
+      setTypePass("text");
+    } else {
+      setIconPass(false);
+      setTypePass("password");
+    }
+  };
+
+  // Mostrar contraseña
+  const handleToggle2 = () => {
+    if (typeCPass === "password") {
+      setIconCPass(true);
+      setTypeCPass("text");
+    } else {
+      setIconCPass(false);
+      setTypeCPass("password");
+    }
   };
 
   // Comprobar si hay campos vacíos
@@ -99,30 +142,35 @@ const RestorePasswd = () => {
     } else if (checkPasswordStrength()) {
       setShowAlertPassStrength(true);
     } else {
-      //restorePasswd();
+      restorePasswd();
     }
   };
 
-  // Mostrar contraseña
-  const handleToggle = () => {
-    if (typePass === "password") {
-      setIconPass(true);
-      setTypePass("text");
-    } else {
-      setIconPass(false);
-      setTypePass("password");
-    }
-  };
+  // Función para enviar el correo de recuperación
+  const restorePasswd = async () => {
+    // Datos a enviar en la petición
+    const data = {
+      id: RESET_ID,
+      token: RESET_TOKEN,
+      password: password,
+    };
 
-  // Mostrar contraseña
-  const handleToggle2 = () => {
-    if (typeCPass === "password") {
-      setIconCPass(true);
-      setTypeCPass("text");
-    } else {
-      setIconCPass(false);
-      setTypeCPass("password");
-    }
+    await axios
+      .post(restorePasswd_URL, data)
+      .then((response) => {
+        if (response.status === 200) {
+          setShowSuccessAlert(true);
+          setTimeout(() => {
+            router.push("/login");
+          }, 3000);
+        } else {
+          setShowErrorAlert(true);
+        }
+      })
+      .catch((error) => {
+        setShowErrorAlert(true);
+        console.log(error);
+      });
   };
 
   return (
@@ -230,8 +278,8 @@ const RestorePasswd = () => {
           >
             Enviar
           </button>
-          <div class="grid items-center w-80 md:w-96">
-            <p class="text-center text-zinc-700">
+          <div className="grid items-center w-80 md:w-96">
+            <p className="text-center text-zinc-700">
               <Link
                 className="font-medium text-rose-600 hover:text-rose-800 ease-in duration-150"
                 href="/login"
@@ -284,6 +332,36 @@ const RestorePasswd = () => {
               <Alert onClose={handleClose} severity="error">
                 La contraseña es demasiado débil —{" "}
                 <strong>¡piensa en algo más seguro!</strong>
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              message="Error al procesar tu petición — vuelve a intentarlo nuevamente"
+              open={showErrorAlert}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="error">
+                Error al procesar tu petición —{" "}
+                <strong>vuelve a intentarlo nuevamente</strong>
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              message="Petición procesada con éxito, redirigiendo al inicio de sesión..."
+              open={showSuccessAlert}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="success">
+                Petición procesada con éxito,{" "}
+                <strong>redirigiendo al inicio de sesión...</strong>
               </Alert>
             </Snackbar>
           </div>
