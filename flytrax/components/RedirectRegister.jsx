@@ -105,7 +105,6 @@ const RedirectRegister = ({ session }) => {
             router.push("/register");
           }, 5000);
         } else {
-          console.log("Llego aquí");
           setNewUser(false);
         }
       })
@@ -118,9 +117,6 @@ const RedirectRegister = ({ session }) => {
   };
 
   useEffect(() => {
-    session
-      ? console.log(session.user.email, session.user.image, session.user.name)
-      : console.log("No hay sesión");
     checkLoginUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newUser, loading]);

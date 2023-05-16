@@ -58,7 +58,6 @@ const AirportDetails = () => {
       await axios
         .get(AirLabs_URL)
         .then((response) => {
-          console.log(response.data.response[0]);
           setDetails(response.data.response[0]);
         })
         .catch((error) => {

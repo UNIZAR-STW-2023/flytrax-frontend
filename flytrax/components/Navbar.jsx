@@ -170,6 +170,84 @@ const Navbar = () => {
     </Box>
   );
 
+  // Lista del menú de navegación (logged in)
+  const listAdmin = (anchor) => (
+    <Box
+      sx={{ width: anchor === "top" ? "auto" : 250, height: "100%" }}
+      role="presentation"
+    >
+      <AppBar
+        sx={{
+          background: "linear-gradient(220.55deg, #5D85A6 0%, #0E2C5E 100%)",
+        }}
+        position="sticky"
+      ></AppBar>
+      <List
+        onClick={toggleDrawer(anchor, false)}
+        sx={{
+          height: "fit-content",
+          paddingTop: 13,
+          fontSize: 20,
+        }}
+      >
+        <ListItem
+          id="list-login-b"
+          onKeyDown={toggleDrawer(anchor, false)}
+          disablePadding
+          sx={{
+            borderBottom: "2px dashed #E5E5E5",
+            borderTop: "2px dashed #E5E5E5",
+          }}
+        >
+          <ListItemButton
+            sx={{
+              marginX: "auto",
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: 50,
+            }}
+          >
+            <CustomLink
+              className="hover:text-orange-600 ease-in-out duration-150 uppercase"
+              to={"/admin"}
+            >
+              Administración
+            </CustomLink>
+          </ListItemButton>
+        </ListItem>
+        <ListItem
+          id="list-login-b"
+          onKeyDown={toggleDrawer(anchor, false)}
+          disablePadding
+          sx={{
+            borderBottom: "2px dashed #E5E5E5",
+            borderTop: "2px dashed #E5E5E5",
+          }}
+        >
+          <ListItemButton
+            sx={{
+              marginX: "auto",
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: 50,
+            }}
+          >
+            <button
+              onClick={handleLogoutAdmin}
+              className="text-gray-700 font-bold uppercase text-xl hover:text-orange-600 ease-in-out duration-150"
+            >
+              Salir
+            </button>
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  );
+
   // Lista del menú de navegación (logged out)
   const listLoggedOUT = (anchor) => (
     <Box sx={{ width: anchor === "top" ? "auto" : 250 }} role="presentation">
@@ -300,7 +378,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="md:hidden">
+      <div className="sm:hidden">
         <div>
           <React.Fragment key={anchor}>
             <SwipeableDrawer
@@ -368,7 +446,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="md:hidden">
+      <div className="sm:hidden">
         <div>
           <React.Fragment key={anchor}>
             <SwipeableDrawer
@@ -377,7 +455,7 @@ const Navbar = () => {
               onClose={toggleDrawer(anchor, false)}
               onOpen={toggleDrawer(anchor, true)}
             >
-              {listLoggedIN(anchor)}
+              {listAdmin(anchor)}
             </SwipeableDrawer>
           </React.Fragment>
         </div>
@@ -439,7 +517,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="md:hidden">
+      <div className="sm:hidden">
         <div>
           <React.Fragment key={anchor}>
             <SwipeableDrawer
