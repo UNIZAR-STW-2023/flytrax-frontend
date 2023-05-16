@@ -17,7 +17,7 @@ import UserMgmt from "../../components/charts/UserMgmt";
 
 const Dashboard = () => {
   const ADMIN_COOKIE = getCookie("adminSessionToken");
-  const usersURL = "users";
+  const usersURL = process.env.NEXT_PUBLIC_BACKEND_URL + "users";
   const usersByGenderURL =
     process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersByGenre";
   const usersBannedURL = process.env.NEXT_PUBLIC_BACKEND_URL + "getUsersBanned";
