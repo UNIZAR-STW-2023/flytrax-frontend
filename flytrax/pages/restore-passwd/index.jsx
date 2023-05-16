@@ -8,6 +8,10 @@ import KeyIcon from "@mui/icons-material/Key";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useRouter } from "next/router";
+import axios from "axios";
+
+// URLs para manejo de datos en la BD
+const restorePasswd_URL = "https://flytrax-backend.vercel.app/resetPassword";
 
 const theme = createTheme({
   typography: {
@@ -30,7 +34,14 @@ const theme = createTheme({
 const RestorePasswd = () => {
   const router = useRouter();
   const currentUrl = router.asPath;
+  const urlParams = new URLSearchParams(str);
+
+  const RESET_TOKEN = urlParams.get("token");
+  const RESET_ID = urlParams.get("id");
+
   console.log("URL: " + currentUrl);
+  console.log("ID: " + RESET_ID);
+  console.log("Token: " + RESET_TOKEN);
 
   // Variables de estado
   const [password, setPassword] = useState("");
@@ -56,6 +67,28 @@ const RestorePasswd = () => {
     setShowAlertPasswd(false);
     setShowAlertEmpty(false);
     setShowAlertPassStrength(false);
+  };
+
+  // Mostrar contraseña
+  const handleToggle = () => {
+    if (typePass === "password") {
+      setIconPass(true);
+      setTypePass("text");
+    } else {
+      setIconPass(false);
+      setTypePass("password");
+    }
+  };
+
+  // Mostrar contraseña
+  const handleToggle2 = () => {
+    if (typeCPass === "password") {
+      setIconCPass(true);
+      setTypeCPass("text");
+    } else {
+      setIconCPass(false);
+      setTypeCPass("password");
+    }
   };
 
   // Comprobar si hay campos vacíos
@@ -104,30 +137,31 @@ const RestorePasswd = () => {
     } else if (checkPasswordStrength()) {
       setShowAlertPassStrength(true);
     } else {
-      //restorePasswd();
+      restorePasswd();
     }
   };
 
-  // Mostrar contraseña
-  const handleToggle = () => {
-    if (typePass === "password") {
-      setIconPass(true);
-      setTypePass("text");
-    } else {
-      setIconPass(false);
-      setTypePass("password");
-    }
-  };
+  // Función para enviar el correo de recuperación
+  const restorePasswd = async () => {
+    // Datos a enviar en la petición
+    const data = {
+      id: RESET_ID,
+      token: RESET_TOKEN,
+      password: password,
+    };
 
-  // Mostrar contraseña
-  const handleToggle2 = () => {
-    if (typeCPass === "password") {
-      setIconCPass(true);
-      setTypeCPass("text");
-    } else {
-      setIconCPass(false);
-      setTypeCPass("password");
-    }
+    await axios
+      .post(restorePasswd_URL, data)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Correo enviado");
+        } else {
+          console.log("Error al enviar el correo");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

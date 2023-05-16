@@ -65,12 +65,8 @@ const ForgotPasswd = () => {
 
   // Función para enviar el correo de recuperación
   const sendEmail = async () => {
-    const data = {
-      email: email,
-    };
-
     await axios
-      .post(resetPasswd_URL, data)
+      .post(resetPasswd_URL + email)
       .then((response) => {
         if (response.status === 200) {
           console.log("Correo enviado");
