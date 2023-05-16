@@ -2,21 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Loader } from "../../components";
 import { ArrowBack, InfoOutlined } from "@mui/icons-material";
-import { createClient } from "pexels";
 import NotFound from "../404";
 import Image from "next/image";
-import BannerImage from "../../assets/images/banner-image.jpg";
 import FlightsBarChart from "../../components/charts/FlightsBarChart";
 import Map from "../../components/map/index";
 import axios from "axios";
 
 const AirportDetails = () => {
   const router = useRouter();
-  const currentUrl = router.asPath;
   const { slug } = router.query;
-
-  //const UNSPLASH_ACCESS_KEY = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
-  const UNSPLASH_ACCESS_KEY = "TzhXe7X0RHz8T6XMyyEe1jEXRAiO7GyIlUTSz4Zu5RM";
 
   const AirLabs_API_KEY = process.env.NEXT_PUBLIC_AIRLABS_API_KEY;
   const AirLabs_URL = `https://airlabs.co/api/v9/airports?iata_code=${slug}&api_key=${AirLabs_API_KEY}`;
@@ -25,7 +19,6 @@ const AirportDetails = () => {
   const [details, setDetails] = useState([]);
 
   const [airportImage, setAirportImage] = useState("");
-  const [flagUrl, setFlagUrl] = useState("");
   const [loading, setLoading] = useState(true);
 
   const apiKey = process.env.NEXT_PUBLIC_PEXELS_API_KEY;
@@ -40,29 +33,6 @@ const AirportDetails = () => {
 
   useEffect(() => {
     if (!router.isReady) return;
-
-    const query = `airport ${slug}`;
-    const auth = `Client-ID ${UNSPLASH_ACCESS_KEY}`;
-
-    const fetchImage = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.unsplash.com/search/photos",
-          {
-            params: {
-              query: query,
-            },
-            headers: {
-              Authorization: auth,
-            },
-          }
-        );
-        console.log(response.data.results[1].urls.raw);
-        setAirportImage(response.data.results[1].urls.raw);
-      } catch (error) {
-        console.error(error); // Manejar el error aquí
-      }
-    };
 
     const checkAirport = async (slug) => {
       let aeropuertos = [];
@@ -98,7 +68,6 @@ const AirportDetails = () => {
 
     const getAirportInfo = async (airport) => {
       const aeropuerto = airport;
-      console.log(aeropuerto);
       const options = {
         method: "GET",
         url: "https://airport-info.p.rapidapi.com/airport",
@@ -112,13 +81,10 @@ const AirportDetails = () => {
 
       try {
         const response = await axios.request(options);
-        console.log(response.data.location.split(",")[0]);
         const query = response.data.location.split(",")[0];
-
         client
           .get(`search?query=${query}&per_page=${perPage}`)
           .then((response) => {
-            console.log(response.data.photos);
             setAirportImage(response.data.photos[0].src.landscape);
           })
           .catch((error) => {
@@ -139,29 +105,6 @@ const AirportDetails = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.slug, router.isReady]);
 
-  const getAirportInfo = async (airport) => {
-    const aeropuerto = airport;
-    console.log(aeropuerto);
-    const options = {
-      method: "GET",
-      url: "https://airport-info.p.rapidapi.com/airport",
-      params: { iata: aeropuerto },
-      headers: {
-        "X-RapidAPI-Key": "4cf62832bemsh96ea30e00871225p19798ajsnd8093d9b9691",
-        "X-RapidAPI-Host": "airport-info.p.rapidapi.com",
-      },
-    };
-
-    try {
-      const response = await axios.request(options);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  console.log(details);
-
   return !loading ? (
     airport !== null && airport !== undefined ? (
       <>
@@ -172,12 +115,6 @@ const AirportDetails = () => {
               <h3 className="max-sm:w-fit max-sm:self-center border-2 border-gray-500 rounded-lg text-gray-500 text-2xl px-1 mx-2 font-normal">
                 {details.iata_code}
               </h3>
-              <InfoOutlined
-                className="cursor-pointer"
-                onClick={() => setShowAlertInfo(true)}
-                color="info"
-                fontSize="medium"
-              />
             </div>
           </div>
 

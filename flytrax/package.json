@@ -7,6 +7,7 @@
     "build": "next build",
     "test": "cypress open",
     "start": "next start",
+    "production": "next build && next start",
     "lint": "next lint",
     "coverage": "nyc npm run test"
   },

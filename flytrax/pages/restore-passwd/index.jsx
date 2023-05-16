@@ -34,14 +34,11 @@ const theme = createTheme({
 const RestorePasswd = () => {
   const router = useRouter();
   const currentUrl = router.asPath;
-  const urlParams = new URLSearchParams(currentUrl);
+  const host = "https://www.flytrax.es";
+  const url = new URL(currentUrl, host); // Provide a base URL if the string is not a complete URL
 
-  const RESET_TOKEN = urlParams.get("token");
-  const RESET_ID = urlParams.get("id");
-
-  console.log("URL: " + currentUrl);
-  console.log("ID: " + RESET_ID);
-  console.log("Token: " + RESET_TOKEN);
+  const RESET_TOKEN = url.searchParams.get("token");
+  const RESET_ID = url.searchParams.get("id");
 
   // Variables de estado
   const [password, setPassword] = useState("");
@@ -57,6 +54,8 @@ const RestorePasswd = () => {
   // Alertas de error
   const [showAlertPasswd, setShowAlertPasswd] = useState(false);
   const [showAlertEmpty, setShowAlertEmpty] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showAlertPassStrength, setShowAlertPassStrength] = useState(false);
 
   // Cerrar alertas
@@ -154,12 +153,16 @@ const RestorePasswd = () => {
       .post(restorePasswd_URL, data)
       .then((response) => {
         if (response.status === 200) {
-          console.log("Correo enviado");
+          setShowSuccessAlert(true);
+          setTimeout(() => {
+            router.push("/login");
+          }, 3000);
         } else {
-          console.log("Error al enviar el correo");
+          setShowErrorAlert(true);
         }
       })
       .catch((error) => {
+        setShowErrorAlert(true);
         console.log(error);
       });
   };
@@ -269,8 +272,8 @@ const RestorePasswd = () => {
           >
             Enviar
           </button>
-          <div class="grid items-center w-80 md:w-96">
-            <p class="text-center text-zinc-700">
+          <div className="grid items-center w-80 md:w-96">
+            <p className="text-center text-zinc-700">
               <Link
                 className="font-medium text-rose-600 hover:text-rose-800 ease-in duration-150"
                 href="/login"
@@ -323,6 +326,36 @@ const RestorePasswd = () => {
               <Alert onClose={handleClose} severity="error">
                 La contraseña es demasiado débil —{" "}
                 <strong>¡piensa en algo más seguro!</strong>
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              message="Error al procesar tu petición — vuelve a intentarlo nuevamente"
+              open={showErrorAlert}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="error">
+                Error al procesar tu petición —{" "}
+                <strong>vuelve a intentarlo nuevamente</strong>
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              message="Petición procesada con éxito, redirigiendo al inicio de sesión..."
+              open={showSuccessAlert}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="success">
+                Petición procesada con éxito,{" "}
+                <strong>redirigiendo al inicio de sesión...</strong>
               </Alert>
             </Snackbar>
           </div>

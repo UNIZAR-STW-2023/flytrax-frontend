@@ -142,6 +142,16 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminToken, setAdminToken]);
 
+  console.log("USUARIOS POR GÉNERO: ", usersByGender);
+  console.log("USUARIOS BANEADOS: ", usersBanned);
+  console.log("USUARIOS BANEADOS POR GÉNERO: ", usersBannedByGender);
+  console.log("USUARIOS POR RANGO DE EDAD: ", usersByAgeRange);
+  console.log("USUARIOS USUARIOS POR PAÍS: ", usersByCountry);
+  console.log(
+    "USUARIOS USUARIOS REGISTRADOS POR FECHA: ",
+    usersRegisteredByPeriod
+  );
+
   return !loading ? (
     <div className="flex flex-col justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">
       <h1 className="sm:flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
@@ -149,7 +159,7 @@ const Dashboard = () => {
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 w-full lg:gap-5">
         <div className="col-span-1">
-          <UserMgmt array={usersBanned} />
+          <UserMgmt />
           <RegisteredLastWeek
             array={usersRegisteredByPeriod}
             arrayUsers={users}

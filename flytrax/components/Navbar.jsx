@@ -91,7 +91,10 @@ const Navbar = () => {
 
   // Lista del menú de navegación (logged in)
   const listLoggedIN = (anchor) => (
-    <Box sx={{ width: anchor === "top" ? "auto" : 250 }} role="presentation">
+    <Box
+      sx={{ width: anchor === "top" ? "auto" : 250, height: "100%" }}
+      role="presentation"
+    >
       <AppBar
         sx={{
           background: "linear-gradient(220.55deg, #5D85A6 0%, #0E2C5E 100%)",
@@ -101,7 +104,7 @@ const Navbar = () => {
       <List
         onClick={toggleDrawer(anchor, false)}
         sx={{
-          height: 380,
+          height: "fit-content",
           paddingTop: 13,
           fontSize: 20,
         }}

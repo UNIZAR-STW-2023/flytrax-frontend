@@ -26,12 +26,8 @@ ChartJS.register(
   Legend
 );
 
-const UserMgmt = ({ array }) => {
+const UserMgmt = () => {
   const [adminToken, setAdminToken] = useState("");
-  const usersBannedByGenderURL =
-    "https://flytrax-backend.vercel.app/getUsersBannedByGenre";
-
-  const [usersBanned, setUsersBanned] = useState(array);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -39,27 +35,10 @@ const UserMgmt = ({ array }) => {
     const adminSessionCookie = getCookie("adminSessionToken");
     // Update state with user cookie value
     setAdminToken(adminSessionCookie);
-    setUsersBanned(array);
 
     setTimeout(() => setLoading(false), 1500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [adminToken, setAdminToken, array]);
-
-  const labels = ["Baneados", "No baneados"];
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: "(%)",
-        data: [
-          usersBanned.bannedPercentage.toFixed(2),
-          usersBanned.unbannedPercentage.toFixed(2),
-        ],
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-    ],
-  };
+  }, [adminToken, setAdminToken]);
 
   return (
     <div className="flex flex-col shadow-md align-middle items-center justify-center w-full h-96 relative my-5 p-4 border rounded-lg bg-white hover:bg-indigo-500 transition ease-in-out duration-300">

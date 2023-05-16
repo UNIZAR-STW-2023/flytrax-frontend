@@ -9,12 +9,8 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import { Bar, Doughnut } from "react-chartjs-2";
 import { getCookie } from "cookies-next";
-import axios from "axios";
 import Image from "next/image";
-import Loader from "../Loader";
 
 ChartJS.register(
   ArcElement,
@@ -28,9 +24,6 @@ ChartJS.register(
 
 const TopThreeCountries = ({ array }) => {
   const [adminToken, setAdminToken] = useState("");
-  const usersByCountryURL =
-    "https://flytrax-backend.vercel.app/getUsersByCountry";
-
   const [countries, setCountries] = useState([
     {
       code: "ES",

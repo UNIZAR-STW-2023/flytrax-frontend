@@ -10,9 +10,7 @@ import {
   ArcElement,
 } from "chart.js";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import { Bar, Doughnut } from "react-chartjs-2";
 import { getCookie } from "cookies-next";
-import axios from "axios";
 
 ChartJS.register(
   ArcElement,
@@ -26,9 +24,6 @@ ChartJS.register(
 
 const RegisteredLastWeek = ({ array, arrayUsers }) => {
   const [adminToken, setAdminToken] = useState("");
-  const usersBannedByGenderURL =
-    "https://flytrax-backend.vercel.app/getUsersBannedByGenre";
-
   const [users, setUsers] = useState(arrayUsers);
   const [lastWeek, setLastWeek] = useState();
   const [usersRegisteredByPeriod, setUsersRegisteredByPeriod] = useState(array);

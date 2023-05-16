@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Link from "next/link";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { Alert, Snackbar } from "@mui/material";
+import Link from "next/link";
+import TextField from "@mui/material/TextField";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 // URLs para manejo de datos en la BD
 const resetPasswd_URL =
@@ -29,18 +30,24 @@ const theme = createTheme({
 });
 
 const ForgotPasswd = () => {
+  const router = useRouter();
+
   // Variables de estado
   const [email, setEmail] = useState("");
 
   // Alerta de error
-  const [showAlert, setShowAlert] = useState(false);
+  const [showEmptyAlert, setShowEmptyAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   // Cerrar alerta
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setShowAlert(false);
+    setShowEmptyAlert(false);
+    setShowErrorAlert(false);
+    setShowSuccessAlert(false);
   };
 
   // Función para gestionar tecla pulsada
@@ -57,7 +64,7 @@ const ForgotPasswd = () => {
   const handleForgot = () => {
     // Comprobar si hay campos vacíos
     if (email === "") {
-      setShowAlert(true);
+      setShowEmptyAlert(true);
     } else {
       sendEmail();
     }
@@ -69,12 +76,17 @@ const ForgotPasswd = () => {
       .post(resetPasswd_URL + email)
       .then((response) => {
         if (response.status === 200) {
-          console.log("Correo enviado");
+          setShowSuccessAlert(true);
+          setTimeout(() => {
+            router.push("/login");
+          }, 3000);
+          return () => clearTimeout(timeout);
         } else {
-          console.log("Error al enviar el correo");
+          setShowErrorAlert(true);
         }
       })
       .catch((error) => {
+        setShowErrorAlert(true);
         console.log(error);
       });
   };
@@ -121,8 +133,8 @@ const ForgotPasswd = () => {
           >
             Enviar
           </button>
-          <div class="grid items-center w-80 md:w-96">
-            <p class="text-center text-zinc-700">
+          <div className="grid items-center w-80 md:w-96">
+            <p className="text-center text-zinc-700">
               <Link
                 className="font-medium text-rose-600 hover:text-rose-800 ease-in duration-150"
                 href="/login"
@@ -134,8 +146,8 @@ const ForgotPasswd = () => {
           <div>
             <Snackbar
               message="No puedes dejar campos vacíos — comprueba los datos"
-              open={showAlert}
-              autoHideDuration={4000}
+              open={showEmptyAlert}
+              autoHideDuration={3000}
               onClose={handleClose}
               anchorOrigin={{
                 vertical: "bottom",
@@ -145,6 +157,36 @@ const ForgotPasswd = () => {
               <Alert onClose={handleClose} severity="error">
                 No puedes dejar campos vacíos —{" "}
                 <strong>comprueba los datos</strong>
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              message="Error al procesar tu petición — comprueba los datos"
+              open={showErrorAlert}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="error">
+                Error al procesar tu petición —{" "}
+                <strong>comprueba los datos</strong>
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              message="Petición procesada con éxito — comprueba tu correo electrónico"
+              open={showSuccessAlert}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <Alert onClose={handleClose} severity="success">
+                Petición procesada con éxito —{" "}
+                <strong>comprueba tu correo electrónico</strong>
               </Alert>
             </Snackbar>
           </div>

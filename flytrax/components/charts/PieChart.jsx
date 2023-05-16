@@ -9,9 +9,8 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import { Bar, Pie } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { getCookie } from "cookies-next";
-import axios from "axios";
 
 ChartJS.register(
   ArcElement,
@@ -25,9 +24,6 @@ ChartJS.register(
 
 const PieChart = ({ array }) => {
   const [adminToken, setAdminToken] = useState("");
-  const usersBannedByGenderURL =
-    "https://flytrax-backend.vercel.app/getUsersBannedByGenre";
-
   const [usersBanned, setUsersBanned] = useState(array);
   const [loading, setLoading] = useState(true);
 

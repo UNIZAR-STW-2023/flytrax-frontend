@@ -160,8 +160,10 @@ const Login = () => {
     setAdmin(adminCookie);
 
     // Comprobar si hay sesión iniciada
-    if (session || user || admin) {
+    if (session || user) {
       if (router.pathname === "/login") router.push("/profile");
+    } else if (admin) {
+      if (router.pathname === "/login") router.push("/admin");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, setUser, admin, setAdmin, SESSION_COOKIE, ADMIN_COOKIE]);

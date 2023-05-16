@@ -141,7 +141,7 @@ const RedirectRegister = ({ session }) => {
               <CircularProgress color="success" size={100} thickness={1.5} />
             </div>
           </div>
-          <h1 className="flex flex-col align-middle items-center justify-center text-center text-4xl font-bold text-slate-900 my-5 w-full">
+          <div className="flex flex-col align-middle items-center justify-center text-center text-4xl font-bold text-slate-900 my-5 w-full">
             Es genial tenerte a bordo,
             <br />{" "}
             <span className="text-center text-3xl font-bold login-text">
@@ -151,7 +151,7 @@ const RedirectRegister = ({ session }) => {
               Te estamos redirigiendo para que puedas disfrutar de los
               servicios...
             </h2>
-          </h1>
+          </div>
         </div>
       </div>
     </ThemeProvider>
@@ -159,12 +159,12 @@ const RedirectRegister = ({ session }) => {
     <ThemeProvider theme={theme}>
       <div className="App-header justify-center select-none pt-24">
         <div className="grid gap-3 justify-center py-2 my-3 w-80 md:w-96 max-sm:mx-2">
-          <h1 className="text-center text-4xl font-bold text-slate-900">
+          <div className="text-center text-4xl font-bold text-slate-900">
             <span className="text-red-700">¡Vaya!</span>
             <p className="text-3xl">
               Parece que es la primera vez que ingresas con este correo.
             </p>
-          </h1>
+          </div>
           <h2 className="text-center text-gray-600 font-regular text-xl">
             Te estamos redirigiendo a la página de registro...
           </h2>

@@ -10,7 +10,6 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { getCookie } from "cookies-next";
-import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
@@ -23,9 +22,6 @@ ChartJS.register(
 
 const BarChart = ({ array }) => {
   const [adminToken, setAdminToken] = useState("");
-  const usersByAgeRangeURL =
-    "https://flytrax-backend.vercel.app/getUsersByAgeRange";
-
   const [usersByAgeRange, setUsersByAgeRange] = useState(array);
   const [loading, setLoading] = useState(true);
 
