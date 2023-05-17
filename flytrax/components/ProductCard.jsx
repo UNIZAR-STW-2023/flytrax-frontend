@@ -17,7 +17,10 @@ const ProductCard = () => {
           <div key={product._id} className="mx-2 my-2">
             <div>
               <div className="product-image shadow-sm">
-                <Link href={`/store/product/${product._id}`}>
+                <Link
+                  data-test="product-card"
+                  href={`/store/product/${product._id}`}
+                >
                   <Image
                     src={product.image[0]}
                     alt="Image"

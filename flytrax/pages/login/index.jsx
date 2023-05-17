@@ -243,6 +243,7 @@ const Login = () => {
               <p className="text-center mt-3 text-zinc-700">
                 ¿Aún no eres miembro?{" "}
                 <Link
+                  data-test="register-now-btn"
                   className="font-medium text-rose-600 hover:text-rose-800 ease-in duration-150"
                   href="/register"
                 >

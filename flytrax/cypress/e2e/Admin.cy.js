@@ -1,5 +1,5 @@
 /*
-  File's name: Login.cy.js
+  File's name: Admin.cy.js
   Authors: Paul Huszak & Guillermo Cánovas 
   Date: 16/05/2023
 */
@@ -16,12 +16,21 @@ describe("Página de inicio de sesión", () => {
     cy.get("button").contains("Entrar").should("exist");
   });
 
-  it("Debería permitir iniciar sesión con credenciales válidas", () => {
-    cy.get('input[type="email"]').type("sergio@unizar.es");
-    cy.get('input[type="password"]').type("123456");
+  it("Debería permitir iniciar sesión con credenciales válidas y entrar a gestionar los usuarios", () => {
+    cy.get('input[type="email"]').type("admin@flytrax.com");
+    cy.get('input[type="password"]').type("adminadmin");
     cy.get("button").contains("Entrar").click();
-    cy.wait(5000);
-    cy.url().should("include", "/map");
+    cy.wait(10000);
+    cy.url().should("include", "/admin");
+    cy.get("div").contains("Panel de administración");
+    cy.get("div").contains("Usuarios por rango de edad");
+    cy.get("div").contains("Nuevos usuarios");
+    cy.get("div").contains("Ratio de bans");
+    cy.get("div").contains("Top 3");
+    cy.get("div").contains("Gestionar usuarios").click();
+    cy.wait(4000);
+    cy.url().should("include", "/admin/user-management");
+    cy.get("div").contains("Panel de usuarios");
   });
 
   it("Debería mostrar un mensaje de error cuando se dejan campos vacíos", () => {
@@ -33,7 +42,7 @@ describe("Página de inicio de sesión", () => {
   });
 
   it("Debería mostrar un mensaje de error cuando se ingresan credenciales incorrectas", () => {
-    cy.get('input[type="email"]').type("correo@example.com");
+    cy.get('input[type="email"]').type("admin@flytrax.com");
     cy.get('input[type="password"]').type("contraseñaIncorrecta", {
       force: true,
     });

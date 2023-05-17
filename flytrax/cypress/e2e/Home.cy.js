@@ -1,3 +1,9 @@
+/*
+  File's name: Home.cy.js
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 describe("Home page", () => {
   context("Desktop", () => {
     beforeEach(() => {
@@ -14,8 +20,9 @@ describe("Home page", () => {
       // Comprueba que exista el navbar y sus elementos
       cy.get("nav").should("exist");
       cy.get("a").should("exist").contains("Quiénes somos");
-      cy.get("a").should("exist").contains("Servicios");
       cy.get("a").should("exist").contains("Contacto");
+      cy.get("a").should("exist").contains("FAQ");
+      cy.get("a").should("exist").contains("Tienda");
       // Comprueba que el botón de menú no esté visible
       cy.get("[data-test='menu-button']").should("not.be.visible");
       // Comprueba que existe el footer y sus elementos
@@ -76,7 +83,13 @@ describe("Home page", () => {
       // Comprueba que exista el navbar
       cy.get("nav").should("exist");
       // Comprueba que el botón de menú esté visible
-      cy.get("[data-test='menu-button']").should("be.visible");
+      cy.get("[data-test='menu-button']").should("be.visible").click();
+      // Comprueba que exista el navbar y sus elementos
+      cy.get("nav").should("exist");
+      cy.get("a").should("exist").contains("Quiénes somos");
+      cy.get("a").should("exist").contains("Contacto");
+      cy.get("a").should("exist").contains("FAQ");
+      cy.get("a").should("exist").contains("Tienda");
       // Comprueba que existe el footer y sus elementos
       cy.get("[data-test='footer']").should("exist");
       // Primera columna
@@ -116,8 +129,6 @@ describe("Home page", () => {
       cy.get("[data-test='menu-button']").click();
       cy.get("[data-test='li-join-button']").should("exist").click();
       cy.url().should("include", "/login");
-      // Cierra el menú
-      cy.get("[data-test='menu-button']").click();
     });
   });
 });

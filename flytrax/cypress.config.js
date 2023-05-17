@@ -7,7 +7,7 @@ module.exports = defineConfig({
       // implement node event listeners here
       return config;
     },
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:3001",
     experimentalStudio: true,
     pageLoadTimeout: 120000,
   },

@@ -531,6 +531,7 @@ const Register = () => {
                 onChange={({ target }) => setPassword(target.value)}
               />
               <div
+                data-test="showpass-btn"
                 onClick={handleToggle}
                 className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
               >
@@ -573,6 +574,7 @@ const Register = () => {
                 onChange={({ target }) => setCPassword(target.value)}
               />
               <div
+                data-test="showcpass-btn"
                 onClick={handleToggle2}
                 className="grid place-items-center col-span-1 bg-stone-400 bg-opacity-20 cursor-pointer hover:bg-slate-300 ease-in-out duration-150 shadow-sm shadow-slate-600 rounded-t-md h-full"
               >

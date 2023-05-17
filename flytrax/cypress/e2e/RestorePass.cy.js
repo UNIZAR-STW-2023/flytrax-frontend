@@ -5,14 +5,18 @@ describe("Restore password", () => {
 
   it("Introducir campos vacíos en el formulario", () => {
     cy.get("button").contains("Enviar").click();
-    cy.window("Snackbar").contains("No puedes dejar campos vacíos");
+    cy.get(".MuiSnackbar-root")
+      .contains("No puedes dejar campos vacíos")
+      .should("be.visible");
   });
 
   it("Introducir contraseña débil en el formulario", () => {
     cy.get('input[name="password"]').type("12345678");
     cy.get('input[name="cpassword"]').type("12345678");
     cy.get("button").contains("Enviar").click();
-    cy.window("Snackbar").contains("La contraseña es demasiado débil");
+    cy.get(".MuiSnackbar-root")
+      .contains("La contraseña es demasiado débil")
+      .should("be.visible");
   });
 
   it("Introducir contraseñas diferentes en el formulario", () => {
@@ -33,7 +37,9 @@ describe("Restore password", () => {
     cy.get('input[name="cpassword"]').should("have.attr", "type", "text");
     // Click en el botón de enviar
     cy.get("button").contains("Enviar").click();
-    cy.window("Snackbar").contains("Las contraseñas no coinciden");
+    cy.get(".MuiSnackbar-root")
+      .contains("Las contraseñas no coinciden")
+      .should("be.visible");
   });
 
   it("Volver al inicio", () => {

@@ -314,6 +314,7 @@ const Navbar = () => {
             }}
           >
             <CustomLink
+              data-test="li-join-button"
               className="font-bold hover:text-orange-600 ease-in-out duration-150 uppercase"
               to={"/login"}
             >

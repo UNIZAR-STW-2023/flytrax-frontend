@@ -57,7 +57,7 @@ const Store = () => {
         </div>
         <div className="max-sm:mr-3 flex align-middle items-center justify-end">
           <button
-            data-test="menu-button"
+            data-test="shoppingcart-button"
             className="relative text-gray-800 font-regular hover:text-orange-600 transition ease-in duration-150"
             onClick={toggleDrawer(anchor, true)}
           >

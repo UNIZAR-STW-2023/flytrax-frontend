@@ -1,3 +1,9 @@
+/*
+  File's name: Register.cy.js
+  Authors: Paul Huszak & Guillermo Cánovas 
+  Date: 16/05/2023
+*/
+
 describe("Register", () => {
   beforeEach("Carga la página de registro", () => {
     cy.visit("/register");
@@ -10,7 +16,9 @@ describe("Register", () => {
 
   it("Introducir campos vacíos en el formulario", () => {
     cy.get("button").contains("Registrar").click();
-    cy.window("Snackbar").contains("No puedes dejar campos vacíos");
+    cy.get(".MuiSnackbar-root")
+      .contains("No puedes dejar campos vacíos")
+      .should("be.visible");
   });
 
   it("Introducir nombre incorrecto en el formulario: menos de 8 caracteres", () => {
@@ -32,9 +40,9 @@ describe("Register", () => {
     cy.get('input[name="password"]').type("timer.100AB!");
     cy.get('input[name="cpassword"]').type("timer.100AB!");
     cy.get("button").contains("Registrar").click();
-    cy.window("Snackbar").contains(
-      "el nombre debe tener al menos 8 caracteres"
-    );
+    cy.get(".MuiSnackbar-root")
+      .contains("el nombre debe tener al menos 8 caracteres")
+      .should("be.visible");
   });
 
   it("Introducir nombre incorrecto en el formulario: más de 20 caracteres", () => {
@@ -56,9 +64,9 @@ describe("Register", () => {
     cy.get('input[name="password"]').type("timer.100AB!");
     cy.get('input[name="cpassword"]').type("timer.100AB!");
     cy.get("button").contains("Registrar").click();
-    cy.window("Snackbar").contains(
-      "el nombre debe tener como máximo 20 caracteres"
-    );
+    cy.get(".MuiSnackbar-root")
+      .contains("el nombre debe tener como máximo 20 caracteres")
+      .should("be.visible");
   });
 
   it("Introducir nombre incorrecto en el formulario: caracteres no alfanuméricos", () => {
@@ -80,9 +88,9 @@ describe("Register", () => {
     cy.get('input[name="password"]').type("timer.100AB!");
     cy.get('input[name="cpassword"]').type("timer.100AB!");
     cy.get("button").contains("Registrar").click();
-    cy.window("Snackbar").contains(
-      "únicamente permitidos caracteres alfanuméricos"
-    );
+    cy.get(".MuiSnackbar-root")
+      .contains("únicamente permitidos caracteres alfanuméricos")
+      .should("be.visible");
   });
 
   it("Introducir email incorrecto en el formulario", () => {
@@ -104,7 +112,9 @@ describe("Register", () => {
     cy.get('input[name="password"]').type("timer.100AB!");
     cy.get('input[name="cpassword"]').type("timer.100AB!");
     cy.get("button").contains("Registrar").click();
-    cy.window("Snackbar").contains("Correo electrónico no válido");
+    cy.get(".MuiSnackbar-root")
+      .contains("Correo electrónico no válido")
+      .should("be.visible");
   });
 
   it("Introducir contraseña débil en el formulario", () => {
@@ -126,7 +136,9 @@ describe("Register", () => {
     cy.get('input[name="password"]').type("12345678");
     cy.get('input[name="cpassword"]').type("12345678");
     cy.get("button").contains("Registrar").click();
-    cy.window("Snackbar").contains("La contraseña es demasiado débil");
+    cy.get(".MuiSnackbar-root")
+      .contains("La contraseña es demasiado débil")
+      .should("be.visible");
   });
 
   it("Introducir contraseñas diferentes en el formulario", () => {
@@ -162,6 +174,8 @@ describe("Register", () => {
     cy.get('input[name="cpassword"]').should("have.attr", "type", "text");
     // Click en el botón de enviar
     cy.get("button").contains("Registrar").click();
-    cy.window("Snackbar").contains("Las contraseñas no coinciden");
+    cy.get(".MuiSnackbar-root")
+      .contains("Las contraseñas no coinciden")
+      .should("be.visible");
   });
 });

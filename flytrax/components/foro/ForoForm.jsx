@@ -144,12 +144,12 @@ const ForoForm = ({
           />
         </div>
         <div className="flex flex-row justify-end">
-          <div
+          <button
             className="cursor-pointer bg-orange-600 hover:bg-orange-800 uppercase shadow-sm shadow-gray-600 text-white px-4 py-2 rounded-lg transition duration-200"
             onClick={onSubmit}
           >
             Enviar
-          </div>
+          </button>
         </div>
       </div>
     </div>
