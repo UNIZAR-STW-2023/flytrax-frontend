@@ -9,7 +9,7 @@ import Link from "next/link";
 import { Add, KeyboardDoubleArrowUp } from "@mui/icons-material";
 
 const CommunityCard = ({ aeropuertos, query }) => {
-  const [noOfElement, setnoOfElement] = useState(24);
+  const [noOfElement, setnoOfElement] = useState(16);
   const slice = aeropuertos
     .filter((airport) => {
       if (query === "") {
@@ -37,7 +37,7 @@ const CommunityCard = ({ aeropuertos, query }) => {
   };
 
   return (
-    <div className="container mx-auto max-sm:mt-12 mt-8">
+    <div className="container mx-auto max-sm:mt-12 mt-8 h-full">
       <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1  gap-6">
         {slice.map((airport, index) => (
           <Link key={index} href={`/community/${airport.iata_code}`}>
@@ -57,24 +57,26 @@ const CommunityCard = ({ aeropuertos, query }) => {
         ))}
       </div>
 
-      <div className="flex mt-12">
-        <button
-          data-test="more-button"
-          type="button"
-          className="flex pl-10  align-middle items-center w-full justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
-          onClick={loadMore}
-        >
-          <Add /> <h2>Ver más</h2>
-        </button>
-        <button
-          data-test="more-button"
-          type="button"
-          className="flex px-3 sm:px-5 align-middle items-center w-fit justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
-          onClick={scrollToTop}
-        >
-          <KeyboardDoubleArrowUp />
-        </button>
-      </div>
+      {slice.length >= 16 ? (
+        <div className="flex mt-12">
+          <button
+            data-test="more-button"
+            type="button"
+            className="flex pl-10  align-middle items-center w-full justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
+            onClick={loadMore}
+          >
+            <Add /> <h2>Ver más</h2>
+          </button>
+          <button
+            data-test="more-button"
+            type="button"
+            className="flex px-3 sm:px-5 align-middle items-center w-fit justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
+            onClick={scrollToTop}
+          >
+            <KeyboardDoubleArrowUp />
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 };

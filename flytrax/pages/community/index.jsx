@@ -20,7 +20,6 @@ const CommunityHome = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const email = getCookie("userEmail");
   const userToken = getCookie("sessionToken");
 
   const inputQuery = (e) => {
@@ -72,7 +71,7 @@ const CommunityHome = () => {
               />
             </div>
           </div>
-          <div className="lg:mt-12 w-full">
+          <div className="lg:mt-12 w-full flex flex-col items-start align-top justify-start min-h-[70vh]">
             <CommunityCard aeropuertos={airports} query={query} />
           </div>
         </div>

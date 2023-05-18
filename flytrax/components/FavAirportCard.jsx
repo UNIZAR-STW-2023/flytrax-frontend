@@ -8,13 +8,15 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { AiFillHeart } from "react-icons/ai";
 import { getCookie } from "cookies-next";
-import axios from "axios";
 import { Add, KeyboardDoubleArrowUp } from "@mui/icons-material";
 import { Alert, Snackbar } from "@mui/material";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import axios from "axios";
 
 const FavAirportCard = ({ aeropuertos, query }) => {
   const router = useRouter();
+  const { data: session } = useSession();
 
   const [listOfFavAirports, setListOfFavAirports] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,8 +39,9 @@ const FavAirportCard = ({ aeropuertos, query }) => {
     })
     .slice(0, noOfElement);
 
-  const email = getCookie("userEmail");
+  const sessionEmail = getCookie("userEmail");
   const BEARER_TOKEN = getCookie("sessionToken");
+  const email = session?.user?.email || sessionEmail;
   const favAirportsListURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}getFavAirports/${email}`;
   const desFavURL = process.env.NEXT_PUBLIC_BACKEND_URL + "deleteFavAirport";
 
@@ -121,7 +124,7 @@ const FavAirportCard = ({ aeropuertos, query }) => {
   }, []);
 
   return (
-    <div className="container mx-auto px-8 w-full">
+    <div className="container mx-auto px-8 w-full h-full">
       <div className="grid xl:-mt-5 xl:grid-cols-4 lg:grid-cols-3 lg:mt-0 md:grid-cols-2 md:mt-5 grid-cols-1 mt-20 gap-6 z-10">
         {slice.map((card, index) => {
           let countryCode = card.country_code;
@@ -157,24 +160,26 @@ const FavAirportCard = ({ aeropuertos, query }) => {
         })}
       </div>
 
-      <div className="flex mt-12">
-        <button
-          data-test="more-button"
-          type="button"
-          className="flex pl-10  align-middle items-center w-full justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
-          onClick={loadMore}
-        >
-          <Add /> <h2>Ver más</h2>
-        </button>
-        <button
-          data-test="more-button"
-          type="button"
-          className="flex px-3 sm:px-5 align-middle items-center w-fit justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
-          onClick={scrollToTop}
-        >
-          <KeyboardDoubleArrowUp />
-        </button>
-      </div>
+      {slice.length >= 12 ? (
+        <div className="flex mt-12">
+          <button
+            data-test="more-button"
+            type="button"
+            className="flex pl-10  align-middle items-center w-full justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
+            onClick={loadMore}
+          >
+            <Add /> <h2>Ver más</h2>
+          </button>
+          <button
+            data-test="more-button"
+            type="button"
+            className="flex px-3 sm:px-5 align-middle items-center w-fit justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
+            onClick={scrollToTop}
+          >
+            <KeyboardDoubleArrowUp />
+          </button>
+        </div>
+      ) : null}
       <Snackbar
         message={`${cardSelected.name}. Ver más información.`}
         open={showAlertInfo}

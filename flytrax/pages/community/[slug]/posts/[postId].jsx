@@ -38,9 +38,8 @@ const PostDetails = ({}) => {
   ];
 
   const { postId, slug } = router.query;
-  const { comentario, setRespuesta, respuesta } = useStateContext();
+  //const { comentario, setRespuesta, respuesta } = useStateContext();
 
-  const [fetchedPost, setFetchedPost] = useState(null);
   const [answersByTopic, setAnswersByTopic] = useState([]);
   const [backURL, setBackURL] = useState("");
   const [auxURL, setAuxURL] = useState("");
@@ -48,7 +47,6 @@ const PostDetails = ({}) => {
   const [topicsByIata, setTopicsByIata] = useState([]);
   const [actualPost, setActualPost] = useState([]);
   const [discusion, setDiscusion] = useState([]);
-  const [value, setValue] = useState("");
   const [noOfElement, setnoOfElement] = useState(5);
 
   // Cookie de la sesión
@@ -68,7 +66,7 @@ const PostDetails = ({}) => {
     });
   };
 
-  const slice = respuesta.slice(0, noOfElement);
+  const slice = answersByTopic.slice(0, noOfElement);
 
   const getAnswersByTopic = async () => {
     await axios
@@ -81,7 +79,7 @@ const PostDetails = ({}) => {
         if (res.status === 200) {
           if (Array.isArray(res.data)) {
             setAnswersByTopic(res.data);
-            setRespuesta(res.data);
+            //setRespuesta(res.data);
           }
         } else {
           console.log("Error retrieving answers by Topic code");
@@ -118,7 +116,7 @@ const PostDetails = ({}) => {
       `${process.env.NEXT_PUBLIC_BACKEND_URL}getAnswersByTopic/${postId}`
     );
     setActualPost(postId);
-    setAuxURL(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getTopicsByIata/${slug}`);
+    setAuxURL(`${process.env.NEXT_PUBLIC_BACKEND_URL}getTopicsByIata/${slug}`);
     setIsLoading(false);
 
     getAnswersByTopic();

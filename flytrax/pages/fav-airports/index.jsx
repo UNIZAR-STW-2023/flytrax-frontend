@@ -190,7 +190,7 @@ const FavAirports = () => {
             />
           </div>
         </div>
-        <div className="lg:mt-12 w-full flex flex-col items-center align-middle justify-center">
+        <div className="lg:mt-12 w-full flex flex-col items-start align-top justify-start min-h-[70vh]">
           {listOfFavAirports.length > 0 ? (
             <FavAirportCard aeropuertos={filteredAirports} query={query} />
           ) : (

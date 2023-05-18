@@ -168,7 +168,7 @@ const AirportsList = () => {
             />
           </div>
         </div>
-        <div className="lg:mt-12 w-full">
+        <div className="lg:mt-12 w-full min-h-[70vh] flex flex-col items-start align-top justify-start ">
           <AirportCard aeropuertos={filteredAirports} query={query} />
         </div>
       </div>

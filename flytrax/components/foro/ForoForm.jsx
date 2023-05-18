@@ -38,7 +38,6 @@ const ForoForm = ({
 
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState(false);
 
   const createTopicURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}createTopics`;
   const createAnswerURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}createAnswers`;
@@ -76,7 +75,6 @@ const ForoForm = ({
         })
         .then((res) => {
           if (res.status === 200) {
-            console.log("Post creado correctamente");
             return true;
           } else {
             alert("Error al crear post");
@@ -103,7 +101,7 @@ const ForoForm = ({
         })
         .then((res) => {
           if (res.status === 200) {
-            console.log("Answer creado correctamente");
+            getAnswersByTopic();
             return true;
           } else {
             alert("Error al crear answer");
