@@ -118,30 +118,32 @@ const CommunityDetails = () => {
             getTopicsByIata={getTopicsByIata}
           />
 
-          <div className="flex flex-col my-10 w-full xl:w-2/3 gap-2">
+          <div className="flex flex-col my-10 w-full xl:w-2/3 gap-2 min-h-[30vh] items-start align-top justify-start">
             {slice.map((post, index) => (
               <ForoItem key={index} data={post} iata={slug} />
             ))}
           </div>
 
-          <div className="flex items-center justify-center mt-10 w-full xl:w-2/3">
-            <button
-              data-test="more-button"
-              type="button"
-              className="flex pl-10  align-middle items-center w-full justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
-              onClick={loadMore}
-            >
-              <Add /> <h2>Ver más</h2>
-            </button>
-            <button
-              data-test="more-button"
-              type="button"
-              className="flex px-3 sm:px-5 align-middle items-center w-fit justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
-              onClick={scrollToTop}
-            >
-              <KeyboardDoubleArrowUp />
-            </button>
-          </div>
+          {slice.length >= 5 ? (
+            <div className="flex items-center justify-center mt-10 w-full xl:w-2/3">
+              <button
+                data-test="more-button"
+                type="button"
+                className="flex pl-10  align-middle items-center w-full justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
+                onClick={loadMore}
+              >
+                <Add /> <h2>Ver más</h2>
+              </button>
+              <button
+                data-test="more-button"
+                type="button"
+                className="flex px-3 sm:px-5 align-middle items-center w-fit justify-center py-4 text-xl uppercase font-bold text-slate-800 hover:text-cyan-600 transition ease-in-out duration-200"
+                onClick={scrollToTop}
+              >
+                <KeyboardDoubleArrowUp />
+              </button>
+            </div>
+          ) : null}
         </div>
         <button
           onClick={() => router.back()}

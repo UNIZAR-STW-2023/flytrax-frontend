@@ -57,7 +57,7 @@ const FlightsBarChart = ({ airport }) => {
     getNumFlights();
     setTimeout(() => setLoading(false), 1500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userToken, setUserToken]);
+  }, [userToken, setUserToken, airport]);
 
   const labels = [
     "Lunes",

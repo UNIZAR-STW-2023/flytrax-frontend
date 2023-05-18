@@ -36,7 +36,7 @@ const CommentItem = ({ data }) => {
   }, []);
 
   return (
-    <div className="border-b-[1px] border-neutral-800 p-5 cursor-pointer hover:bg-neutral-200 transition bg-neutral-100 text-black shadow-lg rounded-lg transform duration-200 relative my-1">
+    <div className="w-full border-b-[1px] border-neutral-800 p-5 cursor-pointer hover:bg-neutral-200 transition bg-neutral-100 text-black shadow-lg rounded-lg transform duration-200 relative my-1">
       <div className="flex flex-row items-start gap-3">
         <div>
           <Image

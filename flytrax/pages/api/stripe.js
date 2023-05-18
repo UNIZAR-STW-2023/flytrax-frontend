@@ -43,7 +43,7 @@ export default async function handler(req, res) {
               "https://files.stripe.com/links/MDB8YWNjdF8xTjQwUFRBeGNnc1VHRndzfGZsX3Rlc3Rfd3V0aVJsT091a1d0dVNMODlPU0JBQU53008bbO0pLo";
           } else if (item.name === "Camiseta Nano Limited Edition") {
             img =
-              "https://files.stripe.com/links/MDB8YWNjdF8xTjQwUFRBeGNnc1VHRndzfGZsX3Rlc3Rfd3V0aVJsT091a1d0dVNMODlPU0JBQU53008bbO0pLo";
+              "https://files.stripe.com/links/MDB8YWNjdF8xTjQwUFRBeGNnc1VHRndzfGZsX3Rlc3RfVHczajdXT2lkdlA5bWIxWU5sQ21VVTli00dqEcussP";
           }
 
           return {

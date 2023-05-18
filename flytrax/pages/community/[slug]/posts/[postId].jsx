@@ -134,65 +134,71 @@ const PostDetails = ({}) => {
     setBackURL,
   ]);
 
-  return (
+  return actualPost.length === 0 ? (
+    <Loader value={"respuestas"} />
+  ) : (
     <>
-      {actualPost.length === 0 ? (
-        <Loader value={"respuestas"} />
-      ) : (
-        <>
-          <div
-            id="list-top"
-            className="flex flex-col min-h-[70vh] justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none"
-          >
-            <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 -mb-6 select-none">
-              <div className="w-full flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
-                Hilo de mensajes
-                <div className="flex items-center align-middle justify-center">
-                  <h3 className="max-sm:w-fit max-sm:self-center border-2 border-gray-500 rounded-lg text-gray-500 text-2xl px-1 mx-2 font-normal">
-                    {slug}
-                  </h3>
-                </div>
+      <div className="flex flex-col min-h-[70vh] justify-center items-center align-middle m-auto w-11/12 max-sm:w-10/12 my-24 select-none">
+        <div
+          id="list-top"
+          className="flex flex-col items-center align-middle justify-center w-full my-10"
+        >
+          <div className="flex flex-col justify-center items-center align-middle m-auto w-10/12 select-none">
+            <div className="w-full flex items-center align-center gap-2 my-10 text-black text-center justify-center font-bold max-sm:text-3xl sm:text-4xl">
+              Hilo de mensajes
+              <div className="flex items-center align-middle justify-center">
+                <h3 className="max-sm:w-fit max-sm:self-center border-2 border-gray-500 rounded-lg text-gray-500 text-2xl px-1 mx-2 font-normal">
+                  {slug}
+                </h3>
               </div>
             </div>
+          </div>
 
-            <div className="w-full xl:w-2/3 border-b-[1px] border-neutral-800 p-5 cursor-pointer bg-slate-200 hover:bg-neutral-100 transition shadow-lg rounded-lg transform duration-200 relative my-2">
-              <div className="flex flex-row items-start gap-3 mb-5">
-                <div>
-                  <Image
-                    className="shadow-sm border-[1px] shadow-gray-500 bg-white rounded-full"
-                    src={images[randomIndex]}
-                    alt="User Image"
-                    width={50}
-                    height={50}
-                  />
+          <div className="w-full xl:w-2/3 border-b-[1px] border-neutral-800 p-5 cursor-pointer bg-slate-200 hover:bg-neutral-100 transition shadow-lg rounded-lg transform duration-200 relative my-2">
+            <div className="flex flex-row items-start gap-3 mb-5">
+              <div>
+                <Image
+                  className="shadow-sm border-[1px] shadow-gray-500 bg-white rounded-full"
+                  src={images[randomIndex]}
+                  alt="User Image"
+                  width={50}
+                  height={50}
+                />
+              </div>
+              <div className="text-black">
+                <div className="flex flex-row items-center gap-2">
+                  <p className="font-semibold cursor-pointer">
+                    {" "}
+                    {discusion.nickname}{" "}
+                  </p>
+                  <span className="text-sm"> {discusion.date} </span>
                 </div>
-                <div className="text-black">
-                  <div className="flex flex-row items-center gap-2">
-                    <p className="font-semibold cursor-pointer">
-                      {" "}
-                      {discusion.nickname}{" "}
-                    </p>
-                    <span className="text-sm"> {discusion.date} </span>
-                  </div>
-                  <div className="mt-1"> {discusion.description} </div>
-                </div>
+                <div className="mt-1"> {discusion.description} </div>
               </div>
             </div>
+          </div>
 
-            <div className="flex flex-col items-center align-middle w-full">
-              <ForoForm
-                isTopic={"False"}
-                topic={postId}
-                getAnswersByTopic={getAnswersByTopic}
-              />
-            </div>
+          <div className="flex flex-col items-center align-middle w-full">
+            <ForoForm
+              isTopic={"False"}
+              topic={postId}
+              getAnswersByTopic={getAnswersByTopic}
+            />
+          </div>
 
-            <div className="flex flex-col pl-5 my-10 border-l-2 border-gray-500 w-full xl:w-2/3 gap-2">
+          <div className="flex flex-col my-10 w-full xl:w-2/3 gap-2 min-h-[20vh] items-start align-top justify-start">
+            <div
+              className={`flex flex-col pl-5 ${
+                slice.length >= 1 ? "border-l-2 border-gray-500" : ""
+              } w-full gap-2 h-full items-start align-top justify-start`}
+            >
               {slice.map((resp, index) => (
                 <CommentItem key={index} data={resp} />
               ))}
             </div>
+          </div>
 
+          {slice.length >= 5 ? (
             <div className="flex items-center justify-center mt-10 w-full xl:w-2/3">
               <button
                 data-test="more-button"
@@ -211,15 +217,15 @@ const PostDetails = ({}) => {
                 <KeyboardDoubleArrowUp />
               </button>
             </div>
-          </div>
-          <button
-            onClick={() => router.back()}
-            className="flex gap-2 hover:text-orange-600 transition ease-in-out duration-200 font-semibold uppercase text-2xl align-middle items-center w-40 m-5"
-          >
-            <ArrowBack /> Volver
-          </button>
-        </>
-      )}
+          ) : null}
+        </div>
+      </div>
+      <button
+        onClick={() => router.back()}
+        className="flex gap-2 hover:text-orange-600 transition ease-in-out duration-200 font-semibold uppercase text-2xl align-middle items-center w-40 m-5"
+      >
+        <ArrowBack /> Volver
+      </button>
     </>
   );
 };

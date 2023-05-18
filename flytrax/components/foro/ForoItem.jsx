@@ -46,7 +46,7 @@ const ForoItem = ({ data, iata }) => {
   }, []);
 
   return (
-    <Link href={`/community/${iata}/posts/${data._id}`}>
+    <Link className="w-full" href={`/community/${iata}/posts/${data._id}`}>
       <div className="w-full border-b-[1px] border-neutral-800 p-5 cursor-pointer bg-slate-200 hover:bg-neutral-100 transition shadow-lg rounded-lg transform duration-200 hover:scale-105 relative my-1">
         <div className="flex flex-row items-start gap-3">
           <div>
