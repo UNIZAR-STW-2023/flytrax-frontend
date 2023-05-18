@@ -194,7 +194,7 @@ const FavAirports = () => {
           {listOfFavAirports.length > 0 ? (
             <FavAirportCard aeropuertos={filteredAirports} query={query} />
           ) : (
-            <div className="flex flex-col w-full md:w-1/3 xl:1/4 align-middle items-center justify-center max-lg:my-10">
+            <div className="flex flex-col w-full align-middle items-center justify-center max-lg:my-10">
               <div className="font-normal text-xl text-gray-600 text-center">
                 Todavía no tienes ningún aeropuerto añadido en tus favoritos,
                 ¡busca uno y empieza a coleccionarlos!
