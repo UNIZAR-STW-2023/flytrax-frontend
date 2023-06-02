@@ -63,7 +63,7 @@ const WhoWeAre = () => {
             Flytrax
           </h2>
         </div>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 w-11/12 h-2/3 xl:w-2/3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 w-11/12 h-full xl:w-2/3">
           <div className="flex flex-col col-span-1 gap-5">
             <div className="flex flex-row gap-3 align-middle p-5 justify-start hover:scale-105 transform transition ease-in-out duration-200 border-[3px] rounded-3xl shadow-xl bg-slate-400 backdrop-blur-sm bg-opacity-50 w-full h-1/2">
               <Image
