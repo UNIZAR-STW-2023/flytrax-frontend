@@ -82,7 +82,7 @@ const WhoWeAre = () => {
                 </h3>
                 <div className="flex w-full flex-row items-center justify-start align-middle gap-3">
                   <Link
-                    href="https://www.linkedin.com/in/paul-huszak-2ba25115a/"
+                    href="https://www.linkedin.com/in/paul-huszak"
                     target="_blank"
                   >
                     <Image
